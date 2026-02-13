@@ -1,0 +1,101 @@
+# .windsurfrules — egos-lab Monorepo
+# VERSION 1.0.0 — Initialized 2026-02-13
+# Sacred Code: 000.111.369.963.1618
+# Heritage: carteira-livre governance v4.0
+
+---
+project: "egos-lab"
+type: "monorepo-lab"
+parent: "carteira-livre"
+---
+
+## 📋 SSOT (Single Source of Truth)
+
+> **5 arquivos governam tudo. Não crie novos docs — atualize estes.**
+
+| Arquivo | Propósito | MAX linhas |
+|---------|-----------|------------|
+| `AGENTS.md` | Config do projeto, stack, commands | 200 |
+| `TASKS.md` | Todas as tasks (SSOT) | 300 |
+| `.windsurfrules` | Regras do agente (este arquivo) | 300 |
+| `.guarani/PREFERENCES.md` | Padrões de código | 150 |
+| `.guarani/IDENTITY.md` | Identidade do agente | 100 |
+
+## ⚡ PRIME DIRECTIVE
+
+> **NEVER write manual logic if a Tool (MCP) exists.**
+> **NEVER build UI without Google Stitch design first.**
+> **NEVER mix egos-lab code with carteira-livre.**
+
+## 🎯 MANDAMENTOS
+
+1. **Cada ideia = um app** em `apps/`. NUNCA misturar.
+2. **Shared code** vai em `packages/shared/`. Zero duplicação.
+3. **API-first** — tudo deve ser callable por agentes (MCP-ready).
+4. **Cost tracking** — todo uso de AI logado com custo em USD.
+5. **Stitch-first** — UI designs VÃO para Google Stitch antes do código.
+6. **Idea ingestion** — rodar `npm run scan:ideas` antes de commits.
+
+## 🎨 DESIGN STANDARD: GOOGLE STITCH
+
+```
+WORKFLOW OBRIGATÓRIO:
+1. Escrever prompt de design → docs/stitch/[feature].md
+2. Gerar design no Google Stitch → exportar mockup
+3. Implementar código -> matching pixel-perfect com design
+4. NUNCA construir dashboard/UI direto sem Stitch mockup
+```
+
+Quando agente precisar criar UI:
+- Gere o PROMPT para Stitch, não o código
+- Salve em `docs/stitch/[feature].md`
+- Diga ao usuário: "Design pronto para Stitch, gere lá e volte com o resultado"
+
+## 📥 IDEA INGESTION
+
+```
+SOURCE: /home/enio/Downloads/compiladochats/
+SCRIPT: scripts/scan_ideas.ts
+TRIGGER: pre-commit hook OU manual (npm run scan:ideas)
+
+REGRAS:
+- Só processa .md (ChatGPT-*, Gemini-*, Claude-*)
+- Ignora: .pdf, .zip, .csv, .xlsx, .jnlp, .txt
+- Hash de cada arquivo para evitar duplicatas
+- Classifica: business_idea | personal | noise
+- Copia business_ideas → docs/plans/
+```
+
+## 🔗 CROSS-REPO RULES
+
+| Repo | O que FAZ | O que NÃO FAZ |
+|------|-----------|----------------|
+| `carteira-livre` | SaaS em produção | Experimentos |
+| `egos-lab` | Protótipos MVP | Deploy para produção |
+| `EGOSv5` | Arquivado | NADA (legacy) |
+
+## 📊 METRICS
+
+| Métrica | Target |
+|---------|--------|
+| Max file size | 400 LOC |
+| API cost/month | < $10 |
+| Test coverage | > 60% (apps) |
+| Idea scan freq | Every commit |
+
+## 🧠 AI MEMORY SYNC
+
+Para garantir que agentes (Antigravity + Windsurf) compartilhem contexto:
+
+1. **AGENTS.md** é lido por AMBOS os agentes no startup
+2. **TASKS.md** é a SSOT de progresso — sempre atualizar
+3. **Commits descritivos** — cada commit explica o "porquê" para o outro agente
+4. **Handoffs** — usar `docs/_current_handoffs/` quando trocar de agente
+5. **compiladochats** — scanear antes de cada sessão nova
+
+## 🔑 ENV VARS
+
+```env
+OPENROUTER_API_KEY=   # AI analysis (Gemini via OpenRouter)
+# NOT needed for MVP: SUPABASE_URL, SUPABASE_KEY (Phase 2+)
+```

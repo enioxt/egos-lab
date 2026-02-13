@@ -1,0 +1,1127 @@
+{
+  "version": "1.0.0",
+  "last_scan": "2026-02-13T03:47:41.887Z",
+  "source_dir": "/home/enio/Downloads/compiladochats",
+  "entries": {
+    "96b7fa697b4e59fe": {
+      "filename": "ChatGPT-Análise de post e mercado.md",
+      "hash": "96b7fa697b4e59fe",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.168Z",
+      "copied": true,
+      "size_bytes": 8120
+    },
+    "e42acec13cdc1f9f": {
+      "filename": "ChatGPT-Análise GitHub e otimização (1).md",
+      "hash": "e42acec13cdc1f9f",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.174Z",
+      "copied": true,
+      "size_bytes": 27676
+    },
+    "8e2fd784ee976d03": {
+      "filename": "ChatGPT-Análise GitHub e otimização.md",
+      "hash": "8e2fd784ee976d03",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.178Z",
+      "copied": true,
+      "size_bytes": 27676
+    },
+    "599a71ec833d4ca4": {
+      "filename": "ChatGPT-Canais educativos para crianças.md",
+      "hash": "599a71ec833d4ca4",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.180Z",
+      "copied": true,
+      "size_bytes": 5162
+    },
+    "473569320cdb17d8": {
+      "filename": "ChatGPT-Cálculo ROE e Insumos.md",
+      "hash": "473569320cdb17d8",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.189Z",
+      "copied": true,
+      "size_bytes": 87301
+    },
+    "4813606efa5bbed0": {
+      "filename": "ChatGPT-Criar APK Controle Samsung (1).md",
+      "hash": "4813606efa5bbed0",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.191Z",
+      "copied": true,
+      "size_bytes": 18702
+    },
+    "fc10c2ddf34ad63b": {
+      "filename": "ChatGPT-Criar APK Controle Samsung.md",
+      "hash": "fc10c2ddf34ad63b",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.195Z",
+      "copied": true,
+      "size_bytes": 34239
+    },
+    "8bd4fce4cb4eb9ef": {
+      "filename": "ChatGPT-Desintoxicação Algorítmica Social.md",
+      "hash": "8bd4fce4cb4eb9ef",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.197Z",
+      "copied": true,
+      "size_bytes": 7913
+    },
+    "14bd1d9739823682": {
+      "filename": "ChatGPT-Diálogo escalável com IA.md",
+      "hash": "14bd1d9739823682",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.199Z",
+      "copied": true,
+      "size_bytes": 15787
+    },
+    "65a4065090f82604": {
+      "filename": "ChatGPT-Dicas controle ansiedade.md",
+      "hash": "65a4065090f82604",
+      "classification": "personal",
+      "scanned_at": "2026-02-13T03:47:41.201Z",
+      "copied": false,
+      "size_bytes": 3365
+    },
+    "97c041549b759d05": {
+      "filename": "ChatGPT-Ego e Despertar Espiritual.md",
+      "hash": "97c041549b759d05",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.203Z",
+      "copied": true,
+      "size_bytes": 14969
+    },
+    "ab0c6be473892ddf": {
+      "filename": "ChatGPT-Estado de silêncio máximo.md",
+      "hash": "ab0c6be473892ddf",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.209Z",
+      "copied": true,
+      "size_bytes": 86296
+    },
+    "ceb7844e4f6c508a": {
+      "filename": "ChatGPT-Festival coletivo de música.md",
+      "hash": "ceb7844e4f6c508a",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.213Z",
+      "copied": true,
+      "size_bytes": 14948
+    },
+    "39e8021740e307b2": {
+      "filename": "ChatGPT-Krishna e o Dharma.md",
+      "hash": "39e8021740e307b2",
+      "classification": "personal",
+      "scanned_at": "2026-02-13T03:47:41.215Z",
+      "copied": false,
+      "size_bytes": 12055
+    },
+    "f2fff2af223bbc5d": {
+      "filename": "ChatGPT-Organizar e melhorar ideias.md",
+      "hash": "f2fff2af223bbc5d",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.232Z",
+      "copied": true,
+      "size_bytes": 249793
+    },
+    "0090bd14e610f62a": {
+      "filename": "ChatGPT-Plataforma SaaS com IA (1).md",
+      "hash": "0090bd14e610f62a",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.236Z",
+      "copied": true,
+      "size_bytes": 41612
+    },
+    "72d0255017811951": {
+      "filename": "ChatGPT-Plataforma SaaS com IA.md",
+      "hash": "72d0255017811951",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.240Z",
+      "copied": true,
+      "size_bytes": 41612
+    },
+    "9e94d957139f64b0": {
+      "filename": "ChatGPT-Presentes criativos filho 6 anos.md",
+      "hash": "9e94d957139f64b0",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.242Z",
+      "copied": true,
+      "size_bytes": 15322
+    },
+    "d29da3ed69d7e493": {
+      "filename": "ChatGPT-Problemas e Resoluções Financeiras.md",
+      "hash": "d29da3ed69d7e493",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.243Z",
+      "copied": true,
+      "size_bytes": 14526
+    },
+    "919f756b9258c958": {
+      "filename": "ChatGPT-Registro de Marca INPI (1).md",
+      "hash": "919f756b9258c958",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.297Z",
+      "copied": true,
+      "size_bytes": 528119
+    },
+    "cf69dfa41bbb5cbc": {
+      "filename": "ChatGPT-Registro de Marca INPI (2).md",
+      "hash": "cf69dfa41bbb5cbc",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.353Z",
+      "copied": true,
+      "size_bytes": 628805
+    },
+    "5b494b6a6e62363b": {
+      "filename": "ChatGPT-Registro de Marca INPI (3).md",
+      "hash": "5b494b6a6e62363b",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.409Z",
+      "copied": true,
+      "size_bytes": 725143
+    },
+    "a1536e9ec5fd9f48": {
+      "filename": "ChatGPT-Registro de Marca INPI.md",
+      "hash": "a1536e9ec5fd9f48",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.424Z",
+      "copied": true,
+      "size_bytes": 131732
+    },
+    "01b61ad517a0faa1": {
+      "filename": "ChatGPT-Sistema de Pagamentos Asaas.md",
+      "hash": "01b61ad517a0faa1",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.427Z",
+      "copied": true,
+      "size_bytes": 27006
+    },
+    "dac3b38e0ae32931": {
+      "filename": "ChatGPT-Szondi Test Interpretação.md",
+      "hash": "dac3b38e0ae32931",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.430Z",
+      "copied": true,
+      "size_bytes": 20510
+    },
+    "4a507a3912065962": {
+      "filename": "ChatGPT-Vida nas Blue Zones.md",
+      "hash": "4a507a3912065962",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.432Z",
+      "copied": true,
+      "size_bytes": 4930
+    },
+    "70ab542baa9a2f12": {
+      "filename": "Gemini-Agente de Workflows com IA e MCP.md",
+      "hash": "70ab542baa9a2f12",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.437Z",
+      "copied": true,
+      "size_bytes": 46920
+    },
+    "3cfa3da835e084f0": {
+      "filename": "Gemini-Agentes IA para Branding e Design.md",
+      "hash": "3cfa3da835e084f0",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.440Z",
+      "copied": true,
+      "size_bytes": 20692
+    },
+    "3ff7baec50b25fc5": {
+      "filename": "Gemini-Análise Detalhada do Tana.inc.md",
+      "hash": "3ff7baec50b25fc5",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.444Z",
+      "copied": true,
+      "size_bytes": 51911
+    },
+    "8b179d65a53a7a07": {
+      "filename": "Gemini-Análise Profunda de O Advogado do Diabo.md",
+      "hash": "8b179d65a53a7a07",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.447Z",
+      "copied": true,
+      "size_bytes": 11322
+    },
+    "b89ff9b79c189632": {
+      "filename": "Gemini-Análise de Cardápio para Cafeteria Mineira.md",
+      "hash": "b89ff9b79c189632",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.451Z",
+      "copied": true,
+      "size_bytes": 31570
+    },
+    "14b32174ec9dc588": {
+      "filename": "Gemini-Análise de Projeto e Risco de IA.md",
+      "hash": "14b32174ec9dc588",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.454Z",
+      "copied": true,
+      "size_bytes": 23089
+    },
+    "598e7d98fd8d075e": {
+      "filename": "Gemini-Análise de Repositório Fantasma.md",
+      "hash": "598e7d98fd8d075e",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.458Z",
+      "copied": true,
+      "size_bytes": 45449
+    },
+    "7eb82536006d2421": {
+      "filename": "Gemini-Aprimorando Prompt de Análise IA.md",
+      "hash": "7eb82536006d2421",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.461Z",
+      "copied": true,
+      "size_bytes": 26960
+    },
+    "d7da410c54146900": {
+      "filename": "Gemini-Aprimorando o Espiral de Escuta.md",
+      "hash": "d7da410c54146900",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.468Z",
+      "copied": true,
+      "size_bytes": 67799
+    },
+    "f6bfca99733805ec": {
+      "filename": "Gemini-Arquitetura de Chat com IA no Intelink.md",
+      "hash": "f6bfca99733805ec",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.471Z",
+      "copied": true,
+      "size_bytes": 10470
+    },
+    "839783475cca68f9": {
+      "filename": "Gemini-Astrologia_ 06_12_2025 Especial.md",
+      "hash": "839783475cca68f9",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.474Z",
+      "copied": true,
+      "size_bytes": 21546
+    },
+    "8af3221e7d14ead4": {
+      "filename": "Gemini-Canais YouTube para Famílias.md",
+      "hash": "8af3221e7d14ead4",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.475Z",
+      "copied": true,
+      "size_bytes": 5322
+    },
+    "cd512abf8f263225": {
+      "filename": "Gemini-Canal YouTube_ Manga, Psicodelia e Ativismo.md",
+      "hash": "cd512abf8f263225",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.477Z",
+      "copied": true,
+      "size_bytes": 11921
+    },
+    "7a433d2f36f4ea8d": {
+      "filename": "Gemini-Cardápio_ Reorganização e Otimização Sugerida.md",
+      "hash": "7a433d2f36f4ea8d",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.479Z",
+      "copied": true,
+      "size_bytes": 13207
+    },
+    "fcb7fbe14f1ca177": {
+      "filename": "Gemini-Cardápios de Cafeterias de Ponta.md",
+      "hash": "fcb7fbe14f1ca177",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.483Z",
+      "copied": true,
+      "size_bytes": 30698
+    },
+    "11506f382d357654": {
+      "filename": "Gemini-Ciclo de Autossabotagem e Autoidentificação Negativa.md",
+      "hash": "11506f382d357654",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.487Z",
+      "copied": true,
+      "size_bytes": 23230
+    },
+    "195b697b0adc9c96": {
+      "filename": "Gemini-Combate a Ataques Sybil no Egos.md",
+      "hash": "195b697b0adc9c96",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.499Z",
+      "copied": true,
+      "size_bytes": 112781
+    },
+    "58f5189e256d27fb": {
+      "filename": "Gemini-Construindo Agente de Análise Dota 2.md",
+      "hash": "58f5189e256d27fb",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.506Z",
+      "copied": true,
+      "size_bytes": 59531
+    },
+    "687c6f42eebdff27": {
+      "filename": "Gemini-Construindo Plataforma Financeira com Ego.md",
+      "hash": "687c6f42eebdff27",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.511Z",
+      "copied": true,
+      "size_bytes": 14660
+    },
+    "b618daed372ba2da": {
+      "filename": "Gemini-Construção de Contratos Inteligentes Seguros na Base.md",
+      "hash": "b618daed372ba2da",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.520Z",
+      "copied": true,
+      "size_bytes": 38103
+    },
+    "965e82b8ca25f54c": {
+      "filename": "Gemini-Construção de Tanque Proativo Furtivo.md",
+      "hash": "965e82b8ca25f54c",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.523Z",
+      "copied": true,
+      "size_bytes": 11633
+    },
+    "3f2134db5828f55b": {
+      "filename": "Gemini-Criando Arte com Anotações Psicodélicas.md",
+      "hash": "3f2134db5828f55b",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.526Z",
+      "copied": true,
+      "size_bytes": 22966
+    },
+    "87441c9aa4e25390": {
+      "filename": "Gemini-Criando Conceito Artístico de Performance.md",
+      "hash": "87441c9aa4e25390",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.530Z",
+      "copied": true,
+      "size_bytes": 12605
+    },
+    "429d737ce6a68d3e": {
+      "filename": "Gemini-Custos de Cursos e Laudos Agronômicos.md",
+      "hash": "429d737ce6a68d3e",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.534Z",
+      "copied": true,
+      "size_bytes": 30639
+    },
+    "cc31dc753e7226db": {
+      "filename": "Gemini-DEPIX, IN 1888 E Privacidade.md",
+      "hash": "cc31dc753e7226db",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.537Z",
+      "copied": true,
+      "size_bytes": 16648
+    },
+    "b8119640b23e9e95": {
+      "filename": "Gemini-Desbloqueio Prático de Consultoria IA.md",
+      "hash": "b8119640b23e9e95",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.549Z",
+      "copied": true,
+      "size_bytes": 75994
+    },
+    "ca47475fd874984b": {
+      "filename": "Gemini-Desenvolvedor Full Stack_ Mercado e Tendências.md",
+      "hash": "ca47475fd874984b",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.552Z",
+      "copied": true,
+      "size_bytes": 14254
+    },
+    "ef8b2d4f43537cad": {
+      "filename": "Gemini-Desmistificando Análise Marxista com Sarcasmo.md",
+      "hash": "ef8b2d4f43537cad",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.555Z",
+      "copied": true,
+      "size_bytes": 8618
+    },
+    "66bf0aa19d647abf": {
+      "filename": "Gemini-Desvendando Lavagem de Dinheiro com Rede Familiar.md",
+      "hash": "66bf0aa19d647abf",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.558Z",
+      "copied": true,
+      "size_bytes": 17203
+    },
+    "a7af398517f3c2ec": {
+      "filename": "Gemini-Diagnóstico Completo Echelon Prime.md",
+      "hash": "a7af398517f3c2ec",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.560Z",
+      "copied": true,
+      "size_bytes": 11887
+    },
+    "beeac8f33bc08289": {
+      "filename": "Gemini-Dicas de Uso e Manutenção de Moedor.md",
+      "hash": "beeac8f33bc08289",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.562Z",
+      "copied": true,
+      "size_bytes": 13029
+    },
+    "a771897678f05d96": {
+      "filename": "Gemini-EGOS_ Melhorias para Base de Conhecimento.md",
+      "hash": "a771897678f05d96",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.566Z",
+      "copied": true,
+      "size_bytes": 25138
+    },
+    "8c1a8849f30a3216": {
+      "filename": "Gemini-EGOS_ Tokenomics e Preço Inteligente.md",
+      "hash": "8c1a8849f30a3216",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.577Z",
+      "copied": true,
+      "size_bytes": 74069
+    },
+    "f7bee772b5f3d432": {
+      "filename": "Gemini-Estatísticas de Mortalidade e Encarceramento Masculino.md",
+      "hash": "f7bee772b5f3d432",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.586Z",
+      "copied": true,
+      "size_bytes": 59550
+    },
+    "950b97f3cc2604a5": {
+      "filename": "Gemini-Estudo Ético e Colaborativo do EGOS.md",
+      "hash": "950b97f3cc2604a5",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.591Z",
+      "copied": true,
+      "size_bytes": 39652
+    },
+    "0b16b178b2cfad7c": {
+      "filename": "Gemini-Ferramenta Anti-Fraude em Criptomoedas.md",
+      "hash": "0b16b178b2cfad7c",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.595Z",
+      "copied": true,
+      "size_bytes": 22227
+    },
+    "6fa1882b4d9089e1": {
+      "filename": "Gemini-Fluxo Anônimo e Conflito de IDs.md",
+      "hash": "6fa1882b4d9089e1",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.608Z",
+      "copied": true,
+      "size_bytes": 102732
+    },
+    "bf6887344f15e573": {
+      "filename": "Gemini-Frameworks de Agentes de IA e Swarms.md",
+      "hash": "bf6887344f15e573",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.611Z",
+      "copied": true,
+      "size_bytes": 11400
+    },
+    "d4ebeb1a4383dffe": {
+      "filename": "Gemini-Frozen Food Business System Research.md",
+      "hash": "d4ebeb1a4383dffe",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.615Z",
+      "copied": true,
+      "size_bytes": 32159
+    },
+    "bf2bf376c48d69cf": {
+      "filename": "Gemini-Gene FOXP3_ Função, Modulação e Influências.md",
+      "hash": "bf2bf376c48d69cf",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.618Z",
+      "copied": true,
+      "size_bytes": 11244
+    },
+    "b89df3a7d856b1e6": {
+      "filename": "Gemini-Governança por Reputação Dinâmica Refinada.md",
+      "hash": "b89df3a7d856b1e6",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.621Z",
+      "copied": true,
+      "size_bytes": 19009
+    },
+    "b36afe6d592810db": {
+      "filename": "Gemini-Governo Milei_ Avanços e Controvérsias.md",
+      "hash": "b36afe6d592810db",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.628Z",
+      "copied": true,
+      "size_bytes": 21336
+    },
+    "5ce30bddcf810e0f": {
+      "filename": "Gemini-Guia Saeco SE 50_ Dicas e Tutoriais.md",
+      "hash": "5ce30bddcf810e0f",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.633Z",
+      "copied": true,
+      "size_bytes": 11061
+    },
+    "59f3eb77afa35161": {
+      "filename": "Gemini-Guia de Estudo Ultra-aprendizado.md",
+      "hash": "59f3eb77afa35161",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.635Z",
+      "copied": true,
+      "size_bytes": 14951
+    },
+    "1388c9c8e1fed8f6": {
+      "filename": "Gemini-Habeas Corpus para Cultivo Medicinal.md",
+      "hash": "1388c9c8e1fed8f6",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.639Z",
+      "copied": true,
+      "size_bytes": 5016
+    },
+    "e45032df07e1669f": {
+      "filename": "Gemini-IA para Diálogo e Resolução de Conflitos.md",
+      "hash": "e45032df07e1669f",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.646Z",
+      "copied": true,
+      "size_bytes": 44864
+    },
+    "09be245e3033bb2c": {
+      "filename": "Gemini-IA_ Análise e Estratégia Futura.md",
+      "hash": "09be245e3033bb2c",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.658Z",
+      "copied": true,
+      "size_bytes": 75456
+    },
+    "3b394f52a1f09cd7": {
+      "filename": "Gemini-IA_ Gargalos e Soluções Estratégicas.md",
+      "hash": "3b394f52a1f09cd7",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.661Z",
+      "copied": true,
+      "size_bytes": 17525
+    },
+    "b9a19c4e237eb0bc": {
+      "filename": "Gemini-IA_ Riscos, Sucessos e Estratégias.md",
+      "hash": "b9a19c4e237eb0bc",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.666Z",
+      "copied": true,
+      "size_bytes": 32002
+    },
+    "2ad24a9293b367ee": {
+      "filename": "Gemini-Importação de Kimonos do Paquistão.md",
+      "hash": "2ad24a9293b367ee",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.670Z",
+      "copied": true,
+      "size_bytes": 26495
+    },
+    "3ce497a1b9daf653": {
+      "filename": "Gemini-Industrial Prompt Engineering Framework.md",
+      "hash": "3ce497a1b9daf653",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.673Z",
+      "copied": true,
+      "size_bytes": 27220
+    },
+    "1f261b4e600ff8cf": {
+      "filename": "Gemini-InstrutorGO_ Blueprint para Desenvolvimento.md",
+      "hash": "1f261b4e600ff8cf",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.681Z",
+      "copied": true,
+      "size_bytes": 73517
+    },
+    "c09a579ebd77d58a": {
+      "filename": "Gemini-Integrando Agentes MCP com Gemini.md",
+      "hash": "c09a579ebd77d58a",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.683Z",
+      "copied": true,
+      "size_bytes": 14560
+    },
+    "7c3b43ac1853dd90": {
+      "filename": "Gemini-Integração Asaas_ Passo a Passo.md",
+      "hash": "7c3b43ac1853dd90",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.692Z",
+      "copied": true,
+      "size_bytes": 68770
+    },
+    "7683469385d189c5": {
+      "filename": "Gemini-Investigadores_ Salários Baixos, Grande Responsabilidade.md",
+      "hash": "7683469385d189c5",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.695Z",
+      "copied": true,
+      "size_bytes": 14605
+    },
+    "b70138d7d075f0de": {
+      "filename": "Gemini-Investigação de Dados Telemáticos do Instagram.md",
+      "hash": "b70138d7d075f0de",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.698Z",
+      "copied": true,
+      "size_bytes": 19280
+    },
+    "4f42c55ceb3ee3ce": {
+      "filename": "Gemini-Isenções Fiscais Estaduais_ Guerra e Benefícios.md",
+      "hash": "4f42c55ceb3ee3ce",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.700Z",
+      "copied": true,
+      "size_bytes": 13598
+    },
+    "1a8a7267b0699a24": {
+      "filename": "Gemini-Jung_ Inconsciente, Símbolos e Individuação.md",
+      "hash": "1a8a7267b0699a24",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.702Z",
+      "copied": true,
+      "size_bytes": 18732
+    },
+    "1c65ad01f84beea7": {
+      "filename": "Gemini-Maconha e Esquizofrenia_ Estudo Detalhado.md",
+      "hash": "1c65ad01f84beea7",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.705Z",
+      "copied": true,
+      "size_bytes": 27335
+    },
+    "aa15e9983b42b416": {
+      "filename": "Gemini-Melhores Entrevistas Intelectuais Selecionadas.md",
+      "hash": "aa15e9983b42b416",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.708Z",
+      "copied": true,
+      "size_bytes": 22667
+    },
+    "501fc893c4e29c2b": {
+      "filename": "Gemini-Melhores Ofertas Black Friday Brasil.md",
+      "hash": "501fc893c4e29c2b",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.710Z",
+      "copied": true,
+      "size_bytes": 16760
+    },
+    "8a82146aa3ace7b6": {
+      "filename": "Gemini-Menos Aprovação Externa, Mais Autoconfiança.md",
+      "hash": "8a82146aa3ace7b6",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.712Z",
+      "copied": true,
+      "size_bytes": 3164
+    },
+    "9b1ecbc752282ecf": {
+      "filename": "Gemini-Meta Prompt Lyra_ Análise e Otimização.md",
+      "hash": "9b1ecbc752282ecf",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.717Z",
+      "copied": true,
+      "size_bytes": 49825
+    },
+    "3d680efc597a0711": {
+      "filename": "Gemini-Negociação por Compartilhamento de Ganhos.md",
+      "hash": "3d680efc597a0711",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.718Z",
+      "copied": true,
+      "size_bytes": 12479
+    },
+    "cc07a619554ecf3a": {
+      "filename": "Gemini-Neuroplasticidade Infantil_ Dicas e Atividades.md",
+      "hash": "cc07a619554ecf3a",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.720Z",
+      "copied": true,
+      "size_bytes": 11034
+    },
+    "fb405755e66f6f5d": {
+      "filename": "Gemini-Nexus vs. Plataformas API Tradicionais.md",
+      "hash": "fb405755e66f6f5d",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.724Z",
+      "copied": true,
+      "size_bytes": 32356
+    },
+    "afddede81762729a": {
+      "filename": "Gemini-Node.js Frameworks_ AdonisJS Alternatives.md",
+      "hash": "afddede81762729a",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.725Z",
+      "copied": true,
+      "size_bytes": 6676
+    },
+    "5cf9c532a78d2a50": {
+      "filename": "Gemini-O Poder Transformador da Mulher.md",
+      "hash": "5cf9c532a78d2a50",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.727Z",
+      "copied": true,
+      "size_bytes": 10872
+    },
+    "a11c5eb01b33e2e3": {
+      "filename": "Gemini-Organização de Tarefas para Agente IA.md",
+      "hash": "a11c5eb01b33e2e3",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.730Z",
+      "copied": true,
+      "size_bytes": 21651
+    },
+    "36a959b6b0a50459": {
+      "filename": "Gemini-Orçamento de Oficina Automotiva em Patos de Minas.md",
+      "hash": "36a959b6b0a50459",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.732Z",
+      "copied": true,
+      "size_bytes": 11757
+    },
+    "cbaa4124014946f9": {
+      "filename": "Gemini-Otimizando Agente de IA para Inteligência Central.md",
+      "hash": "cbaa4124014946f9",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.740Z",
+      "copied": true,
+      "size_bytes": 72650
+    },
+    "ac09811a4b5e7da7": {
+      "filename": "Gemini-Otimizando Deck Clash Royale com Fotos.md",
+      "hash": "ac09811a4b5e7da7",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.743Z",
+      "copied": true,
+      "size_bytes": 20685
+    },
+    "e89f68fa6177b2d7": {
+      "filename": "Gemini-Padrão AGENTS.md para IA.md",
+      "hash": "e89f68fa6177b2d7",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.744Z",
+      "copied": true,
+      "size_bytes": 11126
+    },
+    "93d56698c9b47941": {
+      "filename": "Gemini-Pesquisa TEPT em Policiais Brasileiros.md",
+      "hash": "93d56698c9b47941",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.751Z",
+      "copied": true,
+      "size_bytes": 54286
+    },
+    "652ab94a4cdaa299": {
+      "filename": "Gemini-Plano de Ação para Sistema de Padrões.md",
+      "hash": "652ab94a4cdaa299",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.757Z",
+      "copied": true,
+      "size_bytes": 68815
+    },
+    "1707c6f0257cdb54": {
+      "filename": "Gemini-Plano de Negócios para App de Autoescola.md",
+      "hash": "1707c6f0257cdb54",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.760Z",
+      "copied": true,
+      "size_bytes": 10797
+    },
+    "c5775b6fb34d146c": {
+      "filename": "Gemini-Presentes Inteligentes para Criança Curiosa.md",
+      "hash": "c5775b6fb34d146c",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.765Z",
+      "copied": true,
+      "size_bytes": 29353
+    },
+    "4d5b998785322201": {
+      "filename": "Gemini-Projeção de Parcelas com Reajuste Inferior.md",
+      "hash": "4d5b998785322201",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.773Z",
+      "copied": true,
+      "size_bytes": 83602
+    },
+    "0aa8aa97190f37f8": {
+      "filename": "Gemini-Proposta de Expansão Steak Grill.md",
+      "hash": "0aa8aa97190f37f8",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.777Z",
+      "copied": true,
+      "size_bytes": 54505
+    },
+    "7256ccc814fa3ded": {
+      "filename": "Gemini-Proposta de Parceria e Lucros.md",
+      "hash": "7256ccc814fa3ded",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.779Z",
+      "copied": true,
+      "size_bytes": 17077
+    },
+    "129c990e30661d0f": {
+      "filename": "Gemini-Rastreamento de Suspeitos_ Trajetos e Análise.md",
+      "hash": "129c990e30661d0f",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.781Z",
+      "copied": true,
+      "size_bytes": 15787
+    },
+    "0327e9654ca01e8e": {
+      "filename": "Gemini-Refinando a IA Ética do EGOS.md",
+      "hash": "0327e9654ca01e8e",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.784Z",
+      "copied": true,
+      "size_bytes": 20095
+    },
+    "1052b55da45f02e1": {
+      "filename": "Gemini-Relatório de Investigação Criminal Consolidado.md",
+      "hash": "1052b55da45f02e1",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.788Z",
+      "copied": true,
+      "size_bytes": 21516
+    },
+    "e51aa62f99d0d1a3": {
+      "filename": "Gemini-Retrospectiva Psicológico-Operacional Profunda.md",
+      "hash": "e51aa62f99d0d1a3",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.791Z",
+      "copied": true,
+      "size_bytes": 21163
+    },
+    "0214be74a20c1d2e": {
+      "filename": "Gemini-Rickdaum, o Cowboy Divertido.md",
+      "hash": "0214be74a20c1d2e",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.792Z",
+      "copied": true,
+      "size_bytes": 5294
+    },
+    "c13c89c2e664247e": {
+      "filename": "Gemini-Rito de Passagem_ Conexões e Autovalor.md",
+      "hash": "c13c89c2e664247e",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.811Z",
+      "copied": true,
+      "size_bytes": 231341
+    },
+    "d209a51e6a202d41": {
+      "filename": "Gemini-Robôs Mais Atuais e Capazes.md",
+      "hash": "d209a51e6a202d41",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.814Z",
+      "copied": true,
+      "size_bytes": 3143
+    },
+    "058676cb7001411e": {
+      "filename": "Gemini-Roteiro de Estudo para _A Revolta de Atlas_.md",
+      "hash": "058676cb7001411e",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.815Z",
+      "copied": true,
+      "size_bytes": 6943
+    },
+    "5936997a0c7f2b03": {
+      "filename": "Gemini-SDKs de Agentes de IA_ Análise Comparativa.md",
+      "hash": "5936997a0c7f2b03",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.817Z",
+      "copied": true,
+      "size_bytes": 20515
+    },
+    "974277def0b92fdb": {
+      "filename": "Gemini-STF_ Controvérsias e Comparativo Internacional.md",
+      "hash": "974277def0b92fdb",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.820Z",
+      "copied": true,
+      "size_bytes": 21558
+    },
+    "b55b5683d5bb2b10": {
+      "filename": "Gemini-STF_ Decisões, Bastidores e Críticas.md",
+      "hash": "b55b5683d5bb2b10",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.826Z",
+      "copied": true,
+      "size_bytes": 65011
+    },
+    "d2263f185641e38d": {
+      "filename": "Gemini-Sereias, Mar e Sexualidade_ Uma Conexão.md",
+      "hash": "d2263f185641e38d",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.828Z",
+      "copied": true,
+      "size_bytes": 12278
+    },
+    "74cd7ae54b42369d": {
+      "filename": "Gemini-Solução Fase Elétrica LEGO Jurassic World.md",
+      "hash": "74cd7ae54b42369d",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.832Z",
+      "copied": true,
+      "size_bytes": 28747
+    },
+    "8cf18baf22cd5b02": {
+      "filename": "Gemini-Superdotação, Notívagos e Hipersensibilidade.md",
+      "hash": "8cf18baf22cd5b02",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.834Z",
+      "copied": true,
+      "size_bytes": 3516
+    },
+    "e71ce564b4efda70": {
+      "filename": "Gemini-TEPT em Policiais_ Pesquisa Abrangente.md",
+      "hash": "e71ce564b4efda70",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.837Z",
+      "copied": true,
+      "size_bytes": 11525
+    },
+    "ea8725cd5c9a9996": {
+      "filename": "Gemini-Terapeutas de Casal em Patos de Minas.md",
+      "hash": "ea8725cd5c9a9996",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.839Z",
+      "copied": true,
+      "size_bytes": 10714
+    },
+    "9fbb022f8c362494": {
+      "filename": "Gemini-Transformação para Arquitetura Agent-Centric.md",
+      "hash": "9fbb022f8c362494",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.840Z",
+      "copied": true,
+      "size_bytes": 19106
+    },
+    "220c619d2a98913c": {
+      "filename": "Gemini-Workflow de QA Automatizado_ Refinamentos.md",
+      "hash": "220c619d2a98913c",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.846Z",
+      "copied": true,
+      "size_bytes": 63564
+    },
+    "e59106ba9782612c": {
+      "filename": "Gemini-vamos falar sobre meta prompts, eu estava construindo um no chatgpt, quero que voce analise nossa conversa inteira e proponha melhorias_ Skip to content Chat history You said_ organize e melhore o texto abaixo_ _me tire uma duvida, nosso agente .md",
+      "hash": "e59106ba9782612c",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.857Z",
+      "copied": true,
+      "size_bytes": 145670
+    },
+    "fd535e49ea0c85f9": {
+      "filename": "Grok-_07.md",
+      "hash": "fd535e49ea0c85f9",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.858Z",
+      "copied": true,
+      "size_bytes": 7302
+    },
+    "631f1b8beb7ac653": {
+      "filename": "Grok-_08.md",
+      "hash": "631f1b8beb7ac653",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.860Z",
+      "copied": true,
+      "size_bytes": 10198
+    },
+    "8d98fb0a24cb70da": {
+      "filename": "Grok-_10.md",
+      "hash": "8d98fb0a24cb70da",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.861Z",
+      "copied": true,
+      "size_bytes": 10830
+    },
+    "2d86f9e8bcb084b8": {
+      "filename": "Grok-_16 (1).md",
+      "hash": "2d86f9e8bcb084b8",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.867Z",
+      "copied": true,
+      "size_bytes": 47261
+    },
+    "bec86b132c626500": {
+      "filename": "Grok-_16.md",
+      "hash": "bec86b132c626500",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.868Z",
+      "copied": true,
+      "size_bytes": 3237
+    },
+    "7ffb20478cd2830e": {
+      "filename": "Grok-_20.md",
+      "hash": "7ffb20478cd2830e",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.870Z",
+      "copied": true,
+      "size_bytes": 4609
+    },
+    "519d1b69e3a4e162": {
+      "filename": "Grok-_33.md",
+      "hash": "519d1b69e3a4e162",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.871Z",
+      "copied": true,
+      "size_bytes": 7141
+    },
+    "415997608220df12": {
+      "filename": "Grok-_37.md",
+      "hash": "415997608220df12",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.873Z",
+      "copied": true,
+      "size_bytes": 5113
+    },
+    "84ee310473fe3d93": {
+      "filename": "Grok-_40.md",
+      "hash": "84ee310473fe3d93",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.876Z",
+      "copied": true,
+      "size_bytes": 34422
+    },
+    "4b053aac36e8ab98": {
+      "filename": "Grok-_42.md",
+      "hash": "4b053aac36e8ab98",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.877Z",
+      "copied": true,
+      "size_bytes": 2501
+    },
+    "621c633443150525": {
+      "filename": "Grok-_49.md",
+      "hash": "621c633443150525",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.881Z",
+      "copied": true,
+      "size_bytes": 37651
+    },
+    "66bae43c4b1b5c94": {
+      "filename": "Grok-_51.md",
+      "hash": "66bae43c4b1b5c94",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.883Z",
+      "copied": true,
+      "size_bytes": 6634
+    },
+    "db8f054b102a5471": {
+      "filename": "Grok-_57.md",
+      "hash": "db8f054b102a5471",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.884Z",
+      "copied": true,
+      "size_bytes": 5798
+    },
+    "9e5184faf23187cf": {
+      "filename": "Grok-_59 (1).md",
+      "hash": "9e5184faf23187cf",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.885Z",
+      "copied": true,
+      "size_bytes": 6192
+    },
+    "dcef1813e54b2822": {
+      "filename": "Grok-_59.md",
+      "hash": "dcef1813e54b2822",
+      "classification": "business_idea",
+      "scanned_at": "2026-02-13T03:47:41.887Z",
+      "copied": true,
+      "size_bytes": 6625
+    }
+  }
+}

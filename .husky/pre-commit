@@ -1,0 +1,5 @@
+#!/bin/sh
+# 🔍 Pre-commit: scan compiladochats for new idea files
+echo "🔍 [pre-commit] Scanning compiladochats for new ideas..."
+npx tsx scripts/scan_ideas.ts --dry 2>/dev/null
+echo "✅ [pre-commit] Scan complete"

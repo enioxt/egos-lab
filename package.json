@@ -2,17 +2,24 @@
     "name": "egos-lab",
     "version": "0.1.0",
     "private": true,
-    "description": "MVP Lab — Monorepo for Eagle Eye, Compras Radar, Cloud Legal, and future ideas",
+    "type": "module",
+    "description": "🧪 MVP Lab — Monorepo for business idea prototyping and validation",
     "workspaces": [
-        "apps/*",
-        "packages/*"
+        "packages/*",
+        "apps/*"
     ],
     "scripts": {
-        "eagle-eye": "cd apps/eagle-eye && npx tsx src/index.ts",
-        "eagle-eye:fetch": "cd apps/eagle-eye && npx tsx src/fetch_gazettes.ts",
-        "eagle-eye:analyze": "cd apps/eagle-eye && npx tsx src/analyze_gazette.ts"
+        "eagle-eye": "npx tsx apps/eagle-eye/src/index.ts",
+        "eagle-eye:fetch": "npx tsx apps/eagle-eye/src/fetch_gazettes.ts",
+        "eagle-eye:analyze": "npx tsx apps/eagle-eye/src/analyze_gazette.ts",
+        "eagle-eye:patterns": "npx tsx apps/eagle-eye/src/idea_patterns.ts",
+        "scan:ideas": "npx tsx scripts/scan_ideas.ts",
+        "scan:ideas:dry": "npx tsx scripts/scan_ideas.ts --dry",
+        "precommit": "npx tsx scripts/scan_ideas.ts --dry",
+        "prepare": "test -d .husky && npx husky || true"
     },
-    "engines": {
-        "node": ">=18.0.0"
+    "devDependencies": {
+        "tsx": "^4.7.0",
+        "typescript": "^5.3.0"
     }
 }
