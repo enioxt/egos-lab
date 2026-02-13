@@ -1,0 +1,17 @@
+{
+    "name": "@egos-lab/eagle-eye",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "description": "🦅 Eagle Eye — Brazilian Gazette Monitor + AI Opportunity Detector",
+    "main": "src/index.ts",
+    "scripts": {
+        "fetch": "npx tsx src/fetch_gazettes.ts",
+        "analyze": "npx tsx src/analyze_gazette.ts",
+        "patterns": "npx tsx src/idea_patterns.ts",
+        "dev": "npx tsx src/index.ts"
+    },
+    "dependencies": {
+        "@egos-lab/shared": "*"
+    }
+}
