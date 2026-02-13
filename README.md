@@ -20,9 +20,10 @@ egos-lab/
 ## Quick Start
 
 ```bash
-npm install
-npm run eagle-eye:fetch      # Test Querido Diário API
-npm run eagle-eye:analyze    # Run AI analysis (needs OPENROUTER_API_KEY)
+```bash
+bun install
+bun eagle-eye:fetch      # Test Querido Diário API
+bun eagle-eye:analyze    # Run AI analysis (needs OPENROUTER_API_KEY)
 ```
 
 ## Apps
@@ -35,9 +36,9 @@ npm run eagle-eye:analyze    # Run AI analysis (needs OPENROUTER_API_KEY)
 
 ## Tech Stack
 
-- **Runtime:** Node.js 18+ / tsx
+- **Runtime:** Bun v1.3.9+
 - **AI:** Gemini 2.0 Flash via OpenRouter (~$5/mo)
-- **Monorepo:** npm workspaces
+- **Monorepo:** Bun workspaces
 - **Data:** Querido Diário API, PNCP, Compras.gov.br
 
 ## Architecture Principles

@@ -18,8 +18,10 @@ import { buildQuerystring, getPatternsByTier, ALL_PATTERNS } from './idea_patter
 const API_BASE = 'https://api.queridodiario.ok.org.br';
 const rateLimiter = new RateLimiter(60, 60_000); // 60 req/min
 
-// Default territory: Patos de Minas (MG) = 3148004
-const DEFAULT_TERRITORIES = ['3148004'];
+// Default territories: empty = national (all Brazil), configurable via EAGLE_EYE_TERRITORIES env
+const DEFAULT_TERRITORIES: string[] = process.env.EAGLE_EYE_TERRITORIES
+    ? process.env.EAGLE_EYE_TERRITORIES.split(',')
+    : []; // Empty = no filter = all of Brazil
 
 interface FetchOptions {
     territory_ids?: string[];

@@ -48,14 +48,14 @@ egos-lab/
 
 ```bash
 # Eagle Eye
-npm run eagle-eye:fetch      # Test API connection
-npm run eagle-eye:analyze    # Run AI analysis (needs OPENROUTER_API_KEY)
+bun eagle-eye:fetch      # Test API connection
+bun eagle-eye:analyze    # Run AI analysis (needs OPENROUTER_API_KEY)
 
 # Idea Scanner
-npm run scan:ideas           # Scan compiladochats for new ideas
+bun scan:ideas           # Scan compiladochats for new ideas
 
 # All apps
-npm install                  # Install all workspace deps
+bun install              # Install all workspace deps
 ```
 
 ## 🔗 Sibling Projects

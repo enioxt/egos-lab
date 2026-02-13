@@ -7,20 +7,7 @@
 
 ## 🔥 P0 — Critical
 
-### EAGLE-EYE-001: Complete Eagle Eye MVP
-- **Status:** 🟡 In Progress
-- **Agent:** Antigravity → Windsurf handoff
-- [x] Research Querido Diário API (OpenAPI v0.19.0)
-- [x] Research competitors (Plural Policy, Instacart, LegalOn, PNCP, HAPI MCP)
-- [x] Design 17 opportunity patterns (3 strategies)
-- [x] Create `fetch_gazettes.ts` with corrected API
-- [x] Create `idea_patterns.ts` with all patterns
-- [x] Create `analyze_gazette.ts` AI pipeline
-- [x] Verify API connection (tests pass)
-- [ ] Test with larger city (BH: 3106200) — Patos de Minas may not be indexed
-- [ ] Run full AI analysis with OPENROUTER_API_KEY
-- [ ] Create `.env` file with API keys
-- [ ] Push to GitHub
+
 
 ### GOVERNANCE-001: Cross-Agent Memory Sync
 - **Status:** 🟡 In Progress
@@ -83,3 +70,23 @@
 - [x] apps/eagle-eye scaffold
 - [x] 12 idea files migrated
 - [x] Initial commit (28 files, 11.4K insertions)
+
+### MIGRATE-001: Migrate to Bun
+- **Completed:** 2026-02-13
+- **Agent:** Antigravity
+- [x] Verify Bun version (>= 1.3.9)
+- [x] Clean npm artifacts (node_modules, package-lock.json)
+- [x] Install dependencies with Bun
+- [x] Update package.json scripts
+- [x] Verify workspace functionality
+
+### EAGLE-EYE-001: Complete Eagle Eye MVP
+- **Completed:** 2026-02-13
+- **Agent:** Antigravity
+- [x] Research Querido Diário API (OpenAPI v0.19.0)
+- [x] Design 17 opportunity patterns (3 strategies)
+- [x] Create core scripts (fetch, patterns, analyze)
+- [x] Verify API connection
+- [x] Implement robust fallback search (Global/Broad)
+- [x] Run full AI analysis with OPENROUTER_API_KEY
+- [x] Create `.env` file with API keys

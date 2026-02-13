@@ -127,15 +127,41 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         const searchResult = await fetchGazettes({
             querystring,
             size: 2, // Start small for testing
-            published_since: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            published_since: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         });
 
         console.log(`📋 Found ${searchResult.total_gazettes} matching gazettes`);
-        console.log(`   Analyzing first ${Math.min(2, searchResult.gazettes.length)}...\n`);
+
+        let gazettesToAnalyze = searchResult.gazettes;
+
+        // Fallback: If no keywords match, fetch *any* recent gazette to verify pipeline
+        if (searchResult.total_gazettes === 0) {
+            console.log('⚠️  No matches for keywords. Attempting broad search (last 30 days)...');
+            const broadResult = await fetchGazettes({
+                size: 1,
+                published_since: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            });
+
+            if (broadResult.total_gazettes > 0) {
+                console.log(`📋 Broad search found ${broadResult.total_gazettes} gazettes.`);
+                gazettesToAnalyze = broadResult.gazettes;
+            } else {
+                console.log('⚠️  No local gazettes found. Attempting GLOBAL search (any territory)...');
+                const globalResult = await fetchGazettes({
+                    size: 1,
+                    territory_ids: [], // Empty array = no filter = global search
+                    published_since: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                });
+                console.log(`📋 Global search found ${globalResult.total_gazettes} gazettes.`);
+                gazettesToAnalyze = globalResult.gazettes;
+            }
+        }
+
+        console.log(`   Analyzing first ${Math.min(2, gazettesToAnalyze.length)}...\n`);
 
         let totalCost = 0;
 
-        for (const gazette of searchResult.gazettes.slice(0, 2)) {
+        for (const gazette of gazettesToAnalyze.slice(0, 2)) {
             console.log(`\n${'═'.repeat(60)}`);
             const result = await analyzeGazette(gazette);
             totalCost += result.analysis_cost_usd;

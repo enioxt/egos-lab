@@ -9,10 +9,10 @@
 
 | Layer | Technology |
 |-------|------------|
-| Runtime | Node.js 18+ / tsx |
+| Runtime | Bun v1.3.9+ |
 | Language | TypeScript (strict) |
 | AI | Gemini 2.0 Flash via OpenRouter |
-| Monorepo | npm workspaces |
+| Monorepo | Bun workspaces |
 | Design | Google Stitch (external) |
 | Data | Querido Diário API, PNCP, Compras.gov.br |
 

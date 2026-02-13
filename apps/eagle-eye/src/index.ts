@@ -2,10 +2,10 @@
  * 🦅 Eagle Eye — Main Entry Point
  * 
  * Usage:
- *   npx tsx src/index.ts              # Full pipeline (fetch + analyze)
- *   npx tsx src/fetch_gazettes.ts     # Fetch only (API test)
- *   npx tsx src/idea_patterns.ts      # View patterns
- *   npx tsx src/analyze_gazette.ts    # Analyze with AI
+ *   bun apps/eagle-eye/src/index.ts              # Full pipeline (fetch + analyze)
+ *   bun apps/eagle-eye/src/fetch_gazettes.ts     # Fetch only (API test)
+ *   bun apps/eagle-eye/src/idea_patterns.ts      # View patterns
+ *   bun apps/eagle-eye/src/analyze_gazette.ts    # Analyze with AI
  */
 
 console.log(`
@@ -28,6 +28,6 @@ console.log(`   Tier 3 (Watch):  ${getPatternsByTier(3).length} — Monitoring`)
 console.log('');
 
 console.log('🔑 Available commands:');
-console.log('   npm run eagle-eye:fetch    — Test API connection');
-console.log('   npm run eagle-eye:analyze  — Run AI analysis (needs OPENROUTER_API_KEY)');
-console.log('   npm run eagle-eye          — This help screen');
+console.log('   bun run eagle-eye:fetch    — Test API connection');
+console.log('   bun run eagle-eye:analyze  — Run AI analysis (needs OPENROUTER_API_KEY)');
+console.log('   bun run eagle-eye          — This help screen');
