@@ -1,0 +1,27 @@
+{
+  "opportunity_id": "unknown",
+  "timestamp": "2026-02-13T13:49:45.795Z",
+  "executive_summary": "A Prefeitura de Petrolina (PE) está contratando uma empresa para publicar atos oficiais, avisos de licitação e outros comunicados legais no Diário Oficial da União, Diário Oficial do Estado de Pernambuco e em um jornal de grande circulação no estado. O valor global estimado é de R$602.452,14. A licitação (Pregão Eletrônico nº 003/2026) foi adiada para 04/03/2026.",
+  "viability_score": 30,
+  "mvp_roadmap": [],
+  "tech_stack_recommendation": [],
+  "estimated_budget": {
+    "traditional_dev_hours": 0,
+    "traditional_cost_brl": 0,
+    "ai_accelerated_dev_hours": 0,
+    "ai_accelerated_cost_brl": 0,
+    "potential_margin_brl": 0
+  },
+  "execution_capability": {
+    "can_we_execute": false,
+    "team_needed": [],
+    "partnership_recommendation": "Não aplicável"
+  },
+  "market_analysis": {
+    "competitors": [],
+    "monetization_strategy": "Não aplicável",
+    "risks": [
+      "Não aplicável"
+    ]
+  }
+}

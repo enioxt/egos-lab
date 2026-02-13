@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagle Eye — Inteligência de Mercado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        emerald: { 500: '#10b981' },
+                        amber: { 500: '#f59e0b' },
+                        rose: { 500: '#f43f5e' },
+                        sky: { 500: '#0ea5e9' },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans selection:bg-emerald-500/30">
+
+    <!-- Top Bar -->
+    <header
+        class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 h-16 flex items-center justify-between px-6">
+        <div class="flex items-center gap-3">
+            <i data-lucide="eye" class="text-emerald-500 w-6 h-6"></i>
+            <span
+                class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">Eagle
+                Eye</span>
+        </div>
+
+        <div class="flex-1 max-w-xl mx-8 relative">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+            <input type="text" placeholder="Buscar em diários oficiais..."
+                class="w-full bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-sm transition-all text-slate-200 placeholder-slate-500">
+        </div>
+
+        <div class="flex items-center gap-4">
+            <select
+                class="bg-slate-800 border border-slate-700 text-xs rounded-md py-1 px-2 focus:outline-none text-slate-400">
+                <option>Últimos 7 dias</option>
+                <option>Últimos 30 dias</option>
+            </select>
+
+            <button class="relative p-2 hover:bg-slate-800 rounded-full transition-colors">
+                <i data-lucide="bell" class="w-5 h-5 text-slate-400"></i>
+                <span
+                    class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-slate-900"></span>
+            </button>
+
+            <div
+                class="w-auto px-3 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30 text-emerald-500 text-xs font-bold">
+                ADMIN
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-16 z-40 px-6">
+        <div class="max-w-7xl mx-auto flex gap-6">
+            <a href="dashboard.html"
+                class="py-4 text-sm font-medium border-b-2 border-emerald-500 text-emerald-500">Visão Geral</a>
+            <a href="map.html"
+                class="py-4 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 transition-colors">Mapa
+                Nacional</a>
+            <a href="analytics.html"
+                class="py-4 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 transition-colors">Analytics</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="p-6 max-w-7xl mx-auto space-y-8">
+
+        <!-- KPI Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- KPI 1 -->
+            <div class="kpi-card group">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">Oportunidades</p>
+                        <h3 class="text-3xl font-bold font-mono text-emerald-400" id="kpi-opportunities">--</h3>
+                    </div>
+                    <div
+                        class="p-2 bg-emerald-500/10 rounded-lg text-emerald-500 group-hover:bg-emerald-500/20 transition-colors">
+                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-emerald-500/80 mt-2 font-medium flex items-center gap-1">
+                    <i data-lucide="arrow-up" class="w-3 h-3"></i> 12% esta semana
+                </p>
+            </div>
+
+            <!-- KPI 2 -->
+            <div class="kpi-card group">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">Urgência Crítica</p>
+                        <h3 class="text-3xl font-bold font-mono text-rose-500 flex items-center gap-2">
+                            <span id="kpi-critical">--</span>
+                            <span class="relative flex h-3 w-3">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                            </span>
+                        </h3>
+                    </div>
+                    <div
+                        class="p-2 bg-rose-500/10 rounded-lg text-rose-500 group-hover:bg-rose-500/20 transition-colors">
+                        <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-rose-500/80 mt-2 font-medium">Requerem ação imediata</p>
+            </div>
+
+            <!-- KPI 3 -->
+            <div class="kpi-card group">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">Cidades Monitoradas
+                        </p>
+                        <h3 class="text-3xl font-bold font-mono text-sky-500">5.569</h3>
+                    </div>
+                    <div class="p-2 bg-sky-500/10 rounded-lg text-sky-500 group-hover:bg-sky-500/20 transition-colors">
+                        <i data-lucide="map" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-sky-500/80 mt-2 font-medium">Cobertura Nacional (Brasil)</p>
+            </div>
+
+            <!-- KPI 4 -->
+
+        </div>
+
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Left Column: Opportunities Feed -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold flex items-center gap-2">
+                        <i data-lucide="list-filter" class="w-5 h-5 text-emerald-500"></i>
+                        Oportunidades Recentes
+                    </h2>
+                    <div class="flex flex-wrap gap-3 items-center">
+                        <!-- Filters -->
+                        <div class="flex bg-slate-800 rounded-lg p-1 border border-slate-700">
+                            <button onclick="setFilter('all')" id="filter-all"
+                                class="px-3 py-1.5 rounded-md text-xs font-medium bg-emerald-600 text-white transition-all shadow-sm">Todas</button>
+                            <button onclick="setFilter('software')" id="filter-software"
+                                class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-700 transition-all">Software
+                                (Nós)</button>
+                            <button onclick="setFilter('partner')" id="filter-partner"
+                                class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-700 transition-all">Parceiros</button>
+                        </div>
+
+                        <!-- Sort -->
+                        <div class="relative group">
+                            <select onchange="setSort(this.value)"
+                                class="appearance-none bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded-lg pl-3 pr-8 py-1.5 focus:outline-none focus:border-emerald-500 cursor-pointer hover:bg-slate-750 transition-colors">
+                                <option value="best">✨ Melhores Oportunidades</option>
+                                <option value="urgent">🔥 Mais Urgentes</option>
+                                <option value="recent">📅 Mais Recentes</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+                                <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feed Container -->
+                <div id="opportunities-feed" class="space-y-4">
+                    <!-- Cards will be injected here via JS -->
+                    <div
+                        class="text-center py-12 text-slate-500 bg-slate-800/20 rounded-xl border border-dashed border-slate-700">
+                        <div
+                            class="animate-spin inline-block w-8 h-8 border-4 border-current border-t-transparent text-emerald-500 rounded-full mb-4">
+                        </div>
+                        <p>Carregando dados de inteligência...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Analytics & Activity -->
+            <div class="space-y-6">
+
+                <!-- Chart Card -->
+                <div class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl p-5">
+                    <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
+                        <i data-lucide="pie-chart" class="w-4 h-4 text-sky-500"></i>
+                        Distribuição por Padrão
+                    </h3>
+                    <div class="space-y-3" id="stats-container">
+                        <!-- Stats injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Activity Feed -->
+                <div class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl p-5">
+                    <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
+                        <i data-lucide="activity" class="w-4 h-4 text-emerald-500"></i>
+                        Atividade do Sistema
+                    </h3>
+                    <div class="relative pl-4 border-l border-slate-700 space-y-6">
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-slate-900 border-2 border-emerald-500"></span>
+                            <p class="text-xs text-slate-400 mb-0.5">Agora mesmo</p>
+                            <p class="text-sm text-slate-200">Dashboard inicializado com sucesso.</p>
+                        </div>
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-slate-900 border-2 border-slate-600"></span>
+                            <p class="text-xs text-slate-400 mb-0.5">08:30</p>
+                            <p class="text-sm text-slate-200">Scan diário agendado para execução.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+  "opportunity_id": "unknown",
+  "timestamp": "2026-02-13T13:52:27.386Z",
+  "executive_summary": "O documento é uma edição do Diário Oficial Eletrônico do município de Botucatu. Contém diversos tipos de publicações, incluindo editais de notificação para limpeza de terrenos, termos de apostilamento de contratos (serviços de cozinha e limpeza predial), avisos de licitações (registro de preços para refletores de LED e mobiliário), intimações do PROCON, e atas de sessões legislativas com projetos de lei e requerimentos diversos. Não há uma única oportunidade de negócio clara, mas sim várias pequenas oportunidades de fornecimento de bens e serviços.",
+  "viability_score": 30,
+  "mvp_roadmap": [],
+  "tech_stack_recommendation": [],
+  "estimated_budget": {
+    "traditional_dev_hours": 0,
+    "traditional_cost_brl": 0,
+    "ai_accelerated_dev_hours": 0,
+    "ai_accelerated_cost_brl": 0,
+    "potential_margin_brl": 0
+  },
+  "execution_capability": {
+    "can_we_execute": false,
+    "team_needed": [],
+    "partnership_recommendation": "Não aplicável"
+  },
+  "market_analysis": {
+    "competitors": [],
+    "monetization_strategy": "Não aplicável",
+    "risks": [
+      "Dispersão de oportunidades, necessidade de análise individual de cada edital."
+    ]
+  }
+}

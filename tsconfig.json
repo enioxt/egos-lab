@@ -9,9 +9,12 @@
         "outDir": "dist",
         "rootDir": ".",
         "resolveJsonModule": true,
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "paths": {
+            "@egos-lab/shared": [
+                "./packages/shared/src/index.ts"
+            ]
+        }
     },
     "exclude": [
         "node_modules",

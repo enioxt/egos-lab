@@ -21,7 +21,7 @@ import { join } from 'node:path';
 // Configuration
 // ═══════════════════════════════════════════════════════════
 
-const RESULTS_DIR = join(import.meta.dir, '../../../../docs/eagle-eye-results');
+const RESULTS_DIR = join(import.meta.dir, '../../../docs/eagle-eye-results');
 const MAX_PAGES = 5;          // Max pages to scan per search
 const PAGE_SIZE = 10;         // Results per page
 const MAX_ANALYSES = 20;      // Max AI analyses per run (cost control)
@@ -138,8 +138,9 @@ async function runBatchScan() {
                     } else {
                         console.log(`   ✅ ${result.matches.length} opportunities:`);
                         for (const match of result.matches) {
-                            const emoji = { critical: '🔴', high: '🟠', medium: '🟡', low: '🟢' }[match.urgency] ?? '⚪';
-                            console.log(`   ${emoji} [${match.confidence}%] ${match.pattern_name}`);
+                            const emoji: Record<string, string> = { critical: '🔴', high: '🟠', medium: '🟡', low: '🟢' };
+                            const icon = emoji[match.urgency] ?? '⚪';
+                            console.log(`   ${icon} [${match.confidence}%] ${match.pattern_name}`);
                         }
                     }
                 } catch (err: any) {

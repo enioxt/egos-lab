@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagle Eye — Mapa Nacional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: { 800: '#1e293b', 900: '#0f172a' },
+                        emerald: { 500: '#10b981' },
+                        amber: { 500: '#f59e0b' },
+                        rose: { 500: '#f43f5e' },
+                        sky: { 500: '#0ea5e9' },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans selection:bg-emerald-500/30">
+
+    <!-- Top Bar -->
+    <header
+        class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 h-16 flex items-center justify-between px-6">
+        <div class="flex items-center gap-3">
+            <i data-lucide="eye" class="text-emerald-500 w-6 h-6"></i>
+            <span
+                class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">Eagle
+                Eye</span>
+        </div>
+
+        <div class="flex-1 max-w-xl mx-8 relative">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+            <input type="text" placeholder="Buscar território..."
+                class="w-full bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-sm transition-all text-slate-200 placeholder-slate-500">
+        </div>
+
+        <div class="flex items-center gap-4">
+            <div
+                class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30 text-emerald-500 text-xs font-bold">
+                EN
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-16 z-40 px-6">
+        <div class="max-w-7xl mx-auto flex gap-6">
+            <a href="dashboard.html"
+                class="py-4 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 transition-colors">Visão
+                Geral</a>
+            <a href="map.html" class="py-4 text-sm font-medium border-b-2 border-emerald-500 text-emerald-500">Mapa
+                Nacional</a>
+            <a href="analytics.html"
+                class="py-4 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 transition-colors">Analytics</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="p-6 max-w-7xl mx-auto h-[calc(100vh-140px)] flex gap-6">
+
+        <!-- Map Area -->
+        <div class="flex-1 bg-slate-800/20 rounded-xl border border-slate-700 relative overflow-hidden group">
+            <!-- Map Container -->
+            <div id="eagle-map" class="w-full h-full z-0"></div>
+
+            <!-- Stats Overlay -->
+            <div
+                class="absolute bottom-8 left-8 bg-slate-900/90 backdrop-blur border border-slate-700 p-4 rounded-xl z-[400] shadow-2xl">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 bg-emerald-500/10 rounded-lg">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-emerald-400"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">Cobertura</div>
+                        <div class="text-lg font-bold text-slate-100">Nacional</div>
+                    </div>
+                </div>
+                <div class="h-px bg-slate-700/50 my-2"></div>
+                <div class="flex items-center gap-4 text-sm">
+                    <div>
+                        <span class="block text-slate-400 text-xs">Municípios</span>
+                        <span class="block text-slate-200 font-mono font-bold">5.570</span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 text-xs">Fontes Ativas</span>
+                        <span class="block text-emerald-400 font-mono font-bold">Checking...</span>
+                    </div>
+                </div>
+            </div>
+
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    // Initialize Map (Center of Brazil)
+                    const map = L.map('eagle-map', {
+                        zoomControl: false,
+                        attributionControl: false
+                    }).setView([-14.2350, -51.9253], 4);
+
+                    L.control.zoom({ position: 'topright' }).addTo(map);
+
+                    // Dark Mode Tiles (CartoDB Dark Matter)
+                    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                        subdomains: 'abcd',
+                        maxZoom: 20
+                    }).addTo(map);
+
+                    // Mock Data Markers
+                    const opportunities = [
+                        { lat: -23.5505, lng: -46.6333, title: "São Paulo", count: 15 },
+                        { lat: -22.9068, lng: -43.1729, title: "Rio de Janeiro", count: 8 },
+                        { lat: -15.7801, lng: -47.9292, title: "Brasília", count: 12 },
+                        { lat: -12.9777, lng: -38.5016, title: "Salvador", count: 5 },
+                        { lat: -3.7172, lng: -38.5434, title: "Fortaleza", count: 7 },
+                        { lat: -19.9167, lng: -43.9345, title: "Belo Horizonte", count: 9 },
+                        { lat: -9.324, lng: -40.521, title: "Petrolina", count: 1 }
+                    ];
+
+                    opportunities.forEach(opp => {
+                        const circle = L.circleMarker([opp.lat, opp.lng], {
+                            radius: 8 + (opp.count / 2),
+                            fillColor: "#10b981", // Emerald-500
+                            color: "#059669",
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.6
+                        }).addTo(map);
+
+                        circle.bindPopup(`
+                            <div class="font-sans text-slate-800">
+                                <strong class="block text-sm mb-1 text-emerald-700">${opp.title}</strong>
+                                <span class="text-xs text-slate-600">${opp.count} Oportunidades</span>
+                            </div>
+                        `);
+                    });
+                });
+            </script>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="w-80 space-y-4">
+            <div class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl p-5 h-full">
+                <h3 class="text-sm font-semibold text-slate-300 mb-6 border-b border-slate-700 pb-2">Destalhes — Minas
+                    Gerais</h3>
+
+                <div class="space-y-4">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Top Municípios</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between group cursor-pointer">
+                            <span class="text-sm text-slate-300 group-hover:text-emerald-400 transition-colors">1. Belo
+                                Horizonte</span>
+                            <span class="text-xs font-mono bg-slate-900 px-2 py-0.5 rounded text-emerald-500">89</span>
+                        </div>
+                        <div class="flex items-center justify-between group cursor-pointer">
+                            <span class="text-sm text-slate-300 group-hover:text-amber-400 transition-colors">2.
+                                Uberlândia</span>
+                            <span class="text-xs font-mono bg-slate-900 px-2 py-0.5 rounded text-amber-500">45</span>
+                        </div>
+                        <div class="flex items-center justify-between group cursor-pointer">
+                            <span class="text-sm text-slate-300 group-hover:text-amber-400 transition-colors">3.
+                                Contagem</span>
+                            <span class="text-xs font-mono bg-slate-900 px-2 py-0.5 rounded text-amber-500">34</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 mt-8">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Padrões Dominantes</h4>
+                    <div class="space-y-2">
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs">
+                                <span>Licitações</span>
+                                <span class="text-slate-400">156</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 w-[70%]"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs">
+                                <span>Fiscal</span>
+                                <span class="text-slate-400">98</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-amber-500 w-[45%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

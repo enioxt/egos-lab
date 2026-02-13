@@ -1,0 +1,58 @@
+name: Eagle Eye - Daily Legislative Scan
+
+on:
+  schedule:
+    # Run daily at 08:00 UTC (05:00 Brasilia)
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      state:
+        description: 'State to scan (e.g. SP, PR)'
+        required: false
+        default: 'all'
+
+jobs:
+  scan:
+    name: Scan Legislative Opportunities
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: |
+          cd apps/eagle-eye
+          bun install
+
+      - name: Run Eagle Eye Scan
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          OPENROUTER_MODEL: "google/gemini-2.0-flash-exp:free"
+        run: |
+          cd apps/eagle-eye
+          # Run the scan script
+          bun src/scripts/scan_brazil.ts
+
+      - name: Commit Report
+        run: |
+          git config --global user.name "Eagle Eye Bot"
+          git config --global user.email "bot@egos.lab"
+          
+          # Check if there are changes
+          if [[ -n $(git status -s) ]]; then
+            git add docs/opportunities/
+            git commit -m "chore(eagle-eye): update legislative opportunities report [$(date +'%Y-%m-%d')]"
+            git push
+          else
+            echo "No changes found"
+          fi

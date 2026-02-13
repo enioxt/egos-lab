@@ -9,4 +9,4 @@
 
 export { analyzeWithAI, type AIAnalysisResult } from './ai-client';
 export { RateLimiter } from './rate-limiter';
-export type { OpportunityPattern, OpportunityMatch, GazetteItem } from './types';
+export type { OpportunityPattern, OpportunityMatch, GazetteItem, AnalysisResult } from './types';

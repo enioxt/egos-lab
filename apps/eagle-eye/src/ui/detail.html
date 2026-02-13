@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagle Eye — Detalhe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: { 800: '#1e293b', 900: '#0f172a' },
+                        emerald: { 500: '#10b981' },
+                        amber: { 500: '#f59e0b' },
+                        rose: { 500: '#f43f5e' },
+                        sky: { 500: '#0ea5e9' },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans selection:bg-emerald-500/30">
+
+    <!-- Top Bar -->
+    <header
+        class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 h-16 flex items-center justify-between px-6">
+        <div class="flex items-center gap-3">
+            <i data-lucide="eye" class="text-emerald-500 w-6 h-6"></i>
+            <span
+                class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">Eagle
+                Eye</span>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="flex-1 flex items-center gap-2 text-sm text-slate-500 ml-8">
+            <a href="dashboard.html" class="hover:text-emerald-400 transition-colors">Eagle Eye</a>
+            <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            <a href="dashboard.html" class="hover:text-emerald-400 transition-colors">Oportunidades</a>
+            <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            <span class="text-slate-200" id="crumb-id">Detalhe</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <a href="dashboard.html" class="text-slate-400 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+        <!-- Left Column: Details -->
+        <div class="lg:col-span-3 space-y-6">
+
+            <!-- Header Card -->
+            <div
+                class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
+
+                <div class="flex justify-between items-start mb-4">
+                    <h1 class="text-xl font-bold text-slate-100 leading-tight pr-4" id="detail-title">
+                        Carregando...
+                    </h1>
+                    <span class="badge-critical text-xs uppercase font-bold px-3 py-1 rounded tracking-wide shrink-0">
+                        Crítica
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-4 text-sm text-slate-400 mb-6">
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                        <span id="detail-territory">--</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        <span id="detail-date">--</span>
+                    </span>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex justify-between text-xs text-slate-500">
+                        <span>Confiança da IA</span>
+                        <span class="text-emerald-400 font-bold" id="detail-confidence">--%</span>
+                    </div>
+                    <div class="w-full bg-slate-700/30 rounded-full h-2">
+                        <div class="bg-emerald-500 h-2 rounded-full" id="detail-progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Analysis & Reasoning -->
+            <div class="glass-panel p-6 rounded-2xl mb-6 relative overflow-hidden group">
+                <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-700 group-hover:bg-emerald-500/10">
+                </div>
+
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i data-lucide="brain-circuit" class="w-5 h-5 text-emerald-400"></i>
+                    Análise da Eagle Eye
+                </h3>
+
+                <div class="prose prose-invert max-w-none">
+                    <p id="detail-reasoning" class="text-slate-300 leading-relaxed text-lg">
+                        Carregando análise...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Viability Analysis (Venture Capitalist Agent) -->
+            <div class="glass-panel p-6 rounded-2xl mb-6 relative overflow-hidden hidden" id="viability-section">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-slate-100 flex items-center gap-2">
+                        <i data-lucide="briefcase" class="w-5 h-5 text-amber-400"></i>
+                        Análise de Viabilidade (VC Agent)
+                    </h3>
+                    <div id="viability-score-badge"
+                        class="hidden px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-400 border border-slate-700">
+                        Score: --
+                    </div>
+                </div>
+
+                <!-- Empty State / Call to Action -->
+                <div id="viability-cta" class="text-center py-8">
+                    <div
+                        class="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-700/50">
+                        <i data-lucide="rocket" class="w-8 h-8 text-emerald-400 opacity-50"></i>
+                    </div>
+                    <h4 class="text-slate-200 font-medium mb-2">Quer um Plano de Negócios para esta oportunidade?</h4>
+                    <p class="text-slate-400 text-sm max-w-md mx-auto mb-6">
+                        Nossa IA "Venture Capitalist" irá analisar concorrentes, estimar custos de desenvolvimento e
+                        criar um roadmap de MVP.
+                    </p>
+                    <button id="btn-analyze-viability"
+                        class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/20 flex items-center gap-2 mx-auto">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        Gerar Plano de Viabilidade (IA)
+                    </button>
+                </div>
+
+                <!-- Loading State -->
+                <div id="viability-loading" class="hidden text-center py-8">
+                    <div
+                        class="animate-spin w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full mx-auto mb-4">
+                    </div>
+                    <p class="text-slate-300 animate-pulse">Analisando Viabilidade Técnica...</p>
+                    <p class="text-slate-500 text-xs mt-2">Gerando Roadmap & Estimativas...</p>
+                </div>
+
+
+                <!-- Result Content -->
+                <div id="viability-result" class="hidden space-y-6">
+                    <!-- Score & Exec Summary -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div
+                            class="md:col-span-1 bg-slate-800/30 rounded-xl p-4 border border-slate-700/50 flex flex-col items-center justify-center text-center">
+                            <span class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">Viability
+                                Score</span>
+                            <div class="text-4xl font-black text-white mb-1" id="viability-score-value">--</div>
+                            <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div id="viability-score-bar"
+                                    class="bg-emerald-500 h-full w-0 transition-all duration-1000"></div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2 bg-slate-800/30 rounded-xl p-4 border border-slate-700/50">
+                            <span
+                                class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-2 block">Resumo
+                                Executivo</span>
+                            <p id="viability-summary" class="text-slate-300 text-sm leading-relaxed">--</p>
+                        </div>
+                    </div>
+
+                    <!-- Cost & MVP -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4
+                                class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <i data-lucide="layers" class="w-3 h-3"></i> Roadmap MVP
+                            </h4>
+                            <ul id="viability-roadmap" class="space-y-2 mb-6">
+                                <!-- LIs injected here -->
+                            </ul>
+
+                            <h4
+                                class="text-indigo-400 text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <i data-lucide="cpu" class="w-3 h-3"></i> Capacidade de Execução
+                            </h4>
+                            <div id="execution-panel"
+                                class="bg-indigo-500/10 border border-indigo-500/30 rounded-lg p-3">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <i id="execution-icon" data-lucide="check-circle"
+                                        class="w-4 h-4 text-indigo-400"></i>
+                                    <span id="execution-status" class="font-bold text-indigo-200 text-sm">--</span>
+                                </div>
+                                <p id="execution-desc" class="text-xs text-indigo-300/80">--</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4
+                                class="text-amber-400 text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <i data-lucide="coins" class="w-3 h-3"></i> Valuation & Custo (AI-Powered)
+                            </h4>
+                            <div class="bg-slate-900/50 rounded-lg p-4 border border-slate-700 space-y-3">
+
+                                <!-- Traditional -->
+                                <div class="flex justify-between items-center opacity-70">
+                                    <span class="text-slate-400 text-xs">Custo Tradicional</span>
+                                    <span
+                                        class="text-slate-300 font-mono text-sm line-through decoration-rose-500/50 decoration-2"
+                                        id="cost-traditional">--</span>
+                                </div>
+
+                                <!-- AI Speed -->
+                                <div class="flex justify-between items-center">
+                                    <span class="text-emerald-400 text-sm font-semibold flex items-center gap-1">
+                                        <i data-lucide="zap" class="w-3 h-3"></i> Custo Eagle Eye (IA)
+                                    </span>
+                                    <span class="text-emerald-400 font-mono font-bold text-lg" id="cost-ai">--</span>
+                                </div>
+
+                                <div class="h-px bg-slate-700/50 my-2"></div>
+
+                                <!-- Margin -->
+                                <div
+                                    class="flex justify-between items-center bg-emerald-500/10 p-2 rounded border border-emerald-500/20">
+                                    <span class="text-emerald-200 text-xs uppercase font-bold">Economia Gerada</span>
+                                    <span class="text-emerald-300 font-mono font-bold" id="cost-margin">--</span>
+                                </div>
+
+                                <p class="text-[10px] text-slate-500 mt-2 text-right">
+                                    *Economia estimada usando Stack Interna.
+                                </p>
+                            </div>
+
+                            <h4
+                                class="text-rose-400 text-xs font-bold uppercase tracking-widest mt-6 mb-3 flex items-center gap-2">
+                                <i data-lucide="swords" class="w-3 h-3"></i> Riscos Principais
+                            </h4>
+                            <ul id="viability-risks" class="space-y-1">
+                                <!-- LIs injected here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gazette Snippet -->
+            <div class="glass-panel p-6 rounded-2xl relative overflow-hidden">
+                <h3 class="font-semibold text-slate-300 flex items-center gap-2 mb-4">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    Trecho do Diário Oficial
+                </h3>
+                <div class="bg-slate-900/50 rounded-lg p-4 font-mono text-sm text-slate-400 overflow-y-auto max-h-96 leading-relaxed border border-slate-800"
+                    id="detail-snippet">
+                    --
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Meta -->
+        <div class="lg:col-span-2 space-y-6">
+
+            <!-- Metadata -->
+            <div class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6">
+                <h3 class="font-semibold text-slate-300 flex items-center gap-2 mb-4">
+                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                    Informações
+                </h3>
+                <div class="space-y-4 text-sm">
+                    <div class="flex justify-between border-b border-slate-700/50 pb-2">
+                        <span class="text-slate-500">Município</span>
+                        <span class="text-slate-300" id="meta-territory">--</span>
+                    </div>
+                    <div class="flex justify-between border-b border-slate-700/50 pb-2">
+                        <span class="text-slate-500">Padrão</span>
+                        <span class="text-slate-300" id="meta-pattern">--</span>
+                    </div>
+                    <div class="flex justify-between border-b border-slate-700/50 pb-2">
+                        <span class="text-slate-500">Prazo</span>
+                        <span class="text-amber-500 font-bold" id="meta-deadline">--</span>
+                    </div>
+                    <div class="flex justify-between pt-2">
+                        <span class="text-slate-500">Status</span>
+                        <span class="text-emerald-400 font-bold">Monitorando</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6">
+                <h3 class="font-semibold text-slate-300 mb-4">Ações</h3>
+                <div class="space-y-3">
+                    <button
+                        class="w-full py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Exportar PDF
+                    </button>
+                    <button
+                        class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="share-2" class="w-4 h-4"></i> Compartilhar
+                    </button>
+                    <button
+                        class="w-full py-2 border border-slate-600 hover:bg-slate-800 text-slate-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Link Original
+                    </button>
+                </div>
+            </div>
+
+            <!-- Countdown -->
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 text-center animate-pulse">
+                <p class="text-xs text-amber-500 uppercase font-bold tracking-wider mb-2">Prazo Final</p>
+                <div class="text-3xl font-mono font-bold text-amber-500 mb-1" id="countdown-timer">--</div>
+                <p class="text-xs text-amber-500/70">até o encerramento</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

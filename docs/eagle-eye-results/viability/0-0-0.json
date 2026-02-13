@@ -1,0 +1,45 @@
+{
+  "opportunity_id": "unknown",
+  "timestamp": "2026-02-13T13:55:15.591Z",
+  "executive_summary": "A prefeitura de Taiobeiras notifica os proprietários de terrenos urbanos para que realizem a limpeza e conservação dos mesmos, incluindo a roçada, dentro de 30 dias, sob pena de multa e cobrança pelos serviços realizados pela prefeitura. O edital também detalha as responsabilidades dos proprietários em relação à limpeza de passeios e sarjetas, além de proibições relacionadas ao descarte de lixo e manutenção de vegetação alta ou água estagnada em terrenos.",
+  "viability_score": 30,
+  "mvp_roadmap": [
+    "Módulo de geolocalização para identificar terrenos.",
+    "Sistema de notificação automática para proprietários.",
+    "Painel de controle para fiscalização e registro de multas."
+  ],
+  "tech_stack_recommendation": [
+    "Node.js",
+    "React",
+    "PostGIS (Postgres)",
+    "MapLibre GL JS"
+  ],
+  "estimated_budget": {
+    "traditional_dev_hours": 600,
+    "traditional_cost_brl": 90000,
+    "ai_accelerated_dev_hours": 120,
+    "ai_accelerated_cost_brl": 18000,
+    "potential_margin_brl": 72000
+  },
+  "execution_capability": {
+    "can_we_execute": "Parcialmente (Precisa de parceiro)",
+    "team_needed": [
+      "Fullstack Dev",
+      "AI Engineer",
+      "Especialista em GIS (Geographic Information System)"
+    ],
+    "partnership_recommendation": "Parceria com empresa de geolocalização/GIS é recomendada."
+  },
+  "market_analysis": {
+    "competitors": [
+      "Empresas de software de gestão urbana",
+      "Empresas de geolocalização"
+    ],
+    "monetization_strategy": "SaaS para prefeituras, com módulos adicionais para gestão de multas e fiscalização.",
+    "risks": [
+      "Dificuldade em obter dados precisos de zoneamento.",
+      "Resistência dos proprietários em aderir ao sistema.",
+      "Complexidade da legislação municipal."
+    ]
+  }
+}
