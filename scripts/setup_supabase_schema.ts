@@ -1,10 +1,13 @@
-
 import fs from 'fs';
 import path from 'path';
 
-const PROJECT_REF = 'lhscgsqhiooyatkebose';
-// This token needs to be available. We'll use the one from mcp_config.json
-const ACCESS_TOKEN = 'sbp_d827250c882cf4b8be7f86fd9812bfe71c1d60bf';
+const PROJECT_REF = process.env.SUPABASE_PROJECT_ID || 'lhscgsqhiooyatkebose';
+const ACCESS_TOKEN = process.env.SUPABASE_ACCESS_TOKEN;
+
+if (!ACCESS_TOKEN) {
+    console.error('❌ Missing SUPABASE_ACCESS_TOKEN environment variable');
+    process.exit(1);
+}
 
 const SQL_FILE_PATH = path.join(process.cwd(), 'docs/database/eagle_eye_schema.sql');
 

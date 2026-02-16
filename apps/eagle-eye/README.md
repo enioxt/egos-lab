@@ -1,62 +1,57 @@
-# 🦅 Eagle Eye
+# 🦅 Eagle Eye: Open Source Intelligence (OSINT)
 
-**Brazilian Gazette Monitor + AI Opportunity Detector**
+> **"Democratizando o acesso a dados públicos e inteligência local."**
 
-Monitor official gazettes (DOU, DOE, DOM) using AI to identify business opportunities from legislative changes.
+O **Eagle Eye** é um motor de inteligência modular projetado para monitorar, filtrar e analisar dados de fontes abertas (Diários Oficiais, Notícias Locais, Redes Sociais).
 
-## Quick Start
+## 🚀 Módulos Ativos
+
+### 1. 📜 Gazette Monitor (Diários Oficiais)
+Integração nativa com a API do **Querido Diário** (Open Knowledge Brasil).
+- **O que faz:** Monitora novas publicações em busca de palavras-chave (Licitações, Leis, Nomeações).
+- **Status:** Produção (Brasil todo).
+- **Código:** [`src/fetch_gazettes.ts`](./src/fetch_gazettes.ts)
+
+### 2. 🏙️ Local Intelligence (Patos de Minas)
+Um módulo de exemplo focado em hiper-localidade.
+- **O que faz:** Monitora portais de notícias locais (Patos Hoje, Patos Já) e detecta influenciadores/eventos.
+- **Custo:** $0.00 (Regex Scrapers).
+- **Código:** [`src/modules/tourism/`](./src/modules/tourism/)
+
+## 🤝 Como Colaborar
+
+O Eagle Eye é **Open Source** e precisamos da sua ajuda para expandir:
+
+1.  **Novos Scrapers:** Crie um scraper para o portal de notícias da sua cidade.
+2.  **Novos Padrões:** Melhore os Regex do `GenericPatternMatcher`.
+3.  **Integrações:** Conecte com novas APIs de dados públicos.
+
+### 🛠️ Quick Start
 
 ```bash
-# Install dependencies
-cd ../../ && npm install
+# Instalar dependências
+bun install
 
-# Test API connection (no API key needed)
-npm run eagle-eye:fetch
+# Testar o monitor de Diários Oficiais (Busca Nacional)
+bun run eagle-eye:fetch
 
-# Run AI analysis (needs OpenRouter key)
-export OPENROUTER_API_KEY=your_key_here
-npm run eagle-eye:analyze
+# Testar o módulo local (Patos de Minas)
+bun run apps/eagle-eye/src/test-intelligence.ts
 ```
 
-## Architecture
+## 💼 Parcerias & Consultoria
 
-```
-Data Sources → Ingestion → AI Analysis → Scored Opportunities
-     │              │            │              │
-Querido Diário   fetch_    analyze_        JSON output
-  PNCP API    gazettes.ts  gazette.ts    (17 patterns)
-```
+Este projeto é mantido pelo **Egos Lab**.
+Se você precisa de uma versão customizada do Eagle Eye para sua empresa (Monitoramento de Marca, Licitações Específicas, Inteligência de Mercado), entre em contato.
 
-## 17 Opportunity Patterns
+## 💼 Connect with the Author
 
-| Strategy | Count | How |
-|---|---|---|
-| A: Keyword Search | 12 | `/gazettes?querystring=` |
-| B: Themed Search | 2 | `/gazettes/by_theme/{theme}` |
-| C: AI Semantic | 3 | Post-fetch Gemini analysis |
+**Enio Rocha**
+*Artificial Intelligence Architect @ Egos Lab | Founder @ [Carteira Livre](https://www.carteiralivre.com)*
 
-### Tier 1 (High Relevance)
-1. **PROC-001** — Public Procurement (licitações)
-2. **ZONE-001** — Real Estate & Zoning
-3. **CAREER-001** — Public Security Careers
-4. **FISCAL-001** — Fiscal Oversight
-5. **LEGAL-001** — Legal Compliance / LGPD
+- 🔗 [LinkedIn](https://www.linkedin.com/in/eniorochaxt)
+- 🐦 [X (Twitter)](https://x.com/anoineim)
+- 💬 [WhatsApp](https://wa.me/5534992374363)
 
-### Tier 2 (Medium Relevance)
-6-10: Electronic Invoicing, Press, Innovation, Cybersecurity, Tax Changes
-
-### Tier 3 (Monitoring)
-11-12: Public Health, Education
-
-### AI Semantic (Strategy C)
-15-17: Innovation Programs, Local Commerce, Digital Government
-
-## API Reference
-
-- **Querido Diário:** `https://api.queridodiario.ok.org.br`
-- **PNCP:** `https://pncp.gov.br/api/consulta` (Phase 2)
-- **Compras.gov.br:** `https://compras.dados.gov.br` (Phase 2)
-
-## Cost
-
-~$3-5/month for 300 gazette analyses via Gemini 2.0 Flash.
+> **Egos Lab** is the open-source arm of my research into Agentic Systems.
+> Need a custom AI solution? Let's talk.

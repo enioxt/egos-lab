@@ -13,6 +13,7 @@ export interface CityProfile {
         food: TourismAsset[];
         culture: TourismAsset[];
         events: EventAsset[];
+        crowdsourced: CrowdsourcedAsset[];
     };
     infra: {
         hotels: {
@@ -63,6 +64,21 @@ export interface EventAsset {
     capacity: string;
 }
 
+export interface CrowdsourcedAsset extends TourismAsset {
+    submitted_by: string; // 'anonymous' or user_id
+    verification_count: number;
+    social_signals: SocialSignal[];
+    is_verified: boolean;
+    timestamp: string;
+}
+
+export interface SocialSignal {
+    platform: 'instagram' | 'twitter' | 'reddit' | 'news' | 'facebook';
+    sentiment: 'positive' | 'neutral' | 'negative';
+    url: string;
+    description: string;
+}
+
 export interface Opportunity {
     title: string;
     why: string;
@@ -85,4 +101,15 @@ export interface GoogleMapsReadinessChecklist {
     reviewLinkReady: boolean;
 }
 
-export type TourismAgentMode = 'VISITOR_MODE' | 'CURATOR_MODE' | 'BUSINESS_MODE';
+
+export interface TourismNews {
+    id: string;
+    title: string;
+    summary: string;
+    url: string;
+    source: string;
+    date: string;
+    author?: string;
+    sentiment?: 'Positive' | 'Negative' | 'Neutral';
+}
+

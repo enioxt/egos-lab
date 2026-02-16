@@ -6,7 +6,7 @@ import 'dotenv/config';
 
 const { Client } = pg;
 
-const PROJECT_REF = 'lhscgsqhiooyatkebose';
+const PROJECT_REF = process.env.SUPABASE_PROJECT_ID || 'your-project-ref';
 const DB_PASSWORD = process.env.SUPABASE_DB_PASSWORD;
 
 if (!DB_PASSWORD) {

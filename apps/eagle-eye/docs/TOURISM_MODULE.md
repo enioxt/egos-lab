@@ -29,7 +29,25 @@ Provides *order-of-magnitude* cost estimates for marketing actions based on real
 - **LED Panel:** ~R$ 21k - 48k / month
 - **Tourist Signage:** R$ 50k+ (projects)
 
-### 4. System Prompt (`system-prompt.ts`)
+### 4. Citizen Intelligence (Phase 11)
+New modules to capture local knowledge and web signals.
+
+#### Citizen Reporter (`citizen-logger.ts`)
+A conversational agent that interviews locals using natural questions ("Onde você leva visita?").
+- **Output:** `CrowdsourcedAsset` with verification count.
+- **Validation:** Asks for confirmation from other users.
+
+#### Social Listener (`social-listener.ts`)
+Detects sentiment and trends from web searches (mocked for MVP).
+- **Sources:** Instagram, Reddit, News.
+- **Sentiment:** Positive/Negative analysis of mentions.
+
+#### Mobile Optimization (Phase 14)
+- **Quick Capture:** "Camera-first" input. Users point at a location, AI suggests the name/tag, user confirms.
+- **Viral Loop:** Automatically generating "Story-ready" images when users level up or find rare assets.
+- **Sharing:** +30 pts for sharing achievements on social media.
+
+### 5. System Prompt (`system-prompt.ts`)
 A specialized persona (`EagleEye Tourism Agent`) with 3 modes:
 - `VISITOR_MODE`: Concierge.
 - `CURATOR_MODE`: Strategic planning and profiling.

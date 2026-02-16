@@ -18,6 +18,7 @@ parent: "carteira-livre"
 | `AGENTS.md` | Config do projeto, stack, commands | 200 |
 | `TASKS.md` | Todas as tasks (SSOT) | 300 |
 | `.windsurfrules` | Regras do agente (este arquivo) | 300 |
+| `docs/STANDARDS.md` | **The Golden Rules (Identity/Tech/Arch)** | 200 |
 | `.guarani/PREFERENCES.md` | Padrões de código | 150 |
 | `.guarani/IDENTITY.md` | Identidade do agente | 100 |
 

@@ -23,3 +23,8 @@ Feature was disabled in carteira-livre to focus on core business (lessons, payme
 - `pages/` — Frontend pages (philein station UI)
 - `components/` — RadioManager component
 - `services/` — Spotify integration service
+
+---
+## 🦅 Governance
+This project follows the [Egos Standards](../../docs/STANDARDS.md).
+See [Intelink](../../projects/00-CORE-intelink) for the central architecture.

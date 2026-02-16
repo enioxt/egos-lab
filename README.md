@@ -1,49 +1,51 @@
-# 🧪 egos-lab
+# 🧪 Egos Lab: The Agentic Lifecycle System
 
-**MVP Lab — Monorepo for business idea prototyping and validation.**
+> **"A estrutura de diretórios Linux para o caos dos Agentes Autônomos."**
 
-Clean workspace for building and testing ideas independently, with shared AI infrastructure.
+Este repositório não é apenas um punhado de scripts. É um **Sistema Operacional de Desenvolvimento** para quem constrói software na era da IA.
 
-## Structure
+## 🚀 Como usar este repositório (Modo AI-First)
 
-```
-egos-lab/
-├── apps/
-│   └── eagle-eye/          🦅 Brazilian Gazette Monitor + AI Opportunity Detector
-├── packages/
-│   ├── shared/             🔧 AI client (Gemini/OpenRouter), rate limiter, types
-│   └── config/             ⚙️ Shared configuration
-├── docs/plans/             📋 13 idea files (source material)
-└── scripts/shared/         🛠️ Cross-cutting utilities
-```
+Não perca tempo lendo arquivos manualmente. Se você usa **Cursor, Windsurf, GitHub Copilot ou Claude Code**, copie e cole o prompt abaixo para "instalar" o contexto do projeto na sua IA:
 
-## Quick Start
+### 🤖 The "One-Click" Context Prompt
 
-```bash
-```bash
-bun install
-bun eagle-eye:fetch      # Test Querido Diário API
-bun eagle-eye:analyze    # Run AI analysis (needs OPENROUTER_API_KEY)
+```markdown
+@role: Senior AI Architect
+@context: You are analyzing "Egos Lab", an open-source Agentic Lifecycle System.
+@structure:
+- apps/: Production-ready code (e.g., eagle-eye for local intelligence).
+- projects/: Blueprints and architectural plans (e.g., 00-CORE-intelink).
+- scripts/: Utility belts for security (security_scan.ts) and ideation (scan_ideas.ts).
+
+@task: Analyze the file `projects/07-B-agent-centric/PLAN.md` to understand the philosophy.
+Then, look at `apps/eagle-eye/src/modules/tourism/web-scraper.ts` to see the code in action.
+Finally, propose a new "Module" for Eagle Eye that fits this architecture.
 ```
 
-## Apps
+## 📂 O que tem aqui?
 
-| App | Status | Description |
-|---|---|---|
-| **eagle-eye** | 🟢 Active | Gazette monitor with 17 opportunity patterns |
-| compras-radar | 🔵 Planned | Procurement alert system (Eagle Eye addon) |
-| cloud-legal | 🔵 Planned | AI contract review in PT-BR |
+### 🦅 [Eagle Eye (Local Intelligence)](./apps/eagle-eye)
+Um sistema de vigilância de dados locais (Patos de Minas) que custa **$0.00**.
+- **Stack:** TypeScript, Bun, Regex (No APIs).
+- **Features:** Scraper de Notícias, Detector de Influenciadores, Mapeamento de Eventos.
 
-## Tech Stack
+### 🧠 [Intelink (The Orchestrator)](./projects/00-CORE-intelink)
+O blueprint da nossa orquestração de agentes. (Versão Sanitizada Open Source).
+- **Conceito:** Agentes não são apps. São serviços que conversam via MCP.
 
-- **Runtime:** Bun v1.3.9+
-- **AI:** Gemini 2.0 Flash via OpenRouter (~$5/mo)
-- **Monorepo:** Bun workspaces
-- **Data:** Querido Diário API, PNCP, Compras.gov.br
+### 🛡️ [Security First](./scripts/security_scan.ts)
+Todo commit passa pelo nosso `security_scan.ts`. Zero segredos no repo.
 
-## Architecture Principles
+---
+---
+## 💼 Connect with the Author
 
-1. **Each idea = one app** — independently deployable
-2. **Shared AI client** — reuse across all apps
-3. **API-first + MCP-ready** — designed for agent interaction
-4. **Cost-controlled** — track every API call cost
+**Enio Rocha**
+*Artificial Intelligence Architect @ Egos Lab | Founder @ [Carteira Livre](https://www.carteiralivre.com)*
+
+- 🔗 [LinkedIn](https://www.linkedin.com/in/eniorochaxt)
+- 🐦 [X (Twitter)](https://x.com/anoineim)
+- 💬 [WhatsApp](https://wa.me/5534992374363)
+
+> **Egos Lab** is the open-source arm of my research into Agentic Systems.
