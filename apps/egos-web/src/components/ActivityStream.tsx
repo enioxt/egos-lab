@@ -1,24 +1,104 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { GitCommit, ExternalLink } from 'lucide-react';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, type CommitData } from '../store/useAppStore';
 import { supabase } from '../lib/supabase';
+
+type GitHubCommitResponseItem = {
+  sha: string;
+  html_url?: string;
+  commit?: {
+    message?: string;
+    author?: {
+      name?: string;
+      date?: string;
+    };
+  };
+  author?: {
+    login?: string;
+  };
+};
+
+type SupabaseCommitRow = {
+  sha: string;
+  message: string;
+  author: string;
+  date: string;
+  url: string;
+  repo: string;
+};
+
+async function fetchGitHubCommits(): Promise<CommitData[]> {
+  try {
+    const res = await fetch('https://api.github.com/repos/enioxt/egos-lab/commits?per_page=12', {
+      headers: {
+        Accept: 'application/vnd.github+json',
+      },
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as GitHubCommitResponseItem[];
+    return data
+      .filter((c) => typeof c?.sha === 'string')
+      .map((c) => ({
+        id: c.sha,
+        sha: c.sha,
+        message: (c.commit?.message || 'commit').split('\n')[0],
+        author: c.commit?.author?.name || c.author?.login || 'Unknown',
+        date: c.commit?.author?.date || new Date().toISOString(),
+        url: c.html_url || `https://github.com/enioxt/egos-lab/commit/${c.sha}`,
+        repo: 'enioxt/egos-lab',
+      }));
+  } catch {
+    return [];
+  }
+}
 
 const ActivityStream: React.FC = () => {
   const { commits, isLoadingCommits, setCommits, setIsLoadingCommits } = useAppStore();
 
   useEffect(() => {
+    let cancelled = false;
+
     const load = async () => {
       setIsLoadingCommits(true);
-      const { data } = await supabase
-        .from('commits')
-        .select('id, sha, message, author, date, url, repo')
-        .order('date', { ascending: false })
-        .limit(12);
-      if (data) setCommits(data);
+      try {
+        const { data, error } = await supabase
+          .from('commits')
+          .select('sha, message, author, date, url, repo')
+          .order('date', { ascending: false })
+          .limit(12);
+
+        if (!cancelled && !error && data && data.length > 0) {
+          const rows = data as SupabaseCommitRow[];
+          setCommits(
+            rows.map((c) => ({
+              id: c.sha,
+              sha: c.sha,
+              message: c.message,
+              author: c.author,
+              date: c.date,
+              url: c.url,
+              repo: c.repo,
+            }))
+          );
+          setIsLoadingCommits(false);
+          return;
+        }
+      } catch {
+        // fall through to GitHub
+      }
+
+      const gh = await fetchGitHubCommits();
+      if (!cancelled) setCommits(gh);
       setIsLoadingCommits(false);
     };
+
     load();
+    const interval = window.setInterval(load, 30_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+    };
   }, [setCommits, setIsLoadingCommits]);
 
   return (

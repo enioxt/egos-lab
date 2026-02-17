@@ -14,10 +14,12 @@ const IntelligenceChat: React.FC = () => {
     setIsThinking,
   } = useAppStore();
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const el = messagesAreaRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
   }, [messages]);
 
   const handleSend = async () => {
@@ -66,7 +68,7 @@ const IntelligenceChat: React.FC = () => {
 
       <div className="chat-container">
         {/* Messages Area */}
-        <div className="chat-messages-area">
+        <div ref={messagesAreaRef} className="chat-messages-area">
           {messages.length === 0 && (
             <div className="chat-empty">
               <Sparkles size={32} className="chat-empty-icon" />
@@ -134,7 +136,6 @@ const IntelligenceChat: React.FC = () => {
               </div>
             </div>
           )}
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Input */}
