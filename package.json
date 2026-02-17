@@ -19,6 +19,11 @@
         "scan:ideas:dry": "bun scripts/scan_ideas.ts --dry",
         "rho": "bun scripts/rho.ts",
         "security:scan": "bun scripts/security_scan.ts",
+        "agent:list": "bun agents/cli.ts list",
+        "agent:run": "bun agents/cli.ts run",
+        "agent:lint": "bun agents/cli.ts lint-registry",
+        "agent:ssot": "bun agents/agents/ssot-auditor.ts",
+        "agent:ssot:exec": "bun agents/agents/ssot-auditor.ts --exec",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },
