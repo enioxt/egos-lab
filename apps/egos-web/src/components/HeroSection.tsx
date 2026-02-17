@@ -135,13 +135,13 @@ const HeroSection: React.FC = () => {
           transition={{ delay: 0.5, duration: 0.6 }}
         >
           <div className="hero-stat">
-            <span className="stat-value">6</span>
-            <span className="stat-label">Projetos</span>
+            <span className="stat-value">8</span>
+            <span className="stat-label">Agentes</span>
           </div>
           <div className="hero-stat-divider" />
           <div className="hero-stat">
-            <span className="stat-value">3</span>
-            <span className="stat-label">Apps Ativos</span>
+            <span className="stat-value">9</span>
+            <span className="stat-label">Módulos</span>
           </div>
           <div className="hero-stat-divider" />
           <div className="hero-stat">

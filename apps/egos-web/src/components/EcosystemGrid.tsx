@@ -45,6 +45,18 @@ const MODULES: Module[] = [
     techStack: ['Markdown', 'YAML', 'MCP'],
     category: 'infra',
   },
+  {
+    id: 'agentic-platform',
+    name: 'Agentic Platform',
+    icon: <Network size={20} />,
+    status: 'beta',
+    statusLabel: 'Beta',
+    completion: 60,
+    description: 'Plataforma de agentes autônomos: SSOT Auditor, Auth Checker, Code Reviewer, Security Scanner.',
+    details: '8 agentes registrados com runtime próprio (runner.ts), CLI, logs JSONL com correlation IDs, dry-run/execute modes. Já auditou repos externos (Documenso, Cal.com) e encontrou achados reais. Zero-dependency, roda em qualquer projeto TS.',
+    techStack: ['Bun', 'TypeScript', 'OpenRouter', 'JSONL'],
+    category: 'infra',
+  },
   // Core Systems
   {
     id: 'intelink',
