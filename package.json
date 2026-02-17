@@ -17,6 +17,7 @@
         "eagle-eye:patterns": "bun apps/eagle-eye/src/idea_patterns.ts",
         "scan:ideas": "bun scripts/scan_ideas.ts",
         "scan:ideas:dry": "bun scripts/scan_ideas.ts --dry",
+        "rho": "bun scripts/rho.ts",
         "security:scan": "bun scripts/security_scan.ts",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
