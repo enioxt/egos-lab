@@ -1,74 +1,50 @@
-import { motion } from 'framer-motion'
-import ListeningSpiral from './components/ListeningSpiral'
-import CommunityChat from './components/CommunityChat'
-import Dashboard from './components/Dashboard'
-import { useAppStore } from './store/useAppStore'
+import HeroSection from './components/HeroSection'
+import EcosystemGrid from './components/EcosystemGrid'
+import IntelligenceChat from './components/IntelligenceChat'
+import ActivityStream from './components/ActivityStream'
 import './App.css'
 
 function App() {
-  const { activeView, setActiveView } = useAppStore()
-
   return (
-    <div className="mission-control">
-      {/* Top Bar */}
+    <div className="app">
+      {/* Sticky Header */}
       <header className="top-bar">
         <div className="top-bar-left">
-          <div className="logo-mark">
-            <span className="logo-pulse" />
-            <span className="logo-text">EGOS</span>
-          </div>
-          <span className="top-bar-divider" />
-          <span className="top-bar-label">Mission Control</span>
+          <span className="logo-pulse" />
+          <span className="logo-text">EGOS</span>
         </div>
         <nav className="top-bar-nav">
-          <button
-            className={`nav-tab ${activeView === 'spiral' ? 'active' : ''}`}
-            onClick={() => setActiveView('spiral')}
-          >
-            Spiral
-          </button>
-          <button
-            className={`nav-tab ${activeView === 'dashboard' ? 'active' : ''}`}
-            onClick={() => setActiveView('dashboard')}
-          >
-            Dashboard
-          </button>
+          <a href="#ecosystem" className="nav-link">Ecossistema</a>
+          <a href="#intelligence" className="nav-link">Intelligence</a>
+          <a href="#activity" className="nav-link">Atividade</a>
         </nav>
-        <div className="top-bar-right">
-          <a
-            href="https://github.com/enioxt/egos-lab"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gh-link"
-          >
-            GitHub ↗
-          </a>
-        </div>
+        <a
+          href="https://github.com/enioxt/egos-lab"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gh-link"
+        >
+          GitHub ↗
+        </a>
       </header>
 
-      {/* Main Content — Split View */}
-      <main className="split-view">
-        <motion.div
-          className="panel-spiral"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <ListeningSpiral />
-        </motion.div>
+      {/* Sections */}
+      <HeroSection />
+      <EcosystemGrid />
+      <IntelligenceChat />
+      <ActivityStream />
 
-        <motion.div
-          className="panel-dashboard"
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Dashboard />
-        </motion.div>
-      </main>
-
-      {/* Chat Overlay */}
-      <CommunityChat />
+      {/* Footer */}
+      <footer className="site-footer">
+        <div className="footer-content">
+          <div className="footer-brand">
+            <span className="logo-pulse" />
+            <span>EGOS Lab</span>
+          </div>
+          <p className="footer-copy">Open Source · AGPL-3.0 · Agentic Engineering</p>
+          <p className="footer-sacred">000.111.369.963.1618</p>
+        </div>
+      </footer>
     </div>
   )
 }
