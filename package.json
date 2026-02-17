@@ -31,6 +31,8 @@
         "agent:deps:exec": "bun agents/agents/dep-auditor.ts --exec",
         "agent:dead": "bun agents/agents/dead-code-detector.ts",
         "agent:dead:exec": "bun agents/agents/dead-code-detector.ts --exec",
+        "agent:all": "bun agents/agents/orchestrator.ts",
+        "agent:all:exec": "bun agents/agents/orchestrator.ts --exec",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },

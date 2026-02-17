@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.6.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Deploy fix + 4 RLS migrations + 2 new agents + LinkedIn posts + Medusa case study
+> **VERSION:** 2.7.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — Orchestrator + deploy fix v2 + agent validation (9/9 pass, 100% health)
 
 ---
 
@@ -77,9 +77,17 @@ _(none — all P0 items completed this session)_
 ## Completed
 
 ### DEPLOY-FIX-001: Vercel Build Fix ✅ (2026-02-17)
-- [x] Fixed `vite: command not found` — changed build to `npx tsc -b && npx vite build`
-- [x] Pushed and verified build passes
-> **Commit:** 766e5d5
+- [x] Root cause: Vercel uses `vite build` directly (not `npm run build`) when `framework: vite`
+- [x] Fix v1: `npx` prefix in package.json (not enough)
+- [x] Fix v2: Added `buildCommand: "npm run build"` to vercel.json (definitive)
+> **Commit:** becaa24
+
+### AGENT-006: Orchestrator + Full Validation ✅ (2026-02-17)
+- [x] `orchestrator.ts` — runs ALL agents, collects results, generates combined report
+- [x] Health score calculation, timing, findings aggregation
+- [x] CLI: `bun agent:all` (dry-run) / `bun agent:all --exec` (write report)
+- [x] **Validation: 9/9 agents passed, 100% health, 143 findings, 3.8s total**
+- [x] Report: `docs/agentic/reports/orchestrator-report.md`
 
 ### SECURITY-004: Remaining RLS Hardening ✅ (2026-02-17)
 - [x] 4 migrations: intelink (merge_pending, merge_votes, otp_tokens, reports, rho_*, role_permissions)
