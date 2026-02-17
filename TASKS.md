@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.1.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Security Audit + Activity Pipeline + Case Studies
+> **VERSION:** 2.2.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — AI Activity Pipeline + Intelink Analysis + Governance + Community Issues
 
 ---
 
@@ -19,9 +19,9 @@ _(none — all P0 items completed this session)_
 - [ ] Integrate with agent runner
 
 ### COMMUNITY-001: First External Contribution
-- [ ] Add `good-first-issue` labels on GitHub
-- [ ] Write 3 starter issues (doc fix, agent improvement, new eval)
+- [x] Created 3 good-first-issues on GitHub (#6, #7, #8)
 - [ ] Share on Dev.to / Twitter
+- [ ] Write "I audited 5 repos with AI agents" article
 
 ### LAUNCH-001: Public Launch Prep
 - [x] Run SSOT Auditor on 2 repos (Documenso: 1012 findings, Cal.com: 1469 findings)
@@ -30,9 +30,21 @@ _(none — all P0 items completed this session)_
 - [ ] Product Hunt listing draft
 
 ### WEB-001: Automate Commit Ingestion
-- [ ] Set up GitHub webhook or cron to auto-ingest new commits to Supabase
+- [x] Created `/api/ingest-commits.ts` — AI-enriched ingestion via OpenRouter Gemini 2.0 Flash
+- [ ] Set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in Vercel dashboard for egos-lab
 - [ ] Add agent run outputs to activity stream (not just git commits)
 - [ ] Add Rho score display to website
+
+### GOVERNANCE-001: SSOT Enforcement
+- [x] Created `docs/agentic/GOVERNANCE_RULES.md` — SSOT registry + rule sharing design
+- [ ] Add SSOT checks to pre-commit hooks (no-duplicate-types, no-orphan-docs)
+- [ ] Package egos-kit template repo for rule sharing
+
+### INTELINK-001: Port Reusable Features
+- [x] Created `docs/agentic/INTELINK_FEATURES_ANALYSIS.md` — 6 features analyzed
+- [ ] Port Timeline pattern for enriched activity display
+- [ ] Port Accuracy Tracker for agent eval system
+- [ ] Port DraggableGridLayout for Mission Control dashboard
 
 ---
 
