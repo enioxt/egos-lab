@@ -1419,7 +1419,7 @@ veja aqui :{
 
 "headers": {
 
-"CONTEXT7\_API\_KEY": "ctx7sk-761a64f5-9fd6-4734-83d1-a10cb4bd14a3"
+"CONTEXT7\_API\_KEY": "REDACTED_BY_SECURITY_SCAN"
 
 },
 

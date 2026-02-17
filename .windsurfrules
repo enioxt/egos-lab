@@ -100,3 +100,8 @@ Para garantir que agentes (Antigravity + Windsurf) compartilhem contexto:
 OPENROUTER_API_KEY=   # AI analysis (Gemini via OpenRouter)
 # NOT needed for MVP: SUPABASE_URL, SUPABASE_KEY (Phase 2+)
 ```
+## 🛡️ SECURITY & CODE QUALITY
+
+- **Recursion:** Always set `MAX_DEPTH` (limit ~50) for recursive functions.
+- **API Keys:** NEVER hardcode. Use `.env`. Validate restrictions (IP/Package). Ref: `docs/KEY_MANAGEMENT.md`.
+- **Review:** All Commits must pass `scripts/security_scan.ts`.
