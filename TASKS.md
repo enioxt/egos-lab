@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.4.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Security hardening + deploy discipline + 8 Supabase migrations + pre-push gate
+> **VERSION:** 2.5.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — Logo/branding + LinkedIn plan + security hardening + deploy discipline
 
 ---
 
@@ -45,6 +45,13 @@ _(none — all P0 items completed this session)_
 - [x] Deploy discipline rules in `.windsurfrules` v2.1
 - [ ] Package egos-kit template repo for rule sharing
 
+### CONTENT-002: LinkedIn Posting Series
+- [ ] Update LinkedIn headline + bio (quiet builder style)
+- [ ] Post 1: A virada de chave (curiosity → execution)
+- [ ] Post 5: EGOS Lab, regras públicas
+- [ ] Post 6: "Auditei 5 repos com agentes IA"
+> **Roteiro:** `docs/LINKEDIN_ACTION_PLAN.md`
+
 ### INTELINK-001: Port Reusable Features
 - [x] Created `docs/agentic/INTELINK_FEATURES_ANALYSIS.md` — 6 features analyzed
 - [x] Ported Timeline pattern → ActivityStream with category badges + color-coded dots
@@ -67,6 +74,13 @@ _(none — all P0 items completed this session)_
 ---
 
 ## Completed
+
+### BRANDING-001: EGOS Logo + Favicon ✅ (2026-02-17)
+- [x] Created SVG logo: sacred geometry (hexagon + triangle + eye + agent nodes)
+- [x] Configured in index.html with favicon + apple-touch-icon + OG meta tags
+- [x] Added to README.md header
+- [x] LinkedIn action plan: `docs/LINKEDIN_ACTION_PLAN.md` (7 posts + rules)
+> **Commit:** ceadbd5
 
 ### SECURITY-003: Supabase Security Hardening ✅ (2026-02-17)
 - [x] Fix 2 ERROR: RLS enabled on eagle_eye_gazettes + eagle_eye_opportunities

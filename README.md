@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="apps/egos-web/public/egos-logo.svg" alt="EGOS Logo" width="120" />
+</p>
+
 # EGOS Lab — Collaborative Open Source Ecosystem
 
 > A collaborative network where ideas become code, beginners become contributors, and rules evolve through collective intelligence.
