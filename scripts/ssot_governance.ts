@@ -148,6 +148,33 @@ function checkStagedFiles(): Finding[] {
   return findings;
 }
 
+function checkDeployDiscipline(): Finding[] {
+  const findings: Finding[] = [];
+
+  try {
+    // Count pushes today by checking reflog
+    const today = new Date().toISOString().split("T")[0];
+    const todayCommits = execSync(
+      `git log --oneline --since="${today}T00:00:00" | wc -l`,
+      { encoding: "utf-8" }
+    ).trim();
+    const count = parseInt(todayCommits, 10);
+
+    // Each push = 1 Vercel deploy. Warn if too many commits suggest frequent pushing
+    if (count > 10) {
+      findings.push({
+        level: "warning",
+        check: "deploy-discipline",
+        message: `${count} commits today. Remember: batch changes, push ONCE per feature. Each push = 1 Vercel deploy = $$.`,
+      });
+    }
+  } catch {
+    // skip
+  }
+
+  return findings;
+}
+
 // --- Main ---
 
 console.log(`${CYAN}📋 Starting SSOT Governance Checks...${RESET}`);
@@ -158,6 +185,7 @@ const allFindings: Finding[] = [];
 // Run checks
 allFindings.push(...(await checkDuplicateTypes(root)));
 allFindings.push(...checkStagedFiles());
+allFindings.push(...checkDeployDiscipline());
 
 const errors = allFindings.filter((f) => f.level === "error");
 const warnings = allFindings.filter((f) => f.level === "warning");

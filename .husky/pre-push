@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔨 Pre-push: Building egos-web to prevent failed Vercel deploys..."
+cd apps/egos-web && npx vite build --logLevel error 2>&1
+
+if [ $? -ne 0 ]; then
+  echo "❌ Build FAILED. Push aborted. Fix build errors before pushing."
+  echo "   Each failed deploy costs money. Fix locally first."
+  exit 1
+fi
+
+echo "✅ Build passed. Safe to push."
