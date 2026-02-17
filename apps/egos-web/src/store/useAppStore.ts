@@ -10,6 +10,10 @@ export interface CommitData {
   repo: string;
   branch?: string;
   similarity?: number;
+  category?: string;
+  tags?: string[];
+  techDebt?: boolean;
+  impactScore?: number;
 }
 
 export interface ChatMessage {
