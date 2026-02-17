@@ -1,13 +1,11 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ForceGraph3D from 'react-force-graph-3d';
 import { fetchRepoGraph, type GraphData } from '../services/github';
 
-// 🌀 The Listening Spiral Component
-// Visualizes a conversation thread spiraling inward from context to core.
-
 const ListeningSpiral: React.FC = () => {
     const [data, setData] = useState<GraphData>({ nodes: [], links: [] });
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
 
     useEffect(() => {
         const loadData = async () => {
@@ -17,29 +15,54 @@ const ListeningSpiral: React.FC = () => {
         loadData();
     }, []);
 
+    useEffect(() => {
+        const updateSize = () => {
+            if (containerRef.current) {
+                setDimensions({
+                    width: containerRef.current.clientWidth,
+                    height: containerRef.current.clientHeight,
+                });
+            }
+        };
+        updateSize();
+        window.addEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+
     return (
-        <div style={{ width: '100vw', height: '100vh', background: '#050505' }}>
+        <div ref={containerRef} style={{ width: '100%', height: '100%', position: 'relative', background: '#050505' }}>
             <ForceGraph3D
-                graphData={data}
-                nodeAutoColorBy="group" // 1=Main (Blue?), 2/3=Branches
+                width={dimensions.width}
+                height={dimensions.height}
+                graphData={data as never}
+                nodeAutoColorBy="group"
                 nodeLabel="message"
                 backgroundColor="#050505"
-                linkOpacity={0.5}
-                linkWidth={1}
+                linkOpacity={0.4}
+                linkWidth={0.8}
+                linkColor={() => 'rgba(19, 182, 236, 0.2)'}
                 nodeVal="val"
-                onNodeClick={(node: any) => {
-                    if (node.url) window.open(node.url, '_blank');
+                onNodeClick={(node: Record<string, unknown>) => {
+                    if (node.url) window.open(node.url as string, '_blank');
                 }}
             />
-            <div style={{ position: 'absolute', top: 20, left: 20, color: '#eee', fontFamily: 'monospace', zIndex: 100 }}>
-                <h1>🌀 Espiral de Escuta (Git Universe)</h1>
-                <p>🔴 Main Branch (Core)</p>
-                <p>🟣 Feature Branches (Orbits)</p>
-                <p style={{ fontSize: '0.8em', opacity: 0.7 }}>
-                    repo: enioxt/egos-lab
-                </p>
-                <p style={{ fontSize: '0.8em', opacity: 0.7 }}>
-                    {data.nodes.length} nodes | {data.links.length} links
+            {/* Overlay */}
+            <div style={{
+                position: 'absolute',
+                bottom: 20,
+                left: 20,
+                zIndex: 10,
+                pointerEvents: 'none',
+            }}>
+                <p style={{
+                    fontSize: '10px',
+                    fontWeight: 600,
+                    color: 'rgba(255,255,255,0.3)',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    fontFamily: 'Space Grotesk, sans-serif',
+                }}>
+                    {data.nodes.length} nodes · {data.links.length} links · enioxt/egos-lab
                 </p>
             </div>
         </div>

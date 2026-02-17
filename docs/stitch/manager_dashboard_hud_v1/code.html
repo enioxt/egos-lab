@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eagle Eye Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13b6ec",
+              "background-light": "#f6f8f8",
+              "background-dark": "#0B1215",
+              "surface-dark": "#161e22",
+              "surface-highlight": "#202a30",
+              "accent-red": "#ff4d4d",
+              "accent-green": "#00e676",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"],
+              "body": ["Space Grotesk", "sans-serif"], 
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "2xl": "2.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .neon-glow {
+            box-shadow: 0 0 10px rgba(19, 182, 236, 0.2);
+        }
+        .neon-text {
+            text-shadow: 0 0 8px rgba(19, 182, 236, 0.5);
+        }
+        .critical-glow {
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.15);
+        }
+        /* Hide scrollbar for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen flex flex-col overflow-hidden selection:bg-primary selection:text-black">
+<!-- Header Section -->
+<header class="flex-none px-6 pt-12 pb-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-20 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary neon-text text-3xl">policy</span>
+<h1 class="text-2xl font-bold tracking-tight">Eagle Eye</h1>
+</div>
+<button class="relative p-2 rounded-full hover:bg-slate-200 dark:hover:bg-surface-highlight transition-colors">
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400">notifications</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-sm font-medium">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>Patos de Minas (MG)</span>
+<span class="w-1 h-1 rounded-full bg-slate-600 mx-1"></span>
+<span class="text-primary text-xs uppercase tracking-wider">Live</span>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<main class="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar pb-24 relative">
+<!-- Top KPI Cards -->
+<section class="px-6 py-6 overflow-x-auto no-scrollbar">
+<div class="flex gap-4 min-w-max">
+<!-- KPI 1: Readiness Score (Critical) -->
+<div class="w-[160px] relative overflow-hidden bg-surface-dark rounded-2xl p-5 border border-accent-red/30 critical-glow flex flex-col justify-between group">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-accent-red/10 rounded-full blur-xl group-hover:bg-accent-red/20 transition-all"></div>
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-accent-red">health_metrics</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-accent-red border border-accent-red/30 px-1.5 py-0.5 rounded">Critical</span>
+</div>
+<p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Readiness</p>
+</div>
+<div>
+<p class="text-4xl font-bold text-white mt-1">31<span class="text-lg text-slate-500 font-normal">/100</span></p>
+<div class="w-full bg-slate-800 h-1 mt-3 rounded-full overflow-hidden">
+<div class="bg-accent-red h-full w-[31%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- KPI 2: Opportunities -->
+<div class="w-[140px] bg-surface-dark rounded-2xl p-5 border border-slate-800 flex flex-col justify-between hover:border-primary/50 transition-colors group">
+<div>
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-lg">lightbulb</span>
+</div>
+<p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Opptys</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-white mt-1">12</p>
+<p class="text-[10px] text-primary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">arrow_upward</span> New
+                        </p>
+</div>
+</div>
+<!-- KPI 3: ROI -->
+<div class="w-[140px] bg-surface-dark rounded-2xl p-5 border border-slate-800 flex flex-col justify-between hover:border-accent-green/50 transition-colors group">
+<div>
+<div class="w-8 h-8 rounded-full bg-accent-green/10 flex items-center justify-center mb-3 group-hover:bg-accent-green/20 transition-colors">
+<span class="material-symbols-outlined text-accent-green text-lg">trending_up</span>
+</div>
+<p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Est. ROI</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-white mt-1">+15%</p>
+<p class="text-[10px] text-slate-500 mt-1">Projected</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Dashboard Split Layout -->
+<section class="px-6 pb-6 grid grid-cols-12 gap-5">
+<!-- Left Column: Critical Actions -->
+<div class="col-span-12 md:col-span-7 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-lg font-bold text-white flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-red animate-pulse"></span>
+                        Critical Actions
+                    </h2>
+<span class="text-xs text-slate-500 font-medium">3 Pending</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Action Item 1 -->
+<div class="bg-surface-dark border border-slate-800 rounded-xl p-4 flex items-start gap-3 active:scale-[0.98] transition-transform">
+<div class="mt-0.5 min-w-[20px] h-5 rounded-full border-2 border-slate-600 flex items-center justify-center hover:border-primary hover:bg-primary/10 cursor-pointer transition-colors"></div>
+<div class="flex-1">
+<h3 class="text-sm font-semibold text-white leading-tight">Claim Google Profile</h3>
+<p class="text-xs text-slate-500 mt-1 leading-relaxed">Verification letter sent 2 days ago. Check mail.</p>
+<span class="inline-flex mt-2 items-center rounded-md bg-accent-red/10 px-2 py-1 text-xs font-medium text-accent-red ring-1 ring-inset ring-accent-red/20">High Priority</span>
+</div>
+</div>
+<!-- Action Item 2 -->
+<div class="bg-surface-dark border border-slate-800 rounded-xl p-4 flex items-start gap-3 active:scale-[0.98] transition-transform">
+<div class="mt-0.5 min-w-[20px] h-5 rounded-full border-2 border-slate-600 flex items-center justify-center hover:border-primary hover:bg-primary/10 cursor-pointer transition-colors"></div>
+<div class="flex-1">
+<h3 class="text-sm font-semibold text-white leading-tight">Update Operating Hours</h3>
+<p class="text-xs text-slate-500 mt-1 leading-relaxed">Holiday season hours differ from registered times.</p>
+</div>
+</div>
+<!-- Action Item 3 -->
+<div class="bg-surface-dark border border-slate-800 rounded-xl p-4 flex items-start gap-3 active:scale-[0.98] transition-transform">
+<div class="mt-0.5 min-w-[20px] h-5 rounded-full border-2 border-slate-600 flex items-center justify-center hover:border-primary hover:bg-primary/10 cursor-pointer transition-colors"></div>
+<div class="flex-1">
+<h3 class="text-sm font-semibold text-white leading-tight">Respond to Reviews</h3>
+<div class="flex -space-x-2 mt-2">
+<img alt="User Avatar 1" class="inline-block h-6 w-6 rounded-full ring-2 ring-surface-dark grayscale opacity-70" data-alt="User profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwsNdm79NRRFwqAa5IoC0BjIL0woyxgGjSJb1GrmTRZOL__zYDj5hCWez8BJ5xmnvP8DjrcU_GScpPydb2L1L_-I9aI7SHD2ralDz08w5bNDDmhBEFoFPq8oe-4htQlFj60oNGSJWa4PYr7gzYttEPaxI_SjuFEAFCXIw3gAJC59k3qQOig1FrVsDEQjyPXSJkfebsd7XsHEL_jIbG_QYPYqrCXBPXjZFD0ezhqiHxnoaOlTN8HKIcC71ceU__wucm1m7NQ75t2bM"/>
+<img alt="User Avatar 2" class="inline-block h-6 w-6 rounded-full ring-2 ring-surface-dark grayscale opacity-70" data-alt="User profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPO0_ex_rInCdUCaEbH9KfaMX51Tg-tnwA_UqBsKSAekqu6lqLUMyMY2U7xWhMjRzJLGC16n0SGrijyKMx_z95tpvCMms3v1RG9BwNOvhcR159Txlo_yqaih4RCTclmGzSktTLsKYafm-9aX2HZGVKCQ-kRiFBU3d7lCV4djgVOhAuWwfxheDe_T3uOurbNcJUIPjrdQrUHqg99eHASygFn75S8pj2_wSBtSx8ljjotQSLXSTP_qJmEVw7l8Qg_jZUocc5eDB0PFY"/>
+<img alt="User Avatar 3" class="inline-block h-6 w-6 rounded-full ring-2 ring-surface-dark grayscale opacity-70" data-alt="User profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNJ1B-Ufy13ck3ZQgureFJGMoAiITOR5qXL1O45nUTu0R5GdNgUW-IODHiTmW0xe51uyxG7pbEdPEcJCUWUc-Sv5VEULrzUxJwC5y7XeK-Br05yz-QDnfv-VsuoA7-P2bZMQu23GaS1aWESw6eOKUA_uyr8_jaqr4nTwZhM4blBXU0f43APyf4_d_N3-sFUILi4qu39FK1ZK17QI0snkkhxv_AeVSBtSgXQ6BkFSlOc70oYRBYwIvDOS3EJS17xOqyT8t5EcEBgcU"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Signals Feed -->
+<div class="col-span-12 md:col-span-5 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-lg font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg animate-spin-slow">radar</span>
+                        Gazette Signals
+                    </h2>
+<button class="text-primary text-xs font-bold uppercase hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Signal Card 1 -->
+<div class="bg-surface-highlight/50 border border-slate-700/50 rounded-xl p-3 flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full"></div>
+<div class="flex justify-between items-start z-10">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary/20 text-primary border border-primary/20">Funding</span>
+<span class="text-[10px] text-slate-500">2h ago</span>
+</div>
+<h4 class="text-sm font-medium text-white z-10">Edital Cultural 02/24</h4>
+<p class="text-[11px] text-slate-400 leading-tight z-10 line-clamp-2">Municipal funding for local tourism events open for submission.</p>
+</div>
+<!-- Signal Card 2 -->
+<div class="bg-surface-highlight/50 border border-slate-700/50 rounded-xl p-3 flex flex-col gap-2 relative overflow-hidden">
+<div class="flex justify-between items-start z-10">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-700 text-slate-300 border border-slate-600">Public Bid</span>
+<span class="text-[10px] text-slate-500">5h ago</span>
+</div>
+<h4 class="text-sm font-medium text-white z-10">Licitação Eventos</h4>
+<p class="text-[11px] text-slate-400 leading-tight z-10 line-clamp-2">Tender for city anniversary celebration infrastructure.</p>
+</div>
+<!-- Signal Card 3 -->
+<div class="bg-surface-highlight/50 border border-slate-700/50 rounded-xl p-3 flex flex-col gap-2 relative overflow-hidden opacity-60">
+<div class="flex justify-between items-start z-10">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-700 text-slate-300 border border-slate-600">Notice</span>
+<span class="text-[10px] text-slate-500">1d ago</span>
+</div>
+<h4 class="text-sm font-medium text-white z-10">Holiday Decree</h4>
+<p class="text-[11px] text-slate-400 leading-tight z-10 line-clamp-2">Official changes to commerce hours for next week.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-30 border-t border-[#283539] bg-[#1c2427] dark:bg-background-dark/95 backdrop-blur-lg safe-pb">
+<div class="flex justify-between items-end px-4 pb-4 pt-2 relative">
+<!-- Standard Nav Items Left -->
+<a class="flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-primary group" href="#">
+<div class="text-primary group-hover:neon-text transition-all duration-300 flex h-8 items-center justify-center">
+<span class="material-symbols-outlined text-[24px]" data-weight="fill">dashboard</span>
+</div>
+<p class="text-primary text-[10px] font-medium leading-normal tracking-wide uppercase">Dashboard</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9db2b9] hover:text-white transition-colors group" href="#">
+<div class="text-[#9db2b9] group-hover:text-white transition-colors flex h-8 items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">rss_feed</span>
+</div>
+<p class="text-current text-[10px] font-medium leading-normal tracking-wide uppercase">Signals</p>
+</a>
+<!-- FAB (Floating Action Button) Center -->
+<div class="relative -top-6 mx-2 group">
+<button class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(19,182,236,0.4)] border-4 border-[#1c2427] dark:border-background-dark transform transition-transform group-hover:scale-105 group-active:scale-95">
+<span class="material-symbols-outlined text-black text-3xl font-bold">qr_code_scanner</span>
+</button>
+<span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest">Scan</span>
+</div>
+<!-- Standard Nav Items Right -->
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9db2b9] hover:text-white transition-colors group" href="#">
+<div class="text-[#9db2b9] group-hover:text-white transition-colors flex h-8 items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+</div>
+<p class="text-current text-[10px] font-medium leading-normal tracking-wide uppercase">Tasks</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9db2b9] hover:text-white transition-colors group" href="#">
+<div class="text-[#9db2b9] group-hover:text-white transition-colors flex h-8 items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</div>
+<p class="text-current text-[10px] font-medium leading-normal tracking-wide uppercase">Settings</p>
+</a>
+</div>
+</nav>
+<!-- Map Overlay for Visual Context (Bottom of scroll area or background element) -->
+<div class="fixed top-24 right-0 w-1/2 h-1/2 opacity-[0.03] pointer-events-none z-0">
+<img alt="Abstract map pattern" class="w-full h-full object-cover grayscale mask-image-linear-gradient" data-alt="Abstract dark map pattern of city streets" data-location="Patos de Minas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPSut3dIywMiIZGNK9WVJTAw_YiK0k33xMuj9xSe1iE5merMF6wewLo8DiwpzMb5P-5o7UqCspTdYI27f22YIyjfgvhp_k10_OHEEBFitm-WfqRKfebCar_HD6s8HniUJqnk3BwpIpXlkUVV49VCCF7G7aCBNcfQfz6RI5Yr_8yAHSKy42fze4YRDvHN3rx4Pzdv-1zqey9cfwU0bXmyEOa8GJP3DVwVb16tsbcn4_5eLAF3BJw0Hiq8fu6acxT-KVZfFYh7ZZXy8"/>
+</div>
+</body></html>

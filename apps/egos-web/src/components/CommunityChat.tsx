@@ -1,142 +1,128 @@
-
-import React, { useState } from 'react';
-
-// 🤖 The Community Chat Widget
-// Implements the "Hitchhiker Guide" flow.
+import React, { useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Send, Loader2, Sparkles } from 'lucide-react';
+import { useAppStore } from '../store/useAppStore';
+import { generateChatResponse } from '../services/chat';
 
 const CommunityChat: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<{ text: string, sender: 'bot' | 'user' }[]>([
-        { text: "Olá! Sou o Eagle Eye. Vi que você está navegando no Lab.", sender: 'bot' },
-        { text: "Quer saber como contribuir ou ver o código fonte?", sender: 'bot' }
-    ]);
-    const [inputValue, setInputValue] = useState("");
+    const {
+        isChatOpen,
+        setChatOpen,
+        messages,
+        addMessage,
+        userQuery,
+        setUserQuery,
+        isThinking,
+        setIsThinking,
+    } = useAppStore();
 
-    const handleSend = () => {
-        if (!inputValue.trim()) return;
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
-        // Add user message
-        setMessages(prev => [...prev, { text: inputValue, sender: 'user' }]);
-        setInputValue("");
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
 
-        // Mock Bot Response (Simulating AI)
-        setTimeout(() => {
-            const responses = [
-                "Interessante! Vou registrar isso no RHO.",
-                "Você sabia que pode ganhar pontos contribuindo?",
-                "Esse projeto é open-source. Tente rodar 'bun rho' no terminal!",
-                "Estou analisando seus commits... brincadeira (ainda não)."
-            ];
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            setMessages(prev => [...prev, { text: randomResponse, sender: 'bot' }]);
-        }, 1000);
+    const handleSend = async () => {
+        const query = userQuery.trim();
+        if (!query || isThinking) return;
+
+        addMessage({ text: query, sender: 'user', timestamp: Date.now() });
+        setUserQuery('');
+        setIsThinking(true);
+
+        try {
+            const response = await generateChatResponse(query);
+            addMessage({ text: response, sender: 'bot', timestamp: Date.now() });
+        } catch {
+            addMessage({
+                text: 'Erro ao processar. Tente novamente.',
+                sender: 'bot',
+                timestamp: Date.now(),
+            });
+        } finally {
+            setIsThinking(false);
+        }
     };
 
     return (
-        <div style={{
-            position: 'fixed',
-            bottom: 20,
-            right: 20,
-            zIndex: 1000,
-            fontFamily: 'sans-serif'
-        }}>
-            {/* Chat Window */}
-            {isOpen && (
-                <div style={{
-                    width: '300px',
-                    height: '400px',
-                    background: 'rgba(20, 20, 30, 0.95)',
-                    backdropFilter: 'blur(10px)',
-                    borderRadius: '12px',
-                    border: '1px solid #333',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    marginBottom: '10px',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
-                }}>
-                    {/* Header */}
-                    <div style={{
-                        padding: '12px',
-                        borderBottom: '1px solid #333',
-                        background: 'rgba(255,255,255,0.05)',
-                        borderTopLeftRadius: '12px',
-                        borderTopRightRadius: '12px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}>
-                        <span style={{ color: '#fff', fontWeight: 'bold' }}>EGOS</span>
-                        <button
-                            onClick={() => setIsOpen(false)}
-                            style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer', fontSize: '16px' }}
-                        >
-                            ✕
-                        </button>
-                    </div>
-
-                    {/* Messages */}
-                    <div style={{ flex: 1, padding: '12px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {messages.map((msg, i) => (
-                            <div key={i} style={{
-                                alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-                                background: msg.sender === 'user' ? '#3b82f6' : '#222',
-                                color: '#eee',
-                                padding: '8px 12px',
-                                borderRadius: '12px',
-                                maxWidth: '80%',
-                                fontSize: '14px',
-                                borderBottomRightRadius: msg.sender === 'user' ? '2px' : '12px',
-                                borderTopLeftRadius: msg.sender === 'bot' ? '2px' : '12px'
-                            }}>
-                                {msg.text}
+        <>
+            <AnimatePresence>
+                {isChatOpen && (
+                    <motion.div
+                        className="chat-panel"
+                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        {/* Header */}
+                        <div className="chat-header">
+                            <div className="chat-header-left">
+                                <Sparkles size={16} className="chat-sparkle" />
+                                <span className="chat-title">EGOS Intelligence</span>
                             </div>
-                        ))}
-                    </div>
+                            <button className="chat-close" onClick={() => setChatOpen(false)}>
+                                <X size={16} />
+                            </button>
+                        </div>
 
-                    {/* Input */}
-                    <div style={{ padding: '12px', borderTop: '1px solid #333', display: 'flex' }}>
-                        <input
-                            type="text"
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                            placeholder="Digite algo..."
-                            style={{
-                                flex: 1,
-                                background: '#111',
-                                border: '1px solid #333',
-                                borderRadius: '20px',
-                                padding: '8px 12px',
-                                color: '#fff',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-                </div>
-            )}
+                        {/* Messages */}
+                        <div className="chat-messages">
+                            {messages.map((msg, i) => (
+                                <motion.div
+                                    key={i}
+                                    className={`chat-bubble ${msg.sender}`}
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.05 }}
+                                >
+                                    {msg.text}
+                                </motion.div>
+                            ))}
+                            {isThinking && (
+                                <div className="chat-bubble bot thinking">
+                                    <Loader2 size={14} className="spin" />
+                                    <span>Analisando...</span>
+                                </div>
+                            )}
+                            <div ref={messagesEndRef} />
+                        </div>
 
-            {/* Toggle Button */}
-            {!isOpen && (
-                <button
-                    onClick={() => setIsOpen(true)}
-                    style={{
-                        width: '60px',
-                        height: '60px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                        border: 'none',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontSize: '24px'
-                    }}
+                        {/* Input */}
+                        <div className="chat-input-area">
+                            <input
+                                type="text"
+                                value={userQuery}
+                                onChange={(e) => setUserQuery(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                                placeholder="Pergunte sobre o projeto..."
+                                className="chat-input"
+                                disabled={isThinking}
+                            />
+                            <button
+                                className="chat-send"
+                                onClick={handleSend}
+                                disabled={isThinking || !userQuery.trim()}
+                            >
+                                {isThinking ? <Loader2 size={16} className="spin" /> : <Send size={16} />}
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* FAB */}
+            {!isChatOpen && (
+                <motion.button
+                    className="chat-fab"
+                    onClick={() => setChatOpen(true)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                 >
-                    🦅
-                </button>
+                    <Sparkles size={24} />
+                </motion.button>
             )}
-        </div>
+        </>
     );
 };
 

@@ -32,6 +32,17 @@ docs/guides/CUSTOM_DOMAIN_GUIDE.md     # Documentation for Vercel custom domain 
 - [ ] **P1: Mission Control UI** (Refactor `App.tsx` into Split View: Spiral + Dashboard).
 - [ ] **P1: Connect Chat** (Update `CommunityChat.tsx` to use RAG context).
 
+## 🕵️ UX Audit (Current State)
+> **Verified at:** 2026-02-16
+> **Recording:** ![UX Audit Session](file:///home/enio/.gemini/antigravity/brain/27ee0bc5-46cb-430d-a7cc-588fd9ef7b0a/egos_ux_audit_1771295354627.webp)
+
+**Findings:**
+1.  **Visuals:** Minimalist black screen with 3D Listening Spiral. **Verdict:** Good foundation, needs context.
+2.  **Navigation:** Spiral is interactive (rotatable/zoomable). **Verdict:** Functional.
+3.  **Intelligence:** Chat (Eagle Button) opens but returns placeholder text ("brincadeira (ainda não)"). **Verdict:** RAG not connected.
+4.  **Critical Gap:** No user onboarding. New visitors see a spiral without explanation.
+5.  **Console:** `401` errors on some Vercel resources (likely missing prod env vars).
+
 ## ⚠️ Alerts / Context
 - **Builder Instructions:** Use `BUILDER_INSTRUCTIONS.md` as your primary guide. It links to the approved specs.
 - **Supabase:** The `commits` table exists but is currently empty (0 rows). The ingestion script is needed to populate it.

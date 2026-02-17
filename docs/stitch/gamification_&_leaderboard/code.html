@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eagle Eye - Gamified Community</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101d22",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Metallic gradients for ranks */
+        .rank-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #FFD700 100%);
+        }
+        .rank-silver {
+            background: linear-gradient(135deg, #E0E0E0 0%, #B0B0B0 50%, #E0E0E0 100%);
+        }
+        .rank-bronze {
+            background: linear-gradient(135deg, #CD7F32 0%, #A0522D 50%, #CD7F32 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-white overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col overflow-hidden max-w-md mx-auto shadow-2xl bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="sticky top-0 z-20 flex items-center justify-between px-5 py-4 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-2xl">eco</span>
+</div>
+<div>
+<h1 class="text-sm font-bold uppercase tracking-wide text-primary">Eagle Eye Community</h1>
+<div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<p class="text-xs font-medium">Patos de Minas</p>
+</div>
+</div>
+</div>
+<div class="relative">
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<span class="absolute top-0 right-0 h-3 w-3 rounded-full bg-red-500 border-2 border-white dark:border-background-dark"></span>
+</div>
+</header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 flex flex-col gap-6 p-5 pb-24 overflow-y-auto no-scrollbar">
+<!-- Hero Profile Card -->
+<section class="relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-800 to-black p-6 shadow-xl ring-1 ring-white/10">
+<!-- Decorative background elements -->
+<div class="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/20 blur-3xl"></div>
+<div class="absolute -left-12 -bottom-12 h-32 w-32 rounded-full bg-purple-500/20 blur-3xl"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="relative mb-4">
+<div class="h-24 w-24 overflow-hidden rounded-full border-4 border-primary/30 p-1">
+<img alt="User Avatar" class="h-full w-full rounded-full object-cover" data-alt="Portrait of a smiling young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM4m8aa632jvUmFNki57p1SIWiiVzTch5NHpRXcR86i_LdwpC_xYQO3ATrFdV_sOxAj6ZbY75TqgcSPQZ6EsdAaQvznOzvZgPcz2JuIXvTQERUzCAtyoSpugNB-Li5b9dgvnKIa0nqxTRR8ASzGeFeb22gjezY95z9X6RHi7gnkTEM08OpLoRqWr7vDxdjwrPL0Hje72P5D1u9N8P8_LjnlY_erps4PAqPQMsO3t6smRkhSxALNC29xbqFLjweUnHivdItoa4Rxxk"/>
+</div>
+<div class="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-background-dark font-bold text-sm shadow-lg border-2 border-background-dark">
+                            5
+                        </div>
+</div>
+<h2 class="text-xl font-bold text-white mb-1">Explorador Local</h2>
+<p class="text-primary font-medium text-sm mb-4">Level 5 • 450 Points</p>
+<div class="w-full bg-gray-700/50 rounded-full h-3 mb-2 overflow-hidden">
+<div class="bg-primary h-3 rounded-full relative" style="width: 43%">
+<div class="absolute top-0 right-0 bottom-0 w-1 bg-white/50"></div>
+</div>
+</div>
+<div class="flex justify-between w-full text-xs text-gray-400 font-medium px-1">
+<span>Current XP: 350</span>
+<span>Next Level: 800</span>
+</div>
+</div>
+</section>
+<!-- Active Missions -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Active Missions</h3>
+<a class="text-xs font-bold text-primary hover:text-primary/80 uppercase tracking-wider" href="#">View All</a>
+</div>
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-5 px-5 snap-x">
+<!-- Mission Card 1 -->
+<div class="flex-shrink-0 w-72 snap-center rounded-lg bg-white dark:bg-[#1c2427] border border-gray-100 dark:border-[#283539] p-4 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-primary text-background-dark text-xs font-bold px-3 py-1 rounded-bl-lg">+50 pts</div>
+<div class="flex items-start gap-4 mb-3">
+<div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-purple-500 dark:text-purple-400">
+<span class="material-symbols-outlined">photo_camera</span>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white leading-tight mb-1">Photo Mission</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Take a photo of Praça do Coreto</p>
+</div>
+</div>
+<div class="mt-2 flex justify-between items-center">
+<span class="text-xs font-medium text-orange-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 2h left
+                            </span>
+<button class="bg-primary hover:bg-primary/90 text-background-dark text-sm font-bold py-2 px-4 rounded-full transition-all">
+                                Start
+                            </button>
+</div>
+</div>
+<!-- Mission Card 2 -->
+<div class="flex-shrink-0 w-72 snap-center rounded-lg bg-white dark:bg-[#1c2427] border border-gray-100 dark:border-[#283539] p-4 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-primary/20 text-primary text-xs font-bold px-3 py-1 rounded-bl-lg">+20 pts</div>
+<div class="flex items-start gap-4 mb-3">
+<div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-500/10 text-green-500 dark:text-green-400">
+<span class="material-symbols-outlined">map</span>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white leading-tight mb-1">Mapper Mission</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Confirm hours for Padaria Central</p>
+</div>
+</div>
+<div class="mt-2 flex justify-between items-center">
+<span class="text-xs font-medium text-gray-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">near_me</span> 0.5km away
+                            </span>
+<button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white text-sm font-bold py-2 px-4 rounded-full transition-all">
+                                Start
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Leaderboard -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Top Contributors</h3>
+<div class="flex bg-gray-200 dark:bg-[#1c2427] rounded-full p-1">
+<button class="bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm rounded-full px-3 py-1 text-xs font-bold">Weekly</button>
+<button class="text-gray-500 dark:text-gray-400 px-3 py-1 text-xs font-medium hover:text-gray-700 dark:hover:text-gray-200">All Time</button>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Rank 1 -->
+<div class="flex items-center gap-4 rounded-lg bg-white dark:bg-[#1c2427] p-3 shadow-sm border border-transparent dark:border-[#283539] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 rank-gold"></div>
+<div class="flex-shrink-0 text-center w-6">
+<span class="material-symbols-outlined text-yellow-500">emoji_events</span>
+</div>
+<img alt="Top User Avatar" class="h-10 w-10 rounded-full object-cover ring-2 ring-yellow-500/50" data-alt="Portrait of a smiling woman with curly hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7X9AKNiIJeW_NchyK0_QRpxM-6iQLTfrdZfGAI2tWZs1FrhbnhsJehJBTrnxFEnhGLEgWuDjsHvGxfW-wO8JIgbsYfUieYpx2_kx2mtpn8jByVLA1ntpBYQeGF47g9T70nAOWDT66kbJ6IRfDpvmeGnBh5_SFplISJPu3sNAMDUhJav0w_86vTLSfmL75TIhPVFzHXepiIM6ZkYbHONFdahMArM4veOumrE1F1CR0yTxbYN2cC5EyqAkncZukpxsxto1_PlHr4Kk"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-gray-900 dark:text-white truncate">Sarah Miller</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Level 8 • Elite Mapper</p>
+</div>
+<div class="text-right">
+<span class="block font-bold text-primary text-lg">1,240</span>
+<span class="text-[10px] uppercase text-gray-400 font-bold tracking-wider">pts</span>
+</div>
+</div>
+<!-- Rank 2 -->
+<div class="flex items-center gap-4 rounded-lg bg-white dark:bg-[#1c2427] p-3 shadow-sm border border-transparent dark:border-[#283539] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 rank-silver"></div>
+<div class="flex-shrink-0 text-center w-6 font-bold text-gray-400 text-lg">2</div>
+<img alt="User Rank 2" class="h-10 w-10 rounded-full object-cover ring-2 ring-gray-400/50" data-alt="Portrait of a man with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK_tFUXVznY0dIneI7Oru_CE6kJWjkD-x16bDZCaz4KzPXSUB_dtIqpHAGLlamKgXhEJ7CIT-d0N5XZNN2N5azeJjPhjwat04-Ypbn1kGw2AMGgd_DfiFFpm0ZBzGlk3kfnKs8OkTDXKkYBBbH7F1nKRvhOKzuAWbbaWrD7NK-5Js9_9VNkXST2P-8NgbXGwsZ192NPFAmxFpa46h1Y02mp5yCS47XNW2NXXmwHAQ0OUQ6Eyvxu8vSWTkEPRDVwNRmkLajyBbWa9o"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-gray-900 dark:text-white truncate">David Chen</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Level 7 • Scout</p>
+</div>
+<div class="text-right">
+<span class="block font-bold text-primary text-lg">985</span>
+<span class="text-[10px] uppercase text-gray-400 font-bold tracking-wider">pts</span>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex items-center gap-4 rounded-lg bg-white dark:bg-[#1c2427] p-3 shadow-sm border border-transparent dark:border-[#283539] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 rank-bronze"></div>
+<div class="flex-shrink-0 text-center w-6 font-bold text-orange-700 dark:text-orange-400 text-lg">3</div>
+<img alt="User Rank 3" class="h-10 w-10 rounded-full object-cover ring-2 ring-orange-700/30 dark:ring-orange-400/30" data-alt="Portrait of a smiling young woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2C_jmTP5Q0lwdb5-TJUvmzPOrq9UG_m6HYVvKJayDCkqith0i5B7EC7TnO-j2KS06KcNSfGHDb7u2dkDwwPQ7oH2b61PF-AJVCqvfMceViE_-Uhte0XgGFE_AxH9Q7ON8EIjgmIVMXxB38S4xM73CWPNVOlWzhtv4xwm-yVEnrDyheHSBwsdEUkexOkv1noOYRBLFjulRbeAepSvUk7hX20fFKJ7TDGzKdLycQwc9wXy-O3W4UZHh4XdwYd046cfKBiSOEZK4vZo"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-gray-900 dark:text-white truncate">Maria Silva</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Level 6 • Explorer</p>
+</div>
+<div class="text-right">
+<span class="block font-bold text-primary text-lg">850</span>
+<span class="text-[10px] uppercase text-gray-400 font-bold tracking-wider">pts</span>
+</div>
+</div>
+<!-- Rank 4 -->
+<div class="flex items-center gap-4 rounded-lg bg-transparent p-3 opacity-70">
+<div class="flex-shrink-0 text-center w-6 font-bold text-gray-400 text-sm">4</div>
+<img alt="User Rank 4" class="h-8 w-8 rounded-full object-cover grayscale" data-alt="Portrait of a serious man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjOrYwqol-IUAQS4SuJ4ZP1QH3SsjmXah0eWbXMHQPFZHgNatDEMo1xF6iEwQltTIyU1Lvs3ZfYuCflVfC0onfdBR18qaGhQ3z1N8OtpdCN7cMiE6i05FERUenwT0IR8BmoKRS87eJOsyQJv32qyQYeVlzNdIRXLsY41-D9YCYhadLtA3uqNDP1_FKEydlXovoQU87tBqkE22axiCqG83QwYciVN0m9uv3_R_Rjlw3UJg-WCzwIG0Ro1n1eqSy4XEHVUpU0Bzdj1A"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-medium text-gray-900 dark:text-white truncate text-sm">John Doe</h4>
+</div>
+<div class="text-right">
+<span class="block font-bold text-gray-500 dark:text-gray-400 text-sm">720</span>
+</div>
+</div>
+<!-- Rank 5 (You) -->
+<div class="flex items-center gap-4 rounded-lg bg-primary/10 p-3 border border-primary/20">
+<div class="flex-shrink-0 text-center w-6 font-bold text-primary text-sm">5</div>
+<img alt="Your Avatar" class="h-8 w-8 rounded-full object-cover border border-primary" data-alt="Portrait of a smiling young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuu6itMJUiiAJCWCYyIY3T2K7irqaFYyC2BvZU01sXGCDDF_eQ5ho2KUsCnBnDX9W8aWPrHdAY1wjEG-IlYWh48guWGFY5pKfCDknGfCdGu43N10rtsXxE_sfraUyX8Yd2BlvlMR8yD2W3U2vUR2JjuHilpBTLx9Dtt3fdgv41fgnAkzE_yCdF8xzFQhViJf0MBrr2u3ZDEpOPdIQ622R77W-EMn0gBJxliniet665VGo2426TM-HdAomisFRMSdo9tNjDcvPsQJU"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-primary truncate text-sm">You</h4>
+</div>
+<div class="text-right">
+<span class="block font-bold text-primary text-sm">450</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 z-30 w-full max-w-md bg-[#1c2427] border-t border-[#283539] px-6 pb-6 pt-3">
+<div class="flex items-center justify-between">
+<a class="flex flex-col items-center gap-1 text-[#9db2b9] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">map</span>
+<span class="text-[10px] font-medium tracking-wide">Map</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#9db2b9] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">target</span>
+<span class="text-[10px] font-medium tracking-wide">Missions</span>
+</a>
+<!-- Floating Action Button effect for Leaderboard since we are on this page -->
+<div class="relative -top-6">
+<a class="flex h-14 w-14 flex-col items-center justify-center rounded-full bg-primary text-background-dark shadow-lg shadow-primary/40 ring-4 ring-[#1c2427] hover:bg-white transition-all" href="#">
+<span class="material-symbols-outlined text-3xl font-bold">trophy</span>
+</a>
+</div>
+<a class="flex flex-col items-center gap-1 text-[#9db2b9] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">forum</span>
+<span class="text-[10px] font-medium tracking-wide">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#9db2b9] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">person</span>
+<span class="text-[10px] font-medium tracking-wide">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

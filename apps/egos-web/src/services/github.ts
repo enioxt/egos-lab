@@ -12,6 +12,7 @@ const OWNER = 'enioxt';
 const REPO = 'egos-lab';
 
 export interface CommitNode {
+    [key: string]: unknown;
     id: string;
     message: string;
     author: string;

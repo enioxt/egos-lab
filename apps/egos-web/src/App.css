@@ -1,42 +1,590 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ═══════════════════════════════════════════════════
+   EGOS Mission Control — HUD Theme
+   Design: Dark glassmorphism, Space Grotesk, cyan accents
+   Reference: Stitch manager_dashboard_hud_v2
+   ═══════════════════════════════════════════════════ */
+
+/* ── Layout ── */
+.mission-control {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: #050505;
+}
+
+/* ── Top Bar ── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 52px;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #13b6ec;
+  box-shadow: 0 0 10px rgba(19, 182, 236, 0.6);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.logo-text {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #13b6ec;
+}
+
+.top-bar-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.top-bar-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
+}
+
+.top-bar-nav {
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.nav-tab {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-tab.active {
+  background: rgba(19, 182, 236, 0.15);
+  color: #13b6ec;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+}
+
+.gh-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.gh-link:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Split View ── */
+.split-view {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.panel-spiral {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.panel-dashboard {
+  width: 420px;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-y: auto;
+  background: rgba(8, 8, 12, 0.95);
+}
+
+/* ── Dashboard ── */
+.dashboard {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dashboard-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.dashboard-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── KPI Grid ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  background: rgba(30, 41, 59, 0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.kpi-card:hover {
+  background: rgba(30, 41, 59, 0.5);
+  border-color: rgba(19, 182, 236, 0.2);
+}
+
+.kpi-icon {
+  color: #13b6ec;
+  opacity: 0.7;
+}
+
+.kpi-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+}
+
+.kpi-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── Dashboard Sections ── */
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #13b6ec;
+}
+
+.section-header h3 {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0;
+}
+
+/* ── Commit Feed ── */
+.commit-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.commit-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.commit-card:hover {
+  background: rgba(30, 41, 59, 0.4);
+  border-color: rgba(19, 182, 236, 0.15);
+}
+
+.commit-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(19, 182, 236, 0.5);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.commit-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.commit-message {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.commit-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.commit-repo {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(19, 182, 236, 0.1);
+  color: rgba(19, 182, 236, 0.6);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.commit-link-icon {
+  color: rgba(255, 255, 255, 0.15);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.commit-feed-loading,
+.commit-feed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 12px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.commit-feed-empty code {
+  font-size: 10px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  color: rgba(19, 182, 236, 0.6);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #13b6ec;
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* ── Chat CTA ── */
+.chat-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(19, 182, 236, 0.15), rgba(139, 92, 246, 0.15));
+  border: 1px solid rgba(19, 182, 236, 0.2);
+  color: #13b6ec;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chat-cta:hover {
+  background: linear-gradient(135deg, rgba(19, 182, 236, 0.25), rgba(139, 92, 246, 0.25));
+  border-color: rgba(19, 182, 236, 0.4);
+}
+
+/* ── Chat Panel ── */
+.chat-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 380px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(12, 12, 18, 0.97);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-sparkle {
+  color: #13b6ec;
+}
+
+.chat-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+}
+
+.chat-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chat-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.chat-bubble.bot {
+  align-self: flex-start;
+  background: rgba(30, 41, 59, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.thinking {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.chat-input-area {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.chat-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.chat-input:focus {
+  border-color: rgba(19, 182, 236, 0.4);
+}
+
+.chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.chat-send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: none;
+  background: #13b6ec;
+  color: #050505;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chat-send:hover:not(:disabled) {
+  background: #0e9fd1;
+}
+
+.chat-send:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Chat FAB ── */
+.chat-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #13b6ec, #8b5cf6);
+  border: none;
+  box-shadow: 0 4px 20px rgba(19, 182, 236, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 1000;
+}
+
+/* ── Spiral Panel Override ── */
+.panel-spiral :first-child {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ── Animations ── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(19, 182, 236, 0.5); }
+  50% { opacity: 0.6; box-shadow: 0 0 16px rgba(19, 182, 236, 0.8); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .split-view {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .panel-spiral {
+    height: 50vh;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .panel-dashboard {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .chat-panel {
+    width: calc(100vw - 32px);
+    right: 16px;
+    bottom: 72px;
+    height: 60vh;
+  }
 }

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tourism Asset Inventory - Eagle Eye</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101d22",
+                        "surface-dark": "#1c2427",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "1.5rem", 
+                        "xl": "2rem", 
+                        "2xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Noto Sans", sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased min-h-screen flex flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="User avatar of a city manager" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAh5FqhdRurWRDd3dE-OvB_9TOKysm1bjqpLEOU0PUyNvBma74pm-ZL-DT_Rk78eooVCYiY064mS14N9ErF_RDPkyJMdkY7B89H6IiYNlC_nw5z8ZZOh8_CKRQukwHZELxmRBgAm0s1H5ppRM4aJ68ic5RZJQtN8Ub6JMMMFBeM6jAlbYiH8bd1AwDWB3unjyJTor5-IAMTLDB2JP_vqjIR012yj0z-U1sNGcAu5ErhiVRxCSZ4o4Rrwy0qFKrCb9aMgFafaVqh5o'); background-size: cover; background-position: center;"></div>
+<div class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-primary border-2 border-white dark:border-background-dark"></div>
+</div>
+<div>
+<h1 class="text-sm font-medium text-slate-500 dark:text-slate-400 leading-none">Eagle Eye</h1>
+<h2 class="text-lg font-bold leading-tight">Asset Inventory</h2>
+</div>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-200 dark:bg-surface-dark text-slate-700 dark:text-slate-200">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-4 py-6 flex flex-col gap-6 pb-24">
+<!-- Featured Asset / Warning -->
+<section>
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-lg font-bold">Priority Action</h3>
+<span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">1 Alert</span>
+</div>
+<div class="relative overflow-hidden rounded-xl bg-surface-dark shadow-lg group">
+<!-- Background Image -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Scenic waterfall cascading down rocks in a lush forest" data-location="Cachoeira do Prata" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6hKVNPje6FVsvkWyUqz7eQMmiU_L3CMFr50ox9fTbicfRvPYypYjaPJxNmRghf4eSPvEOuzrziXr0nfFHTMPAuK3QpzE0nMH4zx5N6P7JzYe6VGWdi8PitFDohnXDkWgE9AfNhkCNY7EwpXE3WtjPay5dJUiIbowL5YRvgsc6f9bE5wCYVL7ooFiEDyiX_GUr1km_c08XYzQHHVfBX9rHtOvfAo7ayA8DRH1__G2YGhvTly7XE0d2NhCJtpLBFIjjWox0h_UYsMU');">
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+</div>
+<!-- Content -->
+<div class="relative p-5 flex flex-col h-64 justify-end">
+<div class="flex items-start justify-between mb-2">
+<div class="bg-red-500/20 backdrop-blur-sm border border-red-500/30 text-red-200 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span>Data Gap</span>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-full p-2 text-white">
+<span class="material-symbols-outlined">more_horiz</span>
+</div>
+</div>
+<h3 class="text-2xl font-bold text-white mb-1">Cachoeira do Prata</h3>
+<p class="text-slate-300 text-sm mb-4 line-clamp-2">
+                        Google Maps Gap Detected: Location data missing for 30 days. Visitor traffic down 15%.
+                    </p>
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 px-4 rounded-full flex items-center justify-center gap-2 transition-colors">
+<span>Resolve Now</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Filters (Horizontal Scroll) -->
+<section>
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-lg font-bold">Categories</h3>
+<button class="text-xs font-medium text-primary">View All</button>
+</div>
+<div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2 -mx-4 px-4">
+<!-- Active Filter -->
+<button class="flex flex-col items-center gap-2 min-w-[72px] group">
+<div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-background-dark shadow-lg shadow-primary/20 transition-transform active:scale-95">
+<span class="material-symbols-outlined">grid_view</span>
+</div>
+<span class="text-xs font-medium text-primary">All</span>
+</button>
+<!-- Inactive Filters -->
+<button class="flex flex-col items-center gap-2 min-w-[72px] group">
+<div class="w-14 h-14 rounded-full bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:border-primary/50 group-hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined">forest</span>
+</div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">Nature</span>
+</button>
+<button class="flex flex-col items-center gap-2 min-w-[72px] group">
+<div class="w-14 h-14 rounded-full bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:border-primary/50 group-hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined">theater_comedy</span>
+</div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">Culture</span>
+</button>
+<button class="flex flex-col items-center gap-2 min-w-[72px] group">
+<div class="w-14 h-14 rounded-full bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:border-primary/50 group-hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined">business_center</span>
+</div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">Business</span>
+</button>
+<button class="flex flex-col items-center gap-2 min-w-[72px] group">
+<div class="w-14 h-14 rounded-full bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:border-primary/50 group-hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined">event</span>
+</div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">Events</span>
+</button>
+</div>
+</section>
+<!-- Inventory Grid -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold">All Assets</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-surface-dark text-slate-500">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-surface-dark text-slate-500">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Card 1: Verified High Score -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-xl p-3 shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col gap-3 group">
+<div class="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800">
+<img alt="Luxury hotel lobby with modern lighting" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Modern luxury hotel lobby interior with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASl51Ttu2WY4Myex0SsM7HBedLW6gQUL90uJ-PHJLILG0dFoQpZe_ncWrnTINUoWv24Wzgng0V-s_dxgRV-9xafMX5n0dHDff7LWFiAyQmUl238Bd5xdDnt-zP6CLOWOjZ4RwjUTnQT7TyUUsbO4mCP4LrwDXiBoIVh1a9BsV6TFnXOzMoORLP8OxDWdWbmY5UlRkw4Q5fpkktRf1ToYWNjsx5jJ1G1EAe7c9myUu5vuNtQ7vbPdRUpt3OoNv-fP_nkNNqLcDO5BA"/>
+<div class="absolute top-2 right-2 bg-green-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+                            VERIFIED
+                        </div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-1">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white leading-tight">Grand Plaza Hotel</h4>
+<span class="text-xs text-slate-500 dark:text-slate-400">Business • Downtown</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Potential Score</span>
+<span class="text-xs font-bold text-primary">92%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-200 dark:bg-black rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[92%] rounded-full"></div>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2: Needs Update Low Score -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-xl p-3 shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col gap-3 group">
+<div class="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800">
+<img alt="Concert stage with lights and crowd" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale-[50%]" data-alt="Blurry crowd at a night concert with stage lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7Rnp9O2jP9z_lo2xdfCoe0XBuWSmCToYqBv7oYvtm7VoIvNS2BlTqnM-Sojvuq16ZK_cetrgM6yxO8P9TRIbu-UvTqDPF7l5-Iwrrvt3oopnPpovQiG3Vf4Z0eDgxWEGPuW4LNOHVPMK0WeLgAE0DUa2NfrdJxSaSEUPuGPRKsunTJAiK92--cMu5vukoek_wdksF6gsdERmX1QDGedWbrA-lOddrfTJaZW9BY6W6tZsmzJJfnzHkkqBju2yr5jftSd-94Hbdqkw"/>
+<div class="absolute top-2 right-2 bg-amber-500/90 backdrop-blur-sm text-black text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]">update</span>
+                            NEEDS UPDATE
+                        </div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-1">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white leading-tight">Jazz Festival 2024</h4>
+<span class="text-xs text-slate-500 dark:text-slate-400">Events • Central Park</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Potential Score</span>
+<span class="text-xs font-bold text-amber-500">45%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-200 dark:bg-black rounded-full overflow-hidden">
+<div class="h-full bg-amber-500 w-[45%] rounded-full"></div>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3: Verified Medium Score -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-xl p-3 shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col gap-3 group">
+<div class="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800">
+<img alt="Interior of a restaurant" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Cozy restaurant interior with wooden tables and hanging plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM1xxhO4Bs1HFLZ3_WR2AQ3I2msJAyI6B2mI6sxTeCNO6exqkQxzIOL0Wi8bBrgpHpw9xxfx7tIq0YwTt8fekSP_vIaUaVDAYz1Zik9kV6ktk5HOfq0bj8kNm1OfqGlvOTgF2ho5T3NiQNg5t8VIHbeN3i567lxxjCaggrK8kbSPlqpW_9TisLVrugZjM4Fnx9xlWFXGk0ylcBjGC6-0HVqM78Jl-H4zIbLiobkXR4px4e4oJZjuHNunjIOZkg7n91eEIffJYFjLI"/>
+<div class="absolute top-2 right-2 bg-green-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+                            VERIFIED
+                        </div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-1">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white leading-tight">Old Town Market</h4>
+<span class="text-xs text-slate-500 dark:text-slate-400">Culture • Historic District</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Potential Score</span>
+<span class="text-xs font-bold text-primary">78%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-200 dark:bg-black rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[78%] rounded-full"></div>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 4: New / Pending -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-xl p-3 shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col gap-3 group">
+<div class="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800">
+<div class="absolute inset-0 flex items-center justify-center bg-slate-800">
+<span class="material-symbols-outlined text-slate-600 text-4xl">image_not_supported</span>
+</div>
+<div class="absolute top-2 right-2 bg-slate-600/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]">hourglass_empty</span>
+                            PENDING
+                        </div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-1">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white leading-tight">Riverside Walkway</h4>
+<span class="text-xs text-slate-500 dark:text-slate-400">Nature • Riverside</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">AI Estimation</span>
+<span class="text-xs font-bold text-slate-400">Processing...</span>
+</div>
+<div class="h-1.5 w-full bg-slate-200 dark:bg-black rounded-full overflow-hidden">
+<div class="h-full bg-slate-600 w-[20%] rounded-full animate-pulse"></div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface-dark/95 backdrop-blur-lg border-t border-slate-800 pb-safe pt-2 px-6 z-50">
+<div class="flex justify-between items-end pb-4 pt-1">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined filled">list_alt</span>
+<span class="text-[10px] font-medium">Inventory</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-[10px] font-medium">Map View</span>
+</a>
+<div class="relative -top-6">
+<button class="flex items-center justify-center w-14 h-14 rounded-full bg-primary text-background-dark shadow-[0_0_15px_rgba(19,182,236,0.5)] transform hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-medium">Analytics</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quick Capture AR Camera</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101d22",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for the AR bracket animation */
+        @keyframes pulse-border {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+        .ar-bracket {
+            animation: pulse-border 2s infinite ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased overflow-hidden h-screen w-full relative">
+<!-- Camera Feed Background Simulation -->
+<div class="absolute inset-0 z-0 bg-cover bg-center" data-alt="Urban city square with old european architecture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCDiOFcNwvV4vstiRyjh9b9vPI2u7rEilqFY5RCgikc_A3VB28qWBVN1q2z10jV1ZJTtW22r7FVrSpu-bsem4gJIl59LpD9ZYl-iXzXEzU43Qs8WqRwXsSX8tuZ5NxiFXU-WWU-klOnMyKlr7yBmOqRfa0XKDPG0S_B2DA095-B79EDa2D1EtAxOjK9059_oz-oohwULOvCXgP7OsVZmfsR36CGyavBZ-wtRSCfY27KFixQYTCuzd0KA1ifdQb79LAbOqD9gak4c14');">
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
+</div>
+<!-- Main Container -->
+<div class="relative z-10 flex flex-col h-full w-full max-w-md mx-auto">
+<!-- Top Bar -->
+<div class="flex items-center justify-between p-6 pt-12">
+<button class="flex items-center justify-center size-10 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-colors">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center size-10 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-colors">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+</button>
+<button class="flex items-center justify-center size-10 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-colors">
+<span class="material-symbols-outlined text-2xl">flash_on</span>
+</button>
+</div>
+</div>
+<!-- AR Overlay Area -->
+<div class="flex-1 flex flex-col items-center justify-center relative px-8">
+<!-- Detection Bracket -->
+<div class="ar-bracket relative w-full aspect-[4/5] border-2 border-primary/50 rounded-3xl bg-transparent flex flex-col items-center justify-between py-6">
+<!-- Corners accent -->
+<div class="absolute top-0 left-0 size-8 border-t-4 border-l-4 border-primary rounded-tl-2xl -mt-[2px] -ml-[2px]"></div>
+<div class="absolute top-0 right-0 size-8 border-t-4 border-r-4 border-primary rounded-tr-2xl -mt-[2px] -mr-[2px]"></div>
+<div class="absolute bottom-0 left-0 size-8 border-b-4 border-l-4 border-primary rounded-bl-2xl -mb-[2px] -ml-[2px]"></div>
+<div class="absolute bottom-0 right-0 size-8 border-b-4 border-r-4 border-primary rounded-br-2xl -mb-[2px] -mr-[2px]"></div>
+<!-- Status Badge -->
+<div class="bg-primary/90 backdrop-blur-md text-background-dark px-4 py-1.5 rounded-full text-sm font-bold tracking-wide uppercase shadow-[0_0_15px_rgba(19,182,236,0.5)]">
+                    Detecting...
+                </div>
+<!-- Center Crosshair -->
+<div class="size-4 relative opacity-80">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-primary -translate-y-1/2"></div>
+<div class="absolute left-1/2 top-0 h-full w-0.5 bg-primary -translate-x-1/2"></div>
+</div>
+<!-- Distance Info -->
+<div class="bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-lg text-xs font-mono tracking-wider">
+                    24m Away
+                </div>
+</div>
+</div>
+<!-- Bottom Controls Sheet -->
+<div class="w-full pb-8 pt-4 px-6 bg-gradient-to-t from-black via-black/80 to-transparent">
+<!-- Info Card -->
+<div class="bg-[#111618]/80 backdrop-blur-xl border border-white/10 p-4 rounded-2xl mb-6 shadow-2xl">
+<div class="flex items-start justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">location_on</span>
+<h2 class="text-white text-lg font-bold leading-tight">Praça do Coreto</h2>
+</div>
+<p class="text-gray-400 text-sm pl-7">Historic Plaza • 1920</p>
+</div>
+<div class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap border border-primary/30">
+                        +50 PTS
+                    </div>
+</div>
+<div class="mt-4 flex items-center gap-3 pl-7">
+<button class="flex-1 bg-white/10 hover:bg-white/20 active:bg-white/5 transition text-white text-sm font-medium py-2 px-4 rounded-full flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">add_a_photo</span>
+                        Add Photo
+                    </button>
+<button class="size-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white">
+<span class="material-symbols-outlined text-lg">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Main Controls -->
+<div class="flex items-center justify-between px-4">
+<!-- Gallery Thumbnail -->
+<button class="relative size-12 rounded-xl overflow-hidden border-2 border-white/20 hover:border-white transition-colors group">
+<img class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Gallery preview thumbnail showing a colorful abstract pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuGb6aO2gtirgeJ0R2FrdCIS8OpilY90RtuhupTGbiVhjWNLHJDql4WhOolUv1oDT-sHMt4CxFMMo-p82BQ6q_YfSgqqh1yAjUq2QFY-6A2Bo3cqmn9RhXeGplOuMl_0U_nha_A5cfkGviNW2bNDwyF6FsTSajL4FFvBOJUb_LRT1oCEy9hIVL8seaw7wam7jk2CZzNj73gd6fdcvxW1mjxq70uKJ3IKP1aGMq0ULRFV434ZRUZds9uxms5k3u-mvS0TLE6xs4lmQ"/>
+</button>
+<!-- Shutter Button -->
+<button class="relative group">
+<!-- Outer Ring -->
+<div class="size-20 rounded-full border-[4px] border-white group-active:scale-95 transition-transform duration-100"></div>
+<!-- Inner Circle -->
+<div class="absolute inset-0 m-auto size-16 rounded-full bg-white group-active:bg-primary group-active:scale-90 transition-all duration-100 shadow-[0_0_20px_rgba(255,255,255,0.3)]"></div>
+</button>
+<!-- Voice Note Button -->
+<button class="size-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-primary hover:text-background-dark transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined text-2xl">mic</span>
+</button>
+</div>
+<!-- Bottom safe area spacer -->
+<div class="h-4"></div>
+</div>
+</div>
+</body></html>

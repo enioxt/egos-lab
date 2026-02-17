@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Social Impact &amp; Rewards</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101d22",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white overflow-x-hidden antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col mx-auto max-w-md bg-background-light dark:bg-background-dark pb-24">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md px-5 pt-12 pb-4 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between">
+<div>
+<h1 class="text-2xl font-bold tracking-tight">My Impact</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Hello, Joao</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+<span class="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500"></span>
+</button>
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-primary/20">
+<img alt="User Avatar" class="h-full w-full object-cover" data-alt="Portrait of a smiling young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9PSuFwUqnQnIRdXQLuI7ce0iNoi9ywJaLSZcKLN29JjQUQyq8pJq3_pcnaB-kWe3rJrQ-12Pfxtg9uhmKAkj_bGLTIpRpU-qvhV77jhExBzLZnxioZhh4HPtdWZl4XE1cjMmCbU-RhAM22-diRTMWVHVLucxrFsamwXl0mwpBfjWBi_UiQp5E2AKyhe2a2nbQ5InoTcJNj6UeWnlv9Js_ISi1z2qhx9IoPAY5Va-joUZQENQq1NZNR613yef0QUA2LpdYtCdPTtQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex flex-col gap-6 px-4 pt-6">
+<!-- Referral Card -->
+<section>
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-background-dark p-6 shadow-lg border border-slate-700/50">
+<!-- Background Decoration -->
+<div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div>
+<h2 class="text-lg font-bold text-white mb-1">Refer a Friend</h2>
+<p class="text-sm text-slate-300 max-w-[200px] leading-relaxed">Share your code and earn points together!</p>
+</div>
+<div class="rounded-full bg-primary/10 p-2 text-primary">
+<span class="material-symbols-outlined">diversity_3</span>
+</div>
+</div>
+<div class="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
+<div class="flex-1 rounded-lg bg-black/30 border border-white/10 px-4 py-3 text-center sm:text-left">
+<p class="font-mono text-2xl font-bold tracking-widest text-primary">JOAO-8821</p>
+</div>
+<button class="group flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-slate-900 transition-all hover:bg-primary/90 active:scale-95">
+<span>Share</span>
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">share</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Community Stats -->
+<section>
+<h3 class="mb-4 px-1 text-lg font-bold text-slate-900 dark:text-white">Community Stats</h3>
+<div class="grid grid-cols-3 gap-3">
+<!-- Stat 1 -->
+<div class="flex flex-col items-center justify-center gap-2 rounded-2xl bg-white dark:bg-slate-800/50 p-4 text-center border border-slate-200 dark:border-slate-700/50 shadow-sm">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/10 text-amber-500">
+<span class="material-symbols-outlined">group_add</span>
+</div>
+<div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">12</p>
+<p class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Friends</p>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="flex flex-col items-center justify-center gap-2 rounded-2xl bg-white dark:bg-slate-800/50 p-4 text-center border border-slate-200 dark:border-slate-700/50 shadow-sm">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined">redeem</span>
+</div>
+<div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">3</p>
+<p class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Rewards</p>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="flex flex-col items-center justify-center gap-2 rounded-2xl bg-white dark:bg-slate-800/50 p-4 text-center border border-slate-200 dark:border-slate-700/50 shadow-sm">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-teal-500/10 text-teal-500">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">5</p>
+<p class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Ideas</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Rewards -->
+<section>
+<div class="flex items-center justify-between mb-4 px-1">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Recent Rewards</h3>
+<a class="text-xs font-bold text-primary hover:text-primary/80" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Reward Card 1 -->
+<div class="group flex items-center gap-4 rounded-xl bg-white dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700/50 shadow-sm transition-all hover:border-primary/50">
+<div class="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700">
+<img alt="Cafe Logo" class="h-full w-full object-cover" data-alt="Modern coffee cup logo on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxiBeC9SKvfUbP8Yv3Lp8Sb66DcqW_Si5EXlmIRsJjz6afTN2mINiVFBkViY7PzsueDcSVcY74ThkmmBHe3EGkDCOTvL49Lk1C3NVMg92BVevkXYwwziOy0Ms0y-1Tvw1_2xmvmQ3grxIW9XyL4zM4f-Ns1Dyi7jWsxekkCdk77sg9Szp-JsC7YX6AXVK82o190VayBDvndgw_YwlOQC96QHOKkl1CADKpnaZr4JY92DhrhpzJF08wuMhPWp6uWB5qiOv34dFW_cs"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="truncate text-base font-bold text-slate-900 dark:text-white">Green Cafe</h4>
+<p class="truncate text-sm text-slate-500 dark:text-slate-400">Thanks for the cleanup help!</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="rounded-full bg-teal-500/10 px-2.5 py-1 text-xs font-bold text-teal-600 dark:text-teal-400">Free Coffee</span>
+<span class="text-[10px] text-slate-400">2h ago</span>
+</div>
+</div>
+<!-- Reward Card 2 -->
+<div class="group flex items-center gap-4 rounded-xl bg-white dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700/50 shadow-sm transition-all hover:border-primary/50">
+<div class="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700">
+<img alt="Bookstore Logo" class="h-full w-full object-cover" data-alt="Stack of books icon minimal style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtWxF-NITi9i2AlwCG5pSrp4v1TZQp5Cz6nDqSMU_8MsOQf3qjx5bOnZlmaWLs35mZ5nzP6m-CpJXpsGrF8_QkcpF4IeqnU2IfQZ9eLscOzScvEvckYz5HUXfILki37xS7puUH2at63VRsYACW7pLXlB83Ft8glb1ZXJ8rflDxKLKzApG1aq9Kmcm9e947YLWx9m4YvGn94eKucocntSVEy7muvu_OUpc8ZbbweCcFp4dAWPinsi_FzQlW8vInossqtQJFWhiIvcs"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="truncate text-base font-bold text-slate-900 dark:text-white">City Books</h4>
+<p class="truncate text-sm text-slate-500 dark:text-slate-400">Great community workshop!</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-bold text-amber-600 dark:text-amber-400">10% Off</span>
+<span class="text-[10px] text-slate-400">1d ago</span>
+</div>
+</div>
+<!-- Reward Card 3 -->
+<div class="group flex items-center gap-4 rounded-xl bg-white dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700/50 shadow-sm transition-all hover:border-primary/50">
+<div class="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700">
+<img alt="Gym Logo" class="h-full w-full object-cover" data-alt="Dumbbell icon inside a circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOKxl60UAfVbCIgB4GbcpIP27ShcN9B8zhcMFMWtCrfcTSZRr6SjfTE0iXmG_6Zj8s7Ajkvf_B5ytLyxHWlU7jMxx3xOu1RrOOhmO7Uxo2PGJ4VZxnfy0SxAgqWHpZlkAOjZ9KQAi7590NUa3fiehjVv1PKJSjhTldL9-SPdfKMPLKY08rNTayUWTJVBIH52D2KyEH7HqKb9SYoKMMlHS8qedJn6Uxdm56aa6ci4lmJcL3PNhRnafcYTba4sg-syxK5mtsPHPol0E"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="truncate text-base font-bold text-slate-900 dark:text-white">Urban Gym</h4>
+<p class="truncate text-sm text-slate-500 dark:text-slate-400">Volunteer fitness drive</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary">Day Pass</span>
+<span class="text-[10px] text-slate-400">3d ago</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navbar -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 mx-auto max-w-md border-t border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark pb-5 pt-2 px-2">
+<div class="flex items-end justify-around">
+<a class="group flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" href="#">
+<div class="flex h-8 items-center justify-center transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[24px]">home</span>
+</div>
+<span class="text-[10px] font-medium tracking-wide">Home</span>
+</a>
+<a class="group flex flex-1 flex-col items-center justify-end gap-1 text-primary" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined text-[24px] fill-current">favorite</span>
+</div>
+<span class="text-[10px] font-medium tracking-wide">Impact</span>
+</a>
+<a class="group flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" href="#">
+<div class="flex h-8 items-center justify-center transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[24px]">person</span>
+</div>
+<span class="text-[10px] font-medium tracking-wide">Profile</span>
+</a>
+<a class="group flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" href="#">
+<div class="flex h-8 items-center justify-center transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</div>
+<span class="text-[10px] font-medium tracking-wide">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

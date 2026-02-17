@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eagle Eye - Citizen Opportunity Feed</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101d22",
+                        "surface-dark": "#1c2e33",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"] // Overriding sans for consistency
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "2xl": "2.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-white overflow-x-hidden antialiased">
+<div class="relative flex flex-col h-full min-h-screen w-full max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden">
+<!-- Header Section -->
+<header class="sticky top-0 z-30 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 pb-2">
+<!-- Top Bar -->
+<div class="flex items-center justify-between px-5 pt-12 pb-2"> <!-- Added top padding for status bar simulation -->
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight">Eagle Eye</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Citizen Intelligence</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">search</span>
+</button>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden ring-2 ring-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGS1mv7huQwXkGS7iB2gFLEzYbxytLHaT7aCY_ptpRm2sZX54l71-ZeQgNlfe1QCvPKj4UebEA9ZLwlSppdI7YB_fPGm7UpOZBRlsKXujuU6sxmKJwjpj_ta4DYH2zZXt68-i43hG2iywDSKD37G5boag1bVIL37GQLy-ppfO3zjIOvGF8_MgNSmPx79syDUYpPZ2n3PaOfPv8TUnFRt3SOrK3Mv6BgysNTwIZWppRP-9LAwhJrzERdMOAg_bYH9PCH_jY-Emjqw4"/>
+</div>
+</div>
+</div>
+<!-- Filters / Status -->
+<div class="flex flex-col px-5 py-2">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-2xl font-bold tracking-tight">Active Signals</h2>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-xs font-bold text-primary uppercase tracking-wider">Live</span>
+</div>
+</div>
+<!-- Horizontal Scroll Filters -->
+<div class="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                        All Signals
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-200 dark:bg-surface-dark border border-transparent dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-red-500">error</span>
+                        Urgent
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-200 dark:bg-surface-dark border border-transparent dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary">bookmark</span>
+                        Saved
+                    </button>
+</div>
+</div>
+</header>
+<!-- Main Feed Content -->
+<main class="flex-1 px-5 py-4 pb-24 space-y-6 relative">
+<!-- Timeline Spine -->
+<div class="absolute left-9 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800 z-0"></div>
+<!-- Card 1: Urgent & Image Based -->
+<article class="relative pl-10 group">
+<!-- Timeline Dot -->
+<div class="absolute left-[11px] top-6 size-3 rounded-full bg-red-500 ring-4 ring-background-light dark:ring-background-dark z-10 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+<div class="flex flex-col gap-3 p-4 rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-slate-200 dark:border-slate-700/50 hover:border-primary/30 transition-all duration-300">
+<!-- Header Meta -->
+<div class="flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[10px]">Diário Oficial</span>
+<span>•</span>
+<span>2h ago</span>
+</div>
+<div class="flex items-center gap-1 text-red-500 bg-red-500/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px] fill-current">timer</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Expiring Soon</span>
+</div>
+</div>
+<!-- Visual Context (Optional for high impact cards) -->
+<div class="h-32 w-full rounded-xl overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+<img alt="Concert crowd with lights" class="w-full h-full object-cover" data-alt="Concert stage with lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv8j_RvahZABoRTiqqHWyS5y-bhGzEXpWGhSWA6h2PkbW9V_F-BZJNaI0TJVJIDaPb6cz9WsSEMcStsVJscThwOl4QiQuJgd6vJVm0lhXQ6j98OeNjx2tdoOOTDo4Z19tFmXb12DiTR_9QRcsLpOshajk54UtmM6mSGGxgWh-ZCRbp-vy5cVnNuD6GCC1g5FA_6lKQwHACjUh-Fz9jGBLu43D657XprzdvwFJLPxGE_9UJvw1k4VBkqyd259uQ3CpdetSM2qnMhqk"/>
+<div class="absolute bottom-3 left-3 z-20">
+<span class="text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/10">Public Sector • Events</span>
+</div>
+</div>
+<!-- Content -->
+<div>
+<h3 class="text-lg font-bold leading-tight mb-2 text-slate-900 dark:text-white">Abertura de Licitação - Shows Expomilho</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                            Municipal government seeking production vendors for large-scale audio/visual setup. Requires immediate proposal submission for upcoming cultural festival.
+                        </p>
+</div>
+<!-- Actions -->
+<div class="pt-2 flex items-center gap-2 mt-1 border-t border-slate-100 dark:border-slate-700/50">
+<button class="flex-1 h-10 bg-primary text-slate-900 hover:bg-primary/90 rounded-full text-sm font-bold transition-transform active:scale-95 flex items-center justify-center gap-2">
+<span>Generate Proposal</span>
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Standard Text Based -->
+<article class="relative pl-10 group">
+<!-- Timeline Dot -->
+<div class="absolute left-[11px] top-6 size-3 rounded-full bg-primary ring-4 ring-background-light dark:ring-background-dark z-10"></div>
+<div class="flex flex-col gap-3 p-4 rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-slate-200 dark:border-slate-700/50 hover:border-primary/30 transition-all duration-300">
+<!-- Header Meta -->
+<div class="flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[10px]">Diário Oficial - SP</span>
+<span>•</span>
+<span>5h ago</span>
+</div>
+</div>
+<!-- Content -->
+<div>
+<h3 class="text-lg font-bold leading-tight mb-2 text-slate-900 dark:text-white">Pregão Eletrônico - Material Escolar</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Acquisition of 5,000 units of standard writing supplies for municipal schools. Budget allocation approved for Q3.
+                        </p>
+<!-- AI Tags -->
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">Education</span>
+<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">Logistics</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-2 flex items-center gap-2 mt-1 border-t border-slate-100 dark:border-slate-700/50">
+<button class="flex-1 h-10 border border-primary text-primary hover:bg-primary/10 rounded-full text-sm font-bold transition-transform active:scale-95 flex items-center justify-center gap-2">
+<span>Generate Proposal</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3: Standard Text Based -->
+<article class="relative pl-10 group opacity-75">
+<!-- Timeline Dot -->
+<div class="absolute left-[11px] top-6 size-3 rounded-full bg-slate-400 dark:bg-slate-600 ring-4 ring-background-light dark:ring-background-dark z-10"></div>
+<div class="flex flex-col gap-3 p-4 rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-slate-200 dark:border-slate-700/50">
+<!-- Header Meta -->
+<div class="flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[10px]">Gov.br</span>
+<span>•</span>
+<span>1d ago</span>
+</div>
+</div>
+<!-- Content -->
+<div>
+<h3 class="text-lg font-bold leading-tight mb-2 text-slate-900 dark:text-white">Urban Park Renovation Project</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+                             Call for architectural and landscaping services for the central park district revitalization.
+                        </p>
+</div>
+<!-- Actions -->
+<div class="pt-2 flex items-center gap-2 mt-1 border-t border-slate-100 dark:border-slate-700/50">
+<button class="flex-1 h-10 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-sm font-bold transition-transform active:scale-95 flex items-center justify-center gap-2">
+<span>View Details</span>
+</button>
+</div>
+</div>
+</article>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 z-40 size-14 bg-primary text-slate-900 rounded-full shadow-[0_4px_14px_0_rgba(19,182,236,0.39)] hover:shadow-[0_6px_20px_rgba(19,182,236,0.23)] hover:-translate-y-1 transition-all duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">radar</span>
+</button>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full max-w-md bg-background-light dark:bg-surface-dark border-t border-slate-200 dark:border-slate-800 pb-safe pt-2 z-50">
+<div class="flex items-center justify-around px-2 pb-4">
+<a class="flex flex-col items-center gap-1 p-2 group" href="#">
+<div class="relative text-primary transition-colors group-hover:text-primary">
+<span class="material-symbols-outlined text-[26px] filled">broadcast_on_home</span>
+<span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+</div>
+<span class="text-[10px] font-bold tracking-wide text-primary">Feed</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 group" href="#">
+<div class="text-slate-400 transition-colors group-hover:text-slate-600 dark:group-hover:text-slate-200">
+<span class="material-symbols-outlined text-[26px]">bookmark_border</span>
+</div>
+<span class="text-[10px] font-medium tracking-wide text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200">Saved</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 group" href="#">
+<div class="text-slate-400 transition-colors group-hover:text-slate-600 dark:group-hover:text-slate-200">
+<span class="material-symbols-outlined text-[26px]">analytics</span>
+</div>
+<span class="text-[10px] font-medium tracking-wide text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200">Analytics</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 group" href="#">
+<div class="text-slate-400 transition-colors group-hover:text-slate-600 dark:group-hover:text-slate-200">
+<span class="material-symbols-outlined text-[26px]">settings</span>
+</div>
+<span class="text-[10px] font-medium tracking-wide text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+<script>
+        // Simple script to toggle like button for interactivity demo
+        const likeBtns = document.querySelectorAll('.like-btn');
+        likeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                if (icon.textContent === 'bookmark_border') {
+                    icon.textContent = 'bookmark';
+                    icon.classList.add('text-primary');
+                } else {
+                    icon.textContent = 'bookmark_border';
+                    icon.classList.remove('text-primary');
+                }
+            });
+        });
+    </script>
+</body></html>
