@@ -14,10 +14,10 @@ EGOS Lab is an open-source monorepo that combines **working applications**, **pr
 
 | Layer | Contents | Status |
 |-------|----------|--------|
-| **Apps** | `egos-web` (Mission Control), `eagle-eye` (OSINT gazette monitor), `marketplace-core`, `radio-philein` | Live / Alpha |
+| **Agents** | 8 autonomous agents: SSOT Auditor, Auth Checker, Code Reviewer, Security Scanner, Rho Calculator... | Beta |
+| **Apps** | `egos-web` (Mission Control), `eagle-eye` (OSINT gazette monitor), `radio-philein` | Live / Alpha |
 | **Projects** | 14 blueprints from public procurement OSINT to agent-centric architecture | Concept → Alpha |
 | **Packages** | Shared AI client, rate limiter, types, config rules | Stable |
-| **Scripts** | Idea scanner, security scan, dissemination, review automation | Stable |
 | **Docs** | 40+ idea files, 12+ UI designs (Stitch), business strategy, partner packages | Growing |
 
 ---
@@ -73,15 +73,17 @@ See **[docs/CONTRIBUTING_WITH_AI.md](docs/CONTRIBUTING_WITH_AI.md)** for the ful
 
 ```
 egos-lab/
+├── agents/                 ← Agentic Platform (8 registered, 20 planned)
+│   ├── runtime/runner.ts   ← Core: registry, logger, correlation IDs
+│   ├── registry/agents.json← Agent definitions (SSOT)
+│   └── agents/*.ts         ← SSOT Auditor, Auth Checker, etc.
 ├── apps/
 │   ├── egos-web/           ← Mission Control (egos.ia.br)
 │   ├── eagle-eye/          ← OSINT gazette monitor + AI
-│   ├── marketplace-core/   ← Prompt/rule marketplace (planned)
 │   └── radio-philein/      ← Community radio (paused)
 ├── packages/shared/        ← AI client, rate limiter, types
 ├── projects/               ← 14 project blueprints
-├── scripts/                ← Automation tools
-├── docs/                   ← Knowledge base + strategies
+├── docs/                   ← Knowledge base, case studies, strategy
 └── .guarani/               ← Agent identity + coding rules
 ```
 
@@ -108,11 +110,13 @@ Read the full plan: [docs/OPEN_SOURCE_PLAN.md](docs/OPEN_SOURCE_PLAN.md)
 
 | Layer | Technology |
 |-------|-----------|
+| Runtime | Bun (agents, scripts, CLI) |
 | Frontend | React + Vite (egos-web) |
 | API | Vercel Serverless |
 | Database | Supabase PostgreSQL |
 | Auth | Supabase Auth (GitHub OAuth) |
-| AI | OpenRouter (Gemini) |
+| AI | OpenRouter (Gemini 2.0 Flash) |
+| Agents | Custom runtime + registry + JSONL logs |
 | CI | GitHub Actions + Husky pre-commit |
 
 ---
