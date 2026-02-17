@@ -1,74 +1,129 @@
-# 🧪 Egos Lab: The Agentic Lifecycle System
+# EGOS Lab — Collaborative Open Source Ecosystem
 
-> **"A estrutura de diretórios Linux para o caos dos Agentes Autônomos."**
+> A collaborative network where ideas become code, beginners become contributors, and rules evolve through collective intelligence.
 
-🚧 **RESEARCH PREVIEW / EM DESENVOLVIMENTO** 🚧
-
-Este repositório é um **Laboratório de Pesquisa Ativa**. A maioria dos códigos aqui são Provas de Conceito (PoC), experimentos de arquitetura ou ferramentas internas em estágio Alpha. **Não use em produção sem revisão.**
+**Live:** [egos.ia.br](https://egos.ia.br) | **License:** AGPL-3.0 | **Status:** Active Development
 
 ---
 
-## 📊 Status Matrix
+## What is EGOS Lab?
 
-| Projeto | Categoria | Status | Completo via Commits |
-| :--- | :--- | :--- | :--- |
-| **Security Protocol** | Infra | 🟢 **Stable** | 100% (Implantado) |
-| **Intelink Core** | Core | 🟡 **Beta** | 80% (Funcional) |
-| **Eagle Eye** | App | 🔴 **Alpha** | 40% (MVP Local) |
-| **Cortex Mobile** | App | 🔴 **Alpha** | 30% (Crawler Funcional) |
-| **Mycelium** | Network | 🥚 **Concept** | 5% (Spec Only) |
-| **Psycho Engine** | AI | 🥚 **Concept** | 10% (Prompt Only) |
+EGOS Lab is an open-source monorepo that combines **working applications**, **project blueprints**, **shared tooling**, and **AI-native development workflows**. It's designed for both experienced developers and complete beginners to collaborate on real projects.
+
+### What's Inside
+
+| Layer | Contents | Status |
+|-------|----------|--------|
+| **Apps** | `egos-web` (Mission Control), `eagle-eye` (OSINT gazette monitor), `marketplace-core`, `radio-philein` | Live / Alpha |
+| **Projects** | 14 blueprints from public procurement OSINT to agent-centric architecture | Concept → Alpha |
+| **Packages** | Shared AI client, rate limiter, types, config rules | Stable |
+| **Scripts** | Idea scanner, security scan, dissemination, review automation | Stable |
+| **Docs** | 40+ idea files, 12+ UI designs (Stitch), business strategy, partner packages | Growing |
 
 ---
 
-## 🚀 Como usar este repositório (Modo AI-First)
+## Quick Start
 
-Não perca tempo lendo arquivos manualmente. Se você usa **Cursor, Windsurf, GitHub Copilot ou Claude Code**, copie e cole o prompt abaixo para "instalar" o contexto do projeto na sua IA:
+### For Contributors (humans and AIs)
 
-### 🤖 The "One-Click" Context Prompt
-```markdown
-@role: Senior AI Architect
-@context: You are analyzing "Egos Lab", an open-source Agentic Lifecycle System (Research Phase).
-@structure:
-- apps/: Working applications (e.g., eagle-eye).
-- projects/: Architectural blueprints (e.g., 00-CORE-intelink).
-- scripts/: Operational tools (security_scan.ts, disseminate.ts).
-- docs/plans/: Research papers and future specs.
+```bash
+# 1. Fork and clone
+git clone https://github.com/YOUR_USERNAME/egos-lab.git
+cd egos-lab
 
-@task: Analyze the file `projects/07-B-agent-centric/PLAN.md` to understand the philosophy.
-Then, look at `apps/eagle-eye/src/modules/tourism/web-scraper.ts` to see the code in action.
+# 2. Install dependencies
+bun install
+
+# 3. Run Mission Control locally
+cd apps/egos-web && bun dev
 ```
 
----
+Or **zero setup**: Open in [GitHub Codespaces](https://github.com/codespaces/new?repo=enioxt/egos-lab)
 
-## 📂 O que tem aqui? (Catálogo)
+### For AI Agents (Cursor / Windsurf / Claude Code)
 
-### 1. Infraestrutura & Segurança (🟢 Stable)
-Ferramentas validadas em ambiente de produção, mas **segurança é um processo contínuo**.
-- **🛡️ `security_scan.ts`:** Scanner pré-commit com Entropia e Heurística.
-- **🍄 `disseminate.ts`:** Colhedor de conhecimento via comentários `@disseminate`.
-- **📝 `.guarani/`:** Regras de governança e estilo (SSOT).
-
-### 2. Core Systems (🟡 Beta)
-Sistemas funcionais, mas com arestas a aparar.
-- **🧠 Intelink (The Orchestrator):** Blueprint da orquestração de agentes. Versão sanitizada.
-- **🦅 Eagle Eye (Local Intelligence):** Scraper de dados locais. Funciona, mas requer ajuste manual.
-
-### 3. Incubadora de Pesquisa (🔴 Alpha / 🥚 Concept)
-Ideias sendo "cozinhadas". Code pode quebrar.
-- **📱 Cortex Mobile:** Serviço de Acessibilidade Android para capturar contexto.
-- **🍄 Mycelium Network:** Camada de interconexão via NATS + ZKP (Apenas Specs).
-- **🎭 Psycho Engine:** Motor de detecção de padrões psicológicos (Apenas Prompts).
+Just open the repo. The `.windsurfrules`, `.cursorrules`, and `.guarani/` files auto-configure your agent with full project context.
 
 ---
 
-## 💼 Connect with the Author
+## How to Contribute
 
-**Enio Rocha**
-*Artificial Intelligence Architect @ Egos Lab | Founder @ [Carteira Livre](https://www.carteiralivre.com)*
+See **[docs/CONTRIBUTING_WITH_AI.md](docs/CONTRIBUTING_WITH_AI.md)** for the full guide.
 
-- 🔗 [LinkedIn](https://www.linkedin.com/in/eniorochaxt)
-- 🐦 [X (Twitter)](https://x.com/anoineim)
-- 💬 [WhatsApp](https://wa.me/5534992374363)
+**TL;DR — you can contribute:**
+- **Code**: Fix bugs, add features in `apps/` or `packages/`
+- **Ideas**: Submit to `docs/plans/` or open an Issue with `idea` label
+- **Rules**: Share `.guarani/`, `.windsurfrules`, lint, pre-commit configs
+- **Reviews**: Review PRs with structured feedback
+- **Docs**: Improve READMEs, add tutorials, translate
 
-> **Egos Lab** is the open-source arm of my research into Agentic Systems.
+### Contributor Levels
+
+| Level | Title | Requirements |
+|-------|-------|-------------|
+| 0 | Explorer | Sign up, browse, vote |
+| 1 | Apprentice | Complete onboarding |
+| 2 | Builder | 3+ merged PRs |
+| 3 | Architect | 10+ contributions + reviews |
+| 4 | Guardian | Community nomination |
+
+---
+
+## Ecosystem Map
+
+```
+egos-lab/
+├── apps/
+│   ├── egos-web/           ← Mission Control (egos.ia.br)
+│   ├── eagle-eye/          ← OSINT gazette monitor + AI
+│   ├── marketplace-core/   ← Prompt/rule marketplace (planned)
+│   └── radio-philein/      ← Community radio (paused)
+├── packages/shared/        ← AI client, rate limiter, types
+├── projects/               ← 14 project blueprints
+├── scripts/                ← Automation tools
+├── docs/                   ← Knowledge base + strategies
+└── .guarani/               ← Agent identity + coding rules
+```
+
+Full map with all 14 projects: [docs/OPEN_SOURCE_PLAN.md](docs/OPEN_SOURCE_PLAN.md)
+
+---
+
+## Vision: The Collaborative Network
+
+We're building more than a repo — we're building a **collaborative social platform for developers** that sits on top of GitHub:
+
+- **Idea Marketplace**: Submit ideas, community votes, auto-scaffolded projects
+- **Rule Forge**: Share and compose `.guarani`, `.windsurfrules`, lint configs
+- **Structured Reviews**: Better than PRs — 48h SLA, scored feedback, consensus voting
+- **Full Onboarding**: From "what is an IDE?" to "merged my first PR"
+- **Gamification**: Cred scores, badges, streaks, leaderboards
+- **AI-Native**: Agents help write docs, review code, guide beginners
+
+Read the full plan: [docs/OPEN_SOURCE_PLAN.md](docs/OPEN_SOURCE_PLAN.md)
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React + Vite (egos-web) |
+| API | Vercel Serverless |
+| Database | Supabase PostgreSQL |
+| Auth | Supabase Auth (GitHub OAuth) |
+| AI | OpenRouter (Gemini) |
+| CI | GitHub Actions + Husky pre-commit |
+
+---
+
+## Connect
+
+**Enio Rocha** — AI Architect @ EGOS Lab | Founder @ [Carteira Livre](https://www.carteiralivre.com)
+
+- [LinkedIn](https://www.linkedin.com/in/eniorochaxt)
+- [X (Twitter)](https://x.com/anoineim)
+
+---
+
+*"The best open source isn't just code. It's ideas, rules, reviews, and the humans who connect them."*
