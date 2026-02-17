@@ -4,6 +4,70 @@
 
 ---
 
+## 0. Current System Snapshot (evidence-based)
+
+### Repo state (recent changes)
+
+- `25befe0` — First 2 case studies: Documenso + Cal.com
+- `04b4e04` — Runner fix: external repo mode (registry/log paths resolved from EGOS install dir)
+- `0c5afdb` — Auth Roles Checker + Code Reviewer wired to LLM
+- `1d8216e` — egos-web secrets moved to Vercel serverless proxies
+
+### Registered agents (8)
+
+| ID | Status | Notes |
+|----|--------|------|
+| `security_scanner` | active | Pre-commit entropy + heuristic scan |
+| `idea_scanner` | active | Compiladochats ingest |
+| `rho_calculator` | active | Git health metric |
+| `code_reviewer` | active | Uses `packages/shared/src/ai-client.ts` (OpenRouter) |
+| `disseminator` | active | Knowledge propagation |
+| `ssot_auditor` | pending | Implemented and runnable; registry status still pending |
+| `auth_roles_checker` | active | Heuristic auth/role scan |
+| `e2e_smoke` | pending | Not implemented yet |
+
+### Latest local diagnostics (egos-lab)
+
+- **SSOT Auditor (`bun agent:ssot`)**
+  - Output summary: `5 errors`, `9 warnings`, `41 info`
+  - **Known false positives (high impact):** regex currently matches `type X` in import/export lines and can match comment text.
+    - Examples surfaced in this repo: `definitions`, `for`, `RunContext`, `Finding`, `AIAnalysisResult` showing up as “duplicate type definitions”.
+    - In this repo, `AIAnalysisResult` is *actually* defined in `packages/shared/src/types.ts` — the other “definitions” are import/re-export lines (false positives).
+  - **Likely-real duplicates (worth fixing):**
+    - `GraphData` (2 files)
+    - `CommitData` (2 files)
+    - `VercelRequest` / `VercelResponse` (2 files)
+    - `UserProfile` (2 files, cross-domain naming collision)
+
+- **Auth Roles Checker (`bun agent:auth`)**
+  - 13 findings (8 warnings)
+  - Warned that multiple `apps/radio-philein/api/**/route.ts` files have **no auth check**
+  - Reported coverage: **5/11 routes (45%)**
+  - Warned: **no middleware file found** (routing-level auth may not exist)
+  - **Important:** current detection is path/pattern-based; treat this as triage output.
+
+- **Code Reviewer (`bun agent:review`)**
+  - Uses `packages/shared/src/ai-client.ts` (OpenRouter model `google/gemini-2.0-flash-001`)
+  - Requires `OPENROUTER_API_KEY`
+    - If missing: prints diff stats only (no AI call)
+    - If present: requests JSON output (OpenRouter `response_format: { type: 'json_object' }`)
+  - Note: currently lives in `scripts/review.ts` (proto-agent), not yet runner-migrated (no JSONL log output)
+
+- **Rho (`bun rho`)**
+  - `ρ = 0.1453` (status: WARNING)
+  - `Commits = 24`, `Contributors = 1`, `Bus factor = 1`
+
+- **Security scan (`bun security:scan`)**
+  - PASSED (no critical secrets detected)
+
+### Secrets & git hygiene
+
+- `git ls-files | grep .env` returns only `.env.example` (good).
+
+### Operational notes
+
+- `agents/.logs/` exists and is accumulating JSONL logs (SSOT runs can generate multi-MB logs). For VPS 24/7, log rotation/retention needs a policy.
+
 ## 1. Complete File Inventory & Status
 
 ### Root Files
@@ -16,7 +80,7 @@
 | `README.md` | **Active** | Updated last session |
 | `package.json` | **Active** | Agent scripts added |
 | `tsconfig.json` | **Active** | Bun TS config |
-| `BUILDER_INSTRUCTIONS.md` | **Obsolete** | Phase 2 Gemini instructions, superseded by AGENTS.md |
+| `BUILDER_INSTRUCTIONS.md` | **Removed** | Phase 2 Gemini instructions, superseded by AGENTS.md |
 | `.idea-manifest.json` | **Archive** | Idea scanner manifest, still useful |
 
 ### agents/ (NEW — this session)
@@ -27,6 +91,7 @@
 | `runtime/runner.ts` | **Active** | Core: registry loader, JSONL logger, correlation IDs |
 | `registry/agents.json` | **Active** | 8 agents registered (SSOT) |
 | `agents/ssot-auditor.ts` | **Active** | P0.1 — finds SSOT violations, 55 findings on first run |
+| `agents/auth-roles-checker.ts` | **Active** | P0.2 — heuristics for auth/roles + API guard coverage |
 | `evals/` | **Empty** | Planned: eval suites per agent |
 | `.logs/` | **Gitignored** | JSONL structured logs |
 
@@ -37,7 +102,7 @@
 | `security_scan.ts` | **Active** | Registered in agents.json | 4183B |
 | `scan_ideas.ts` | **Active** | Registered in agents.json | 10017B |
 | `rho.ts` | **Active** | Registered in agents.json | 7013B |
-| `review.ts` | **Placeholder** | Registered, needs LLM wiring | 2207B |
+| `review.ts` | **Active** | Registered in agents.json | 4634B |
 | `disseminate.ts` | **Active** | Registered in agents.json | 1926B |
 | `categorize_ideas.ts` | **Active** | NOT registered — candidate for agent | 9261B |
 | `test_exa.ts` | **Utility** | NOT an agent — test script | 1111B |
@@ -45,14 +110,13 @@
 | `apply_schema_direct.ts` | **Utility** | DB schema tool | 1476B |
 | `migrate_to_supabase.ts` | **Utility** | DB migration tool | 3667B |
 | `setup_supabase_schema.ts` | **Utility** | DB setup tool | 1504B |
-| `shared/` | **Empty** | Should be removed or used |
 
 ### .guarani/
 
 | File | Status | Action Needed |
 |------|--------|---------------|
-| `IDENTITY.md` v1.0 | **Outdated** | Needs v2.0 — add agentic platform context, remove Antigravity-specific |
-| `PREFERENCES.md` v1.0 | **Outdated** | Needs v2.0 — add agent conventions, MCP rules |
+| `IDENTITY.md` v2.0 | **Active** | Universal agent identity + rules of engagement |
+| `PREFERENCES.md` v2.0 | **Active** | Security + conventions + MCP usage rules |
 
 ### apps/
 
@@ -86,7 +150,7 @@
 | `marketplace/` | 2 | **Planned** | Marketplace design docs |
 | `database/` | 1 | **Active** | DB schema docs |
 | `guides/` | 1 | **Active** | Setup guides |
-| `knowledge/` | 0 | **Empty** | Should be removed or populated |
+| `knowledge/` | — | **Removed** | Directory removed to prevent empty-doc drift |
 | `review/` | 1 | **Active** | Code review output |
 | `strategy/` | 1 | **Active** | Monetization strategy |
 | `valuation/` | 1 | **Active** | AI-era valuation metrics |
@@ -99,10 +163,10 @@
 | `CONTRIBUTING_WITH_AI.md` | **Active** | 3.7K — contributor onboarding |
 | `KEY_MANAGEMENT.md` | **Active** | 2.3K — secret management guide |
 | `SECURITY.md` | **Active** | 1.2K — security policy |
-| `SECURITY_PROTOCOL.md` | **Redundant** | Overlaps with SECURITY.md — merge into one |
+| `SECURITY_PROTOCOL.md` | **Removed** | Consolidated into SECURITY.md |
 | `BUSINESS_STRATEGY.md` | **Active** | 2K — business plan |
-| `STANDARDS.md` | **Obsolete** | Superseded by .windsurfrules v2.0 |
-| `BACKLOG.md` | **Obsolete** | Old creative dump — items either done or irrelevant |
+| `STANDARDS.md` | **Removed** | Superseded by .windsurfrules v2.0 |
+| `BACKLOG.md` | **Removed** | Old creative dump removed |
 
 ---
 
@@ -141,7 +205,7 @@ Best candidates for running EGOS agents and publishing findings:
 | 4 | **documenso/documenso** | 8K+ | Open-source DocuSign. Next.js + TS. Smaller, more manageable. Good for first case study. | Legal Tech |
 | 5 | **twentyhq/twenty** | 24K+ | Open-source CRM. TS + NestJS. Complex domain types. Great for SSOT + auth audit. | CRM |
 
-### Why these 5:
+### Why these 5
 
 - **All TypeScript** — our agents are built for TS analysis
 - **All monorepos** — SSOT violations are most likely in monorepos
@@ -150,7 +214,7 @@ Best candidates for running EGOS agents and publishing findings:
 - **Active communities** — findings will be noticed and discussed
 - **Open to contributions** — we can submit fix PRs after the audit
 
-### Execution order:
+### Execution order
 
 1. Start with **documenso** (smallest, easiest to audit, fast case study)
 2. Then **cal.com** (mid-size, well-known)
@@ -162,7 +226,7 @@ Best candidates for running EGOS agents and publishing findings:
 
 ## 4. Egos-Core MCP Assessment
 
-### Current state (from `mcp1_get_tasks_summary`):
+### Current state (from `mcp1_get_tasks_summary`)
 
 The egos-core MCP has **31 P0/P1 tasks** from old EGOSv3 sessions that are completely irrelevant to egos-lab:
 
@@ -171,7 +235,7 @@ The egos-core MCP has **31 P0/P1 tasks** from old EGOSv3 sessions that are compl
 - P2 (5): "Dashboard patterns", "Hyper-Agent", "Lifecycle manager"
 - Completed (30): Mostly test tasks
 
-### Recommendations:
+### Recommendations
 
 1. **Clean up egos-core tasks** — Remove all EGOSv3/carteira-livre tasks from egos-lab context
 2. **Add egos-lab specific tasks** — Mirror TASKS.md into egos-core for cross-session persistence
@@ -188,7 +252,7 @@ The egos-core MCP has **31 P0/P1 tasks** from old EGOSv3 sessions that are compl
 
 ### SHORT TERM (1-2 weeks)
 
-**Goal: "Run on 5 repos, publish first case study, get first external contributor"**
+#### Goal — Run on 5 repos, publish first case study, get first external contributor
 
 | # | Task | Effort | Depends On |
 |---|------|--------|------------|
@@ -207,7 +271,7 @@ The egos-core MCP has **31 P0/P1 tasks** from old EGOSv3 sessions that are compl
 
 ### MEDIUM TERM (1-2 months)
 
-**Goal: "10+ contributors, 500+ stars, first partnership, consulting proof-of-concept"**
+#### Goal — 10+ contributors, 500+ stars, first partnership, consulting proof-of-concept
 
 | # | Task | Effort | Depends On |
 |---|------|--------|------------|
@@ -226,7 +290,7 @@ The egos-core MCP has **31 P0/P1 tasks** from old EGOSv3 sessions that are compl
 
 ### LONG TERM (3-6 months)
 
-**Goal: "Self-sustaining open-source project with recurring consulting revenue"**
+#### Goal — Self-sustaining open-source project with recurring consulting revenue
 
 | # | Task | Effort | Depends On |
 |---|------|--------|------------|

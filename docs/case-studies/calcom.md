@@ -2,6 +2,12 @@
 
 > **Date:** 2026-02-17 | **Repo:** github.com/calcom/cal.com | **Stars:** 35K+
 
+## Executive Summary (claims we can defend)
+
+- **Scale proof:** EGOS scanned a very large TS monorepo (7,302 TS files) in ~2s and produced a repo-wide duplication signal at **$0 cost**.
+- **Triage output, not a verdict:** The raw “duplicate type name” list is useful to prioritize review, but it includes predictable **name-only false positives** in Next.js repos (e.g., many files naming a local type `PageProps`).
+- **Key gap identified:** For large repos, EGOS needs a second pass (shape-aware or context-aware) to turn high-volume signals into maintainer-ready, high-confidence issues.
+
 ## Results
 
 | Agent | Files | Findings | Time | Cost |
@@ -10,22 +16,48 @@
 
 ## Key SSOT Findings
 
-### Worst Offenders
+### High-count duplicates (requires validation)
 
-- `PageProps` — **38 files** (every page redefines it instead of importing from `_types.ts`)
-- `id` — **31 files** (type defined inline across API, features, platform packages)
-- `does` — 8 files (false positive from comments — known regex issue)
-- `GetBookingType` — 3 files (lib, features, app layer all define their own)
+- `PageProps` — **38 files**
+- `id` — **31 files**
+- `does` — 8 files (**known false positive** from comments — regex limitation)
 
-### Patterns Observed
+**Interpretation:** `PageProps` is a common local alias name in Next.js pages. A name-only scanner will flag this even when each `PageProps` has a different shape and is intentionally local.
 
-1. **PageProps explosion** — Next.js App Router pages each define their own `PageProps` type instead of importing from a shared location. This is the #1 SSOT violation in Next.js monorepos.
+### Likely more actionable duplicates (better signal)
 
-2. **API versioning creates duplication** — `apps/api/v2/` has its own type copies that drift from `packages/platform/types/`. Versioned APIs need explicit re-exports, not copies.
+- `GetBookingType` — 3 files (lib, features, app layer)
 
-3. **Test files redefine types** — `MockedFunction`, `ValidatedOrgAdminSession` etc. redefined in test files instead of imported from test utilities.
+## Multi-angle Analysis
 
-4. **Scale amplifies the problem** — 7,302 TS files means 7,067 type definitions. At this scale, manual tracking is impossible. Automated SSOT auditing is the only viable approach.
+### 1) Maintainability / Drift Risk
+
+- **Medium confidence:** versioned API folders and feature packages can drift via copy/paste types (common in turborepo-scale codebases).
+- **Low confidence for `PageProps`:** very high counts can be explained by conventions, not SSOT drift.
+
+### 2) Developer Experience (DX)
+
+- A repo-wide scan is the only practical way to find naming collisions at this scale.
+- The highest-value output is not the count; it is the **ranked list** of suspicious duplicate clusters to review.
+
+### 3) Security / Access Control
+
+- Not covered in this case study (only SSOT Auditor ran). This is a diagnostic gap for Cal.com until Auth Roles Checker is executed on the repo.
+
+## Known Limitations (avoid overselling)
+
+- **Name-only duplication:** SSOT Auditor currently flags duplicate identifiers, not duplicate semantics.
+- **Regex-based extraction:** comment/string matches can create false positives (e.g., `does`).
+- **Framework conventions:** common aliases (`PageProps`, `Props`) inflate counts unless filtered.
+
+## Next Validation Steps (still read-only)
+
+1. **Filter obvious convention aliases**
+   - Add a repo/framework-specific ignore list (or a “treat as low-signal” bucket).
+2. **Add a second pass (shape-aware)**
+   - Compare type bodies (AST-based) for top duplicates.
+3. **Run Auth Roles Checker on Cal.com**
+   - Build a security/access-control view to pair with SSOT findings.
 
 ## Comparison
 
@@ -38,3 +70,5 @@
 | Worst Offender | `TCheckboxFieldMeta` (5 files) | `PageProps` (38 files) |
 
 **Conclusion:** SSOT violations grow superlinearly with codebase size. The bigger the repo, the more value EGOS agents provide.
+
+**Caveat:** raw duplicate-name counts also grow with repo size *and* with framework naming conventions. The value is still real (fast triage at scale), but the output needs confidence grading to avoid false-positive noise.

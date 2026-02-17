@@ -2,6 +2,12 @@
 
 > **Date:** 2026-02-17 | **Repo:** github.com/documenso/documenso | **Stars:** 8K+
 
+## Executive Summary (claims we can defend)
+
+- **Zero-cost, repo-wide signal:** EGOS surfaced high-frequency duplicated type names across UI + lib layers in **< 1s**.
+- **Actionable prioritization:** The output helps maintainers decide *where to look first* for drift-prone concepts (e.g., field meta types).
+- **Auth coverage is a heuristic:** The 47% number is a *signal* from a path/pattern scanner, not proof of insecure endpoints.
+
 ## Results
 
 | Agent | Files | Findings | Time | Cost |
@@ -33,6 +39,40 @@
 - 31 API routes lack session/auth verification
 - Middleware exists at 3 levels: Remix server, Prisma, and API v1
 - Only 1 role string detected: `"OWNER"` (2 references)
+
+## Multi-angle Analysis
+
+### 1) Maintainability / Drift Risk
+
+- **High confidence:** duplicated “field meta” types are drift-prone because they represent shared domain contracts used by both UI and backend-ish layers.
+- **Medium confidence:** generic domain types like `User` may be intentional (bounded contexts), but are still worth review because name collisions hide divergence.
+
+### 2) Security / Access Control
+
+- **Medium confidence:** “missing auth” findings are useful as a *triage list*.
+- **Low confidence as a verdict:** the agent can misclassify files as routes. Validation requires checking the actual route entrypoints.
+
+### 3) Developer Experience (DX)
+
+- Duplication often correlates with “local convenience” in fast-moving monorepos (copy a type to move faster).
+- EGOS provides a *repo-level view* that TypeScript/ESLint usually won’t flag by default (same name can exist in separate modules without compiler errors).
+
+## Known Limitations (avoid overselling)
+
+- **Regex-based extraction:** SSOT Auditor currently detects `export interface/type X` by regex and can over-count if patterns appear in non-type contexts.
+- **Name-only duplication:** it does not compare type “shape”, only the identifier name.
+- **Auth route heuristics:** Auth Roles Checker uses patterns like `/api/`, `route.ts`, and auth-call regexes; it can flag helpers as routes.
+
+## Next Validation Steps (still read-only)
+
+1. **Validate top duplicate clusters**
+   - Compare bodies for top 5 duplicated names.
+   - Classify: copy/paste vs intentional bounded contexts vs drift.
+2. **Recompute auth coverage with stricter route detection**
+   - Count only actual route handlers.
+   - Split: public endpoints vs missing auth.
+3. **Produce maintainer-facing output**
+   - One short issue: top 10 duplicates + suggested canonical import paths.
 
 ## What This Shows
 
