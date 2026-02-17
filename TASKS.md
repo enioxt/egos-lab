@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.2.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — AI Activity Pipeline + Intelink Analysis + Governance + Community Issues
+> **VERSION:** 2.3.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — MCP fix + DB migration + Enriched timeline + SSOT pre-commit + tRPC case study
 
 ---
 
@@ -20,29 +20,32 @@ _(none — all P0 items completed this session)_
 
 ### COMMUNITY-001: First External Contribution
 - [x] Created 3 good-first-issues on GitHub (#6, #7, #8)
-- [ ] Share on Dev.to / Twitter
-- [ ] Write "I audited 5 repos with AI agents" article
+- [x] Dev.to article draft: `docs/agentic/DEVTO_ARTICLE_DRAFT.md` (3 case studies included)
+- [ ] Publish on Dev.to / Twitter
+- [ ] Product Hunt listing draft
 
 ### LAUNCH-001: Public Launch Prep
-- [x] Run SSOT Auditor on 2 repos (Documenso: 1012 findings, Cal.com: 1469 findings)
-- [ ] Run on 3 more repos (Medusa, Twenty, Supabase)
-- [ ] Write "I audited 5 repos with AI agents" article
-- [ ] Product Hunt listing draft
+- [x] Run SSOT Auditor on 3 repos (Documenso: 1012, Cal.com: 1469, tRPC: 388 findings)
+- [ ] Run on 2 more repos (Medusa, Supabase)
+- [ ] Publish article + social media push
 
 ### WEB-001: Automate Commit Ingestion
 - [x] Created `/api/ingest-commits.ts` — AI-enriched ingestion via OpenRouter Gemini 2.0 Flash
-- [ ] Set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in Vercel dashboard for egos-lab
-- [ ] Add agent run outputs to activity stream (not just git commits)
+- [x] Added AI enrichment columns to commits table (category, tags, tech_debt_flag, impact_score)
+- [x] Enhanced ActivityStream with category badges + tech debt flags (Intelink pattern)
+- [x] Consolidated VercelRequest/VercelResponse into `api/_types.ts` (SSOT fix)
+- [ ] Set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in Vercel dashboard
+- [ ] Add agent run outputs to activity stream
 - [ ] Add Rho score display to website
 
 ### GOVERNANCE-001: SSOT Enforcement
 - [x] Created `docs/agentic/GOVERNANCE_RULES.md` — SSOT registry + rule sharing design
-- [ ] Add SSOT checks to pre-commit hooks (no-duplicate-types, no-orphan-docs)
+- [x] SSOT pre-commit checks live: `scripts/ssot_governance.ts` (4 checks, wired to .husky/pre-commit)
 - [ ] Package egos-kit template repo for rule sharing
 
 ### INTELINK-001: Port Reusable Features
 - [x] Created `docs/agentic/INTELINK_FEATURES_ANALYSIS.md` — 6 features analyzed
-- [ ] Port Timeline pattern for enriched activity display
+- [x] Ported Timeline pattern → ActivityStream with category badges + color-coded dots
 - [ ] Port Accuracy Tracker for agent eval system
 - [ ] Port DraggableGridLayout for Mission Control dashboard
 

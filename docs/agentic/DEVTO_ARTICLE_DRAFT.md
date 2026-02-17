@@ -55,9 +55,18 @@ EGOS is not another LangChain or CrewAI. It's a **rules-as-DNA** system where:
 
 **Takeaway:** Monorepos need explicit SSOT governance or type drift compounds fast.
 
-## Case Study #3: [TBD — Twenty or Medusa]
+## Case Study #3: tRPC (Type-Safe APIs)
 
-*Running audit now — results coming soon.*
+**Repo:** github.com/trpc/trpc | **Stars:** ~35k
+
+**SSOT Auditor results:**
+- **388 findings** in 233ms
+- 204 duplicate type definitions, 184 orphaned types
+- Key finding: `Context` type defined in **42 files** (!!)
+- `Input` in 19 files, `Post` in 17 files, `User` in 9 files
+- Examples directories are the worst offenders — each example re-defines core types instead of importing
+
+**Takeaway:** Library repos with examples/ directories amplify duplication massively. A shared `@trpc/example-utils` package would eliminate ~60% of findings.
 
 ## What I Learned
 
