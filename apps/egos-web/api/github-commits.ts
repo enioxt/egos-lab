@@ -1,11 +1,4 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-
-type VercelRequest = IncomingMessage & { body: Record<string, unknown>; query: Record<string, string> };
-type VercelResponse = ServerResponse & {
-  status: (code: number) => VercelResponse;
-  json: (data: unknown) => VercelResponse;
-  setHeader: (name: string, value: string) => VercelResponse;
-};
+import type { VercelRequest, VercelResponse } from './_types';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 

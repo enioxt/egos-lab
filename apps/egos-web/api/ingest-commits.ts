@@ -14,13 +14,7 @@
  * - OPENROUTER_API_KEY
  */
 
-import type { IncomingMessage, ServerResponse } from 'http';
-
-type VercelRequest = IncomingMessage & { body: Record<string, unknown>; query: Record<string, string> };
-type VercelResponse = ServerResponse & {
-  status: (code: number) => VercelResponse;
-  json: (data: unknown) => VercelResponse;
-};
+import type { VercelRequest, VercelResponse } from './_types';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;

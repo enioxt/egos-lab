@@ -1,10 +1,4 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-
-type VercelRequest = IncomingMessage & { body: Record<string, unknown>; query: Record<string, string> };
-type VercelResponse = ServerResponse & {
-  status: (code: number) => VercelResponse;
-  json: (data: unknown) => VercelResponse;
-};
+import type { VercelRequest, VercelResponse } from './_types';
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const CHAT_MODEL = 'google/gemini-2.0-flash-001';
