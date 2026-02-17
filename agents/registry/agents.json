@@ -67,7 +67,7 @@
       "memory_mode": "session",
       "eval_suite": ["evals/code_reviewer.json"],
       "run_modes": ["dry_run", "execute"],
-      "status": "placeholder",
+      "status": "active",
       "migrated_from": "scripts/review.ts"
     },
     {
@@ -105,19 +105,19 @@
     },
     {
       "id": "auth_roles_checker",
-      "name": "Auth & Roles Consistency Checker",
+      "name": "Auth & Roles Checker",
       "area": "auth",
-      "description": "Detects role/permission inconsistencies between UI rendering, middleware guards, and API routes",
+      "description": "Validates role-based access consistency across middleware, UI conditionals, and API route guards",
       "owner": "enioxt",
-      "risk_level": "medium",
+      "risk_level": "low",
       "entrypoint": "agents/agents/auth-roles-checker.ts",
-      "tools_allowed": ["filesystem:read", "ai:analyze"],
+      "tools_allowed": ["fs:read"],
       "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual"],
-      "memory_mode": "none",
-      "eval_suite": ["evals/auth_roles_checker.json"],
-      "run_modes": ["dry_run"],
-      "status": "pending"
+      "triggers": ["manual", "ci"],
+      "memory_mode": "persistent",
+      "eval_suite": ["evals/auth_roles.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
     },
     {
       "id": "e2e_smoke",

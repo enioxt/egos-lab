@@ -24,6 +24,9 @@
         "agent:lint": "bun agents/cli.ts lint-registry",
         "agent:ssot": "bun agents/agents/ssot-auditor.ts",
         "agent:ssot:exec": "bun agents/agents/ssot-auditor.ts --exec",
+        "agent:auth": "bun agents/agents/auth-roles-checker.ts",
+        "agent:auth:exec": "bun agents/agents/auth-roles-checker.ts --exec",
+        "agent:review": "bun scripts/review.ts",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },
