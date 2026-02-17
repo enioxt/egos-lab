@@ -60,6 +60,29 @@
 - **Security scan (`bun security:scan`)**
   - PASSED (no critical secrets detected)
 
+### egos-web Activity Pipeline (audited 2026-02-17)
+
+- **Data sources (dual):**
+  1. **Supabase `commits` table** — primary source (25 rows as of audit)
+  2. **GitHub API fallback** — `/api/github-commits` Vercel serverless proxy
+- **Polling:** `ActivityStream.tsx` refreshes every 30s
+- **What shows:** Git commit history (message, author, date, link to GitHub)
+- **What doesn't show yet:** Agent run outputs, Rho score, case study results
+- **Ingest:** `apps/egos-web/scripts/ingest-commits.ts` — requires `SUPABASE_DB_PASSWORD` + `GITHUB_TOKEN`
+
+### Security audit (2026-02-17)
+
+| Check | Status | Details |
+|-------|--------|---------|
+| `.env` in git | ✅ Safe | Root `.gitignore` excludes `.env`; `git ls-files apps/egos-web/.env` returns empty |
+| Client bundle secrets | ✅ Safe | Only `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` (public by design) |
+| `OPENROUTER_API_KEY` | ✅ Safe | Server-side only in `api/chat.ts` via `process.env` |
+| `GITHUB_TOKEN` | ✅ Safe | Server-side only in `api/github-commits.ts` via `process.env` |
+| RLS on `commits` | ✅ **Fixed** | Was: anon could WRITE (security risk). Now: `commits_public_read` (SELECT for public) + `commits_service_role_write` (ALL for service_role only) |
+| Supabase anon key in client | ✅ Expected | Anon key is designed for client-side use with RLS enforcement |
+
+**Critical fix applied:** Dropped `commits_service_write` policy (allowed anon INSERT/UPDATE/DELETE) and replaced with `commits_service_role_write` (service_role only).
+
 ### Secrets & git hygiene
 
 - `git ls-files | grep .env` returns only `.env.example` (good).
