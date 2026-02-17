@@ -1,5 +1,5 @@
 # .windsurfrules — egos-lab Monorepo
-# VERSION 2.0.0 — Updated 2026-02-17
+# VERSION 2.1.0 — Updated 2026-02-17
 # Sacred Code: 000.111.369.963.1618
 
 ---
@@ -83,12 +83,39 @@ Every agent MUST have:
 | `egos-lab` | Lab + Agentic Platform | 8 registered, 20 planned |
 | `carteira-livre` | Production SaaS | Uses .guarani rules only |
 
+## DEPLOY DISCIPLINE (CRITICAL — Added 2026-02-17)
+
+> **23 deploys in one day = wasted money.** Each `git push` triggers a Vercel deploy.
+
+| Rule | Enforcement |
+|------|-------------|
+| **Commit often, push ONCE** | Batch all changes, push 1x per feature |
+| **Build before push** | `.husky/pre-push` runs `vite build` automatically |
+| **Max 3 pushes/session** | `ssot_governance.ts` warns if >10 commits/day |
+| **Never push docs-only** | Docs don't need deploys. Use `--no-verify` only for docs |
+
+```bash
+# Safe push (build verified automatically):
+git push origin main
+
+# Docs-only push (skip build — saves time):
+git push origin main --no-verify
+```
+
 ## SECURITY
 
 - **API Keys:** NEVER hardcode. Use `.env`. Server-side via Vercel proxy.
-- **Pre-commit:** `scripts/security_scan.ts` runs automatically.
+- **Pre-commit:** `scripts/security_scan.ts` + `scripts/ssot_governance.ts` run automatically.
+- **Pre-push:** `.husky/pre-push` runs Vite build — blocks failed deploys.
 - **Recursion:** MAX_DEPTH ~50. IGNORE_DIRS includes External/.
 - **PII:** Agents MUST mask CPF/email in all output.
+
+### DB Security Rules
+
+- **RLS ALWAYS ON:** Every new table MUST have `ENABLE ROW LEVEL SECURITY`.
+- **No WITH CHECK (true):** Use `auth.role() = 'authenticated'` or `current_setting('role') = 'service_role'`.
+- **SET search_path:** Every function MUST include `SET search_path = public`.
+- **Extensions:** Install in `extensions` schema, never `public`.
 
 ## ENV VARS
 

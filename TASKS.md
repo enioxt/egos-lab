@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.3.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — MCP fix + DB migration + Enriched timeline + SSOT pre-commit + tRPC case study
+> **VERSION:** 2.4.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — Security hardening + deploy discipline + 8 Supabase migrations + pre-push gate
 
 ---
 
@@ -34,13 +34,15 @@ _(none — all P0 items completed this session)_
 - [x] Added AI enrichment columns to commits table (category, tags, tech_debt_flag, impact_score)
 - [x] Enhanced ActivityStream with category badges + tech debt flags (Intelink pattern)
 - [x] Consolidated VercelRequest/VercelResponse into `api/_types.ts` (SSOT fix)
-- [ ] Set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in Vercel dashboard
+- [x] Vercel env vars set (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 - [ ] Add agent run outputs to activity stream
 - [ ] Add Rho score display to website
 
 ### GOVERNANCE-001: SSOT Enforcement
 - [x] Created `docs/agentic/GOVERNANCE_RULES.md` — SSOT registry + rule sharing design
-- [x] SSOT pre-commit checks live: `scripts/ssot_governance.ts` (4 checks, wired to .husky/pre-commit)
+- [x] SSOT pre-commit checks live: `scripts/ssot_governance.ts` (5 checks + deploy discipline)
+- [x] Pre-push build gate: `.husky/pre-push` blocks failed deploys
+- [x] Deploy discipline rules in `.windsurfrules` v2.1
 - [ ] Package egos-kit template repo for rule sharing
 
 ### INTELINK-001: Port Reusable Features
@@ -65,6 +67,16 @@ _(none — all P0 items completed this session)_
 ---
 
 ## Completed
+
+### SECURITY-003: Supabase Security Hardening ✅ (2026-02-17)
+- [x] Fix 2 ERROR: RLS enabled on eagle_eye_gazettes + eagle_eye_opportunities
+- [x] Fix 2 WARN: mutable search_path on get_rho_status + cleanup_duplicate_relationships
+- [x] Fix ~15 intelink permissive RLS policies (WITH CHECK true → auth.role()='authenticated')
+- [x] Fix commits + handoff_history RLS (open insert → service_role only)
+- [x] Move extensions (unaccent, pg_trgm) from public to extensions schema
+- [x] Drop duplicate index on inbox_items
+- [x] 8 migrations applied, 0 ERRORs remaining
+> **Commit:** 0d61443
 
 ### AGENT-002: Auth Roles Checker ✅ (2026-02-17)
 - [x] Implement `agents/agents/auth-roles-checker.ts`
