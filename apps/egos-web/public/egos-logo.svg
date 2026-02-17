@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="inner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#818cf8;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#0f172a"/>
+  <circle cx="256" cy="256" r="238" fill="none" stroke="url(#glow)" stroke-width="3"/>
+  <!-- Outer hexagon (represents ecosystem/modules) -->
+  <polygon points="256,56 425,153 425,359 256,456 87,359 87,153" fill="none" stroke="url(#glow)" stroke-width="4" opacity="0.6"/>
+  <!-- Inner triangle (sacred geometry △) -->
+  <polygon points="256,100 400,350 112,350" fill="url(#inner)" stroke="url(#glow)" stroke-width="3"/>
+  <!-- Center eye/node (intelligence core) -->
+  <circle cx="256" cy="270" r="60" fill="none" stroke="url(#glow)" stroke-width="3"/>
+  <circle cx="256" cy="270" r="28" fill="url(#glow)"/>
+  <circle cx="256" cy="270" r="12" fill="#0f172a"/>
+  <!-- Connection lines (agent network) -->
+  <line x1="256" y1="100" x2="256" y2="210" stroke="url(#glow)" stroke-width="2" opacity="0.5"/>
+  <line x1="112" y1="350" x2="200" y2="295" stroke="url(#glow)" stroke-width="2" opacity="0.5"/>
+  <line x1="400" y1="350" x2="312" y2="295" stroke="url(#glow)" stroke-width="2" opacity="0.5"/>
+  <!-- Node dots (agents) -->
+  <circle cx="256" cy="100" r="8" fill="url(#glow)"/>
+  <circle cx="112" cy="350" r="8" fill="url(#glow)"/>
+  <circle cx="400" cy="350" r="8" fill="url(#glow)"/>
+  <!-- Subtle orbital rings -->
+  <ellipse cx="256" cy="270" rx="100" ry="35" fill="none" stroke="url(#glow)" stroke-width="1.5" opacity="0.3" transform="rotate(-20, 256, 270)"/>
+  <ellipse cx="256" cy="270" rx="100" ry="35" fill="none" stroke="url(#glow)" stroke-width="1.5" opacity="0.3" transform="rotate(40, 256, 270)"/>
+</svg>
