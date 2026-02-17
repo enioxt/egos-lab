@@ -30,11 +30,7 @@ type SupabaseCommitRow = {
 
 async function fetchGitHubCommits(): Promise<CommitData[]> {
   try {
-    const res = await fetch('https://api.github.com/repos/enioxt/egos-lab/commits?per_page=12', {
-      headers: {
-        Accept: 'application/vnd.github+json',
-      },
-    });
+    const res = await fetch('/api/github-commits');
     if (!res.ok) return [];
     const data = (await res.json()) as GitHubCommitResponseItem[];
     return data

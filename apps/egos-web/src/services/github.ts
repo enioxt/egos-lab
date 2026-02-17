@@ -1,12 +1,9 @@
 
 import { Octokit } from "octokit";
 
-// Initialize Octokit (GitHub API Client)
-// We use a public token or no token for public repos to avoid rate limits if possible,
-// but for better limits, a GITHUB_TOKEN is recommended.
-const octokit = new Octokit({
-    auth: import.meta.env.VITE_GITHUB_TOKEN
-});
+// Initialize Octokit — no auth needed for public repos (60 req/hr).
+// Authenticated requests go through /api/github-commits proxy.
+const octokit = new Octokit();
 
 const OWNER = 'enioxt';
 const REPO = 'egos-lab';
