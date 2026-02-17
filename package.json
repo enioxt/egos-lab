@@ -27,6 +27,10 @@
         "agent:auth": "bun agents/agents/auth-roles-checker.ts",
         "agent:auth:exec": "bun agents/agents/auth-roles-checker.ts --exec",
         "agent:review": "bun scripts/review.ts",
+        "agent:deps": "bun agents/agents/dep-auditor.ts",
+        "agent:deps:exec": "bun agents/agents/dep-auditor.ts --exec",
+        "agent:dead": "bun agents/agents/dead-code-detector.ts",
+        "agent:dead:exec": "bun agents/agents/dead-code-detector.ts --exec",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },

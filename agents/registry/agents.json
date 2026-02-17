@@ -101,7 +101,7 @@
       "memory_mode": "none",
       "eval_suite": ["evals/ssot_auditor.json"],
       "run_modes": ["dry_run", "execute"],
-      "status": "pending"
+      "status": "active"
     },
     {
       "id": "auth_roles_checker",
@@ -134,6 +134,38 @@
       "eval_suite": ["evals/e2e_smoke.json"],
       "run_modes": ["execute"],
       "status": "pending"
+    },
+    {
+      "id": "dep_auditor",
+      "name": "Dependency Auditor",
+      "area": "architecture",
+      "description": "Scans package.json files for version conflicts, misplaced dev deps, and unused dependencies",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "agents/agents/dep-auditor.ts",
+      "tools_allowed": ["filesystem:read"],
+      "data_access": { "pii": false, "secrets_scan": false },
+      "triggers": ["manual", "weekly"],
+      "memory_mode": "none",
+      "eval_suite": ["evals/dep_auditor.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
+    },
+    {
+      "id": "dead_code_detector",
+      "name": "Dead Code Detector",
+      "area": "qa",
+      "description": "Finds exported functions, constants, and components that are never imported anywhere",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "agents/agents/dead-code-detector.ts",
+      "tools_allowed": ["filesystem:read"],
+      "data_access": { "pii": false, "secrets_scan": false },
+      "triggers": ["manual", "weekly"],
+      "memory_mode": "none",
+      "eval_suite": ["evals/dead_code.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
     }
   ]
 }

@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.5.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Logo/branding + LinkedIn plan + security hardening + deploy discipline
+> **VERSION:** 2.6.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — Deploy fix + 4 RLS migrations + 2 new agents + LinkedIn posts + Medusa case study
 
 ---
 
@@ -26,7 +26,8 @@ _(none — all P0 items completed this session)_
 
 ### LAUNCH-001: Public Launch Prep
 - [x] Run SSOT Auditor on 3 repos (Documenso: 1012, Cal.com: 1469, tRPC: 388 findings)
-- [ ] Run on 2 more repos (Medusa, Supabase)
+- [x] Case study #4: Medusa (2,427 findings: 149 errors, 333 warnings, 1,945 info)
+- [ ] Run on 1 more repo (Supabase — large, needs shallow clone strategy)
 - [ ] Publish article + social media push
 
 ### WEB-001: Automate Commit Ingestion
@@ -74,6 +75,27 @@ _(none — all P0 items completed this session)_
 ---
 
 ## Completed
+
+### DEPLOY-FIX-001: Vercel Build Fix ✅ (2026-02-17)
+- [x] Fixed `vite: command not found` — changed build to `npx tsc -b && npx vite build`
+- [x] Pushed and verified build passes
+> **Commit:** 766e5d5
+
+### SECURITY-004: Remaining RLS Hardening ✅ (2026-02-17)
+- [x] 4 migrations: intelink (merge_pending, merge_votes, otp_tokens, reports, rho_*, role_permissions)
+- [x] 2 migrations: volante_* (profiles, ratings, referrals, points, tutor_*, telemetry, notifications)
+- [x] All policies tightened from `WITH CHECK (true)` to `auth.role() = 'authenticated'`
+
+### AGENT-005: Dependency Auditor + Dead Code Detector ✅ (2026-02-17)
+- [x] `dep-auditor.ts` — version conflicts, dev-in-prod, unused deps (25 findings on egos-lab)
+- [x] `dead-code-detector.ts` — orphan exports, empty files (49 findings on egos-lab)
+- [x] Both registered in agents.json, CLI scripts added
+- [x] Total: **10 agents** registered (8 active, 1 pending, 1 pending)
+
+### CONTENT-003: LinkedIn Posts Drafted ✅ (2026-02-17)
+- [x] 3 posts ready: Carteira Livre (product), EGOS Lab (rules), A Jornada (trajectory)
+- [x] Support data section with all features, learnings, honest gaps
+> **File:** `docs/LINKEDIN_POSTS_DRAFT.md`
 
 ### BRANDING-001: EGOS Logo + Favicon ✅ (2026-02-17)
 - [x] Created SVG logo: sacred geometry (hexagon + triangle + eye + agent nodes)
