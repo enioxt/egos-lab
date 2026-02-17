@@ -64,9 +64,11 @@ export type AgentHandler = (ctx: RunContext) => Promise<Finding[]>;
 
 // --- Registry ---
 
-const REPO_ROOT = process.cwd();
-const REGISTRY_PATH = join(REPO_ROOT, 'agents', 'registry', 'agents.json');
-const LOG_DIR = join(REPO_ROOT, 'agents', '.logs');
+const TARGET_ROOT = process.cwd();
+// Registry lives in EGOS install dir, not target dir
+const EGOS_ROOT = join(import.meta.dir, '..', '..');
+const REGISTRY_PATH = join(EGOS_ROOT, 'agents', 'registry', 'agents.json');
+const LOG_DIR = join(EGOS_ROOT, 'agents', '.logs');
 
 function loadRegistry(): AgentDefinition[] {
   const raw = readFileSync(REGISTRY_PATH, 'utf-8');
@@ -128,15 +130,26 @@ export async function runAgent(
 ): Promise<RunResult> {
   const agent = getAgent(agentId);
   if (!agent) {
-    return {
-      success: false,
-      correlationId: 'none',
+    // Fallback: run without registry (external repo mode)
+    const correlationId = crypto.randomUUID();
+    const start = performance.now();
+    const ctx: RunContext = {
       agentId,
+      correlationId,
       mode,
-      durationMs: 0,
-      findings: [],
-      error: `Agent "${agentId}" not found in registry`,
+      repoRoot: TARGET_ROOT,
+      startedAt: new Date().toISOString(),
     };
+    log(ctx, 'info', `Starting agent "${agentId}" in ${mode} mode (standalone — no registry)`);
+    try {
+      const findings = await handler(ctx);
+      const durationMs = Math.round(performance.now() - start);
+      log(ctx, 'info', `Completed in ${durationMs}ms with ${findings.length} findings`);
+      return { success: true, correlationId, agentId, mode, durationMs, findings };
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      return { success: false, correlationId, agentId, mode, durationMs: Math.round(performance.now() - start), findings: [], error: msg };
+    }
   }
 
   if (!agent.run_modes.includes(mode)) {
@@ -168,7 +181,7 @@ export async function runAgent(
     mode,
     agentId,
     startedAt: new Date().toISOString(),
-    repoRoot: REPO_ROOT,
+    repoRoot: TARGET_ROOT,
   };
 
   log(ctx, 'info', `Starting agent "${agent.name}" in ${mode} mode`);
