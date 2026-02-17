@@ -1,87 +1,76 @@
 # AGENTS.md — egos-lab
 
-> **VERSION:** 1.0.0 | **UPDATED:** 2026-02-13
-> **TYPE:** Monorepo Lab | **Parent:** carteira-livre governance heritage
+> **VERSION:** 2.0.0 | **UPDATED:** 2026-02-17
+> **TYPE:** Monorepo Lab + Agentic Platform
 
 ---
 
-## 🎯 Project Overview
+## Project Overview
 
-| Item | Valor |
+| Item | Value |
 |------|-------|
-| **Projeto** | egos-lab |
-| **Descrição** | MVP Lab — Monorepo for business idea prototyping |
+| **Project** | egos-lab |
+| **Description** | Collaborative open-source ecosystem with focused code agents |
 | **Path** | /home/enio/egos-lab |
-| **Porta** | N/A (CLI scripts, not web server) |
-| **Remote** | TBD — github.com/enioxt/egos-lab |
-| **Design Tool** | Google Stitch (external — prompts in docs/stitch/) |
+| **Web** | egos.ia.br (Mission Control) |
+| **Repo** | github.com/enioxt/egos-lab |
+| **Deploy** | Vercel (auto on push) |
+| **Supabase** | `lhscgsqhiooyatkebose` |
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 egos-lab/
-├── apps/                    # Each idea = one independent app
-│   └── eagle-eye/           # 🦅 Gazette Monitor + AI Opportunity Detector
-├── packages/
-│   ├── shared/              # AI client, rate limiter, types
-│   └── config/              # Shared .guarani rules
-├── docs/
-│   ├── plans/               # 12+ idea files (source material)
-│   └── stitch/              # Google Stitch design prompts (SSOT for UI)
-├── scripts/
-│   └── scan_ideas.ts        # Auto-scan compiladochats for new ideas
-├── AGENTS.md                # THIS FILE (project config)
-├── TASKS.md                 # Task tracking
-└── .windsurfrules           # Agent rules
+├── agents/                  # Agentic Platform (8 registered, 20 planned)
+│   ├── cli.ts               # CLI: list, run, lint-registry
+│   ├── runtime/runner.ts    # Core: registry, logger, runner
+│   ├── registry/agents.json # Agent definitions (SSOT)
+│   └── agents/*.ts          # Agent implementations
+├── apps/
+│   ├── egos-web/            # Mission Control (React + Vite)
+│   ├── eagle-eye/           # OSINT gazette monitor + AI
+│   └── radio-philein/       # Community radio (paused)
+├── packages/shared/         # AI client, rate limiter, types
+├── scripts/                 # Proto-agents (security, ideas, rho, review)
+├── docs/                    # Plans, stitch designs, agentic docs
+└── .guarani/                # Agent identity + coding rules
 ```
 
-## 📡 External Data Sources
-
-| Source | URL | Rate Limit | Cost |
-|--------|-----|------------|------|
-| Querido Diário | api.queridodiario.ok.org.br | 60 req/min | Free |
-| PNCP | pncp.gov.br/api/consulta | TBD | Free |
-| Compras.gov.br | compras.dados.gov.br | TBD | Free |
-| OpenRouter (AI) | openrouter.ai/api/v1 | 200 req/min | ~$5/mo |
-
-## 🧰 Commands
+## Commands
 
 ```bash
+# Agentic Platform
+bun agent:list              # List all 8 registered agents
+bun agent:ssot              # Run SSOT Auditor (dry-run)
+bun agent:ssot:exec         # Run SSOT Auditor (writes report)
+bun agent:lint              # Validate registry
+bun agent:run <id> --dry    # Run any agent in dry-run
+
 # Eagle Eye
-bun eagle-eye:fetch      # Test API connection
-bun eagle-eye:analyze    # Run AI analysis (needs OPENROUTER_API_KEY)
+bun eagle-eye:fetch         # Test API connection
+bun eagle-eye:analyze       # Run AI analysis
 
-# Idea Scanner
-bun scan:ideas           # Scan compiladochats for new ideas
+# Utilities
+bun scan:ideas              # Scan compiladochats for new ideas
+bun rho                     # Calculate project health (Rho score)
+bun security:scan           # Pre-commit secret scanner
 
-# All apps
-bun install              # Install all workspace deps
+# All
+bun install                 # Install all workspace deps
 ```
 
-## 🔗 Sibling Projects
+## Sibling Projects
 
 | Project | Path | Relationship |
 |---------|------|--------------|
 | carteira-livre | /home/enio/carteira-livre | Production SaaS (DO NOT MIX) |
-| EGOSv5 | /home/enio/EGOSv5 | Legacy framework (archived) |
 
-## 🎨 Design Standard: Google Stitch
+## Key Docs
 
-**ALL UI/dashboard designs MUST go through Google Stitch first.**
-
-Workflow:
-1. Write design prompt in `docs/stitch/[feature].md`
-2. Generate design in Google Stitch
-3. Export assets → implement code matching the design
-4. NEVER build UI directly without Stitch mockup first
-
-## 📥 Idea Ingestion
-
-Source: `/home/enio/Downloads/compiladochats/` (228+ files)
-
-The `scripts/scan_ideas.ts` script:
-1. Scans compiladochats for new .md files (ChatGPT/Gemini exports)
-2. Hashes seen files to avoid re-processing
-3. Classifies by relevance (business idea vs personal vs noise)
-4. Copies relevant files to `docs/plans/`
-5. Runs on pre-commit hook or manually via `npm run scan:ideas`
+| Doc | Purpose |
+|-----|---------|
+| `docs/agentic/DIFFERENTIATORS.md` | EGOS vs 13+ frameworks |
+| `docs/agentic/agentification-map.md` | 10 areas, 20 agents planned |
+| `docs/agentic/how-to.md` | How to create/run agents |
+| `docs/OPEN_SOURCE_PLAN.md` | Collaborative Network plan |
+| `docs/CONTRIBUTING_WITH_AI.md` | How to contribute |

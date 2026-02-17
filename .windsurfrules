@@ -1,107 +1,100 @@
 # .windsurfrules — egos-lab Monorepo
-# VERSION 1.0.0 — Initialized 2026-02-13
+# VERSION 2.0.0 — Updated 2026-02-17
 # Sacred Code: 000.111.369.963.1618
-# Heritage: carteira-livre governance v4.0
 
 ---
 project: "egos-lab"
-type: "monorepo-lab"
-parent: "carteira-livre"
+type: "monorepo-lab + agentic-platform"
 ---
 
-## 📋 SSOT (Single Source of Truth)
-
-> **5 arquivos governam tudo. Não crie novos docs — atualize estes.**
+## SSOT (Single Source of Truth)
 
 | Arquivo | Propósito | MAX linhas |
 |---------|-----------|------------|
 | `AGENTS.md` | Config do projeto, stack, commands | 200 |
-| `TASKS.md` | Todas as tasks (SSOT) | 300 |
+| `TASKS.md` | Todas as tasks | 300 |
 | `.windsurfrules` | Regras do agente (este arquivo) | 300 |
-| `docs/STANDARDS.md` | **The Golden Rules (Identity/Tech/Arch)** | 200 |
 | `.guarani/PREFERENCES.md` | Padrões de código | 150 |
-| `.guarani/IDENTITY.md` | Identidade do agente | 100 |
+| `agents/registry/agents.json` | **Registry de agentes (SSOT)** | — |
+| `docs/agentic/DIFFERENTIATORS.md` | Estratégia + posicionamento | 200 |
 
-## ⚡ PRIME DIRECTIVE
+## PRIME DIRECTIVE
 
-> **NEVER write manual logic if a Tool (MCP) exists.**
-> **NEVER build UI without Google Stitch design first.**
+> **Rules govern agents. Agents enforce rules. Community evolves rules.**
+> **NEVER write manual logic if a Tool (MCP) or Agent exists.**
 > **NEVER mix egos-lab code with carteira-livre.**
 
-## 🎯 MANDAMENTOS
+## MANDAMENTOS
 
-1. **Cada ideia = um app** em `apps/`. NUNCA misturar.
-2. **Shared code** vai em `packages/shared/`. Zero duplicação.
-3. **API-first** — tudo deve ser callable por agentes (MCP-ready).
-4. **Cost tracking** — todo uso de AI logado com custo em USD.
-5. **Stitch-first** — UI designs VÃO para Google Stitch antes do código.
-6. **Idea ingestion** — rodar `npm run scan:ideas` antes de commits.
+1. **ONE THING** — Cada agente faz UMA coisa. Cada app resolve UM problema.
+2. **ZERO DEPS** — Agents use only Node/Bun stdlib. No framework dependencies.
+3. **DRY-RUN FIRST** — Every agent MUST support `--dry` before `--exec`.
+4. **REGISTRY** — No agent runs without a registry entry in `agents/registry/agents.json`.
+5. **LOGS** — Every execution gets a correlation_id + JSONL structured log.
+6. **COST** — AI calls use `packages/shared/ai-client.ts`. Cost tracked per call.
+7. **SHARED** — Reusable code goes in `packages/shared/`. Zero duplication.
+8. **STITCH** — UI designs go to Google Stitch before code.
+9. **COMMIT** — Conventional commits every 30-60min (feat:/fix:/chore:/docs:).
+10. **SCOPE** — Do ONLY what was asked. ASK before creating new features.
 
-## 🎨 DESIGN STANDARD: GOOGLE STITCH
+## AGENTIC PLATFORM
 
-```
-WORKFLOW OBRIGATÓRIO:
-1. Escrever prompt de design → docs/stitch/[feature].md
-2. Gerar design no Google Stitch → exportar mockup
-3. Implementar código -> matching pixel-perfect com design
-4. NUNCA construir dashboard/UI direto sem Stitch mockup
-```
-
-Quando agente precisar criar UI:
-- Gere o PROMPT para Stitch, não o código
-- Salve em `docs/stitch/[feature].md`
-- Diga ao usuário: "Design pronto para Stitch, gere lá e volte com o resultado"
-
-## 📥 IDEA INGESTION
-
-```
-SOURCE: /home/enio/Downloads/compiladochats/
-SCRIPT: scripts/scan_ideas.ts
-TRIGGER: pre-commit hook OU manual (npm run scan:ideas)
-
-REGRAS:
-- Só processa .md (ChatGPT-*, Gemini-*, Claude-*)
-- Ignora: .pdf, .zip, .csv, .xlsx, .jnlp, .txt
-- Hash de cada arquivo para evitar duplicatas
-- Classifica: business_idea | personal | noise
-- Copia business_ideas → docs/plans/
+```bash
+bun agent:list              # List all registered agents
+bun agent:run <id> --dry    # Run agent in dry-run mode
+bun agent:run <id> --exec   # Run agent in execute mode
+bun agent:lint              # Validate registry
+bun agent:ssot              # Quick: SSOT Auditor dry-run
 ```
 
-## 🔗 CROSS-REPO RULES
+### Architecture
 
-| Repo | O que FAZ | O que NÃO FAZ |
-|------|-----------|----------------|
-| `carteira-livre` | SaaS em produção | Experimentos |
-| `egos-lab` | Protótipos MVP | Deploy para produção |
-| `EGOSv5` | Arquivado | NADA (legacy) |
+```
+agents/
+├── cli.ts                  ← CLI entry point
+├── runtime/runner.ts       ← Core: registry, logger, runner
+├── registry/agents.json    ← All agent definitions (SSOT)
+├── agents/*.ts             ← Agent implementations
+├── evals/                  ← Eval suites (planned)
+└── .logs/                  ← JSONL logs (gitignored)
+```
 
-## 📊 METRICS
+### Agent Requirements
 
-| Métrica | Target |
-|---------|--------|
-| Max file size | 400 LOC |
-| API cost/month | < $10 |
-| Test coverage | > 60% (apps) |
-| Idea scan freq | Every commit |
+Every agent MUST have:
+- Registry entry with id, area, risk_level, run_modes
+- Correlation ID (auto from runner)
+- JSONL logging (auto from runner)
+- Dry-run mode (report only, no side effects)
+- Idempotency (running twice = same result)
 
-## 🧠 AI MEMORY SYNC
+### Creating a New Agent
 
-Para garantir que agentes (Antigravity + Windsurf) compartilhem contexto:
+1. Add entry to `agents/registry/agents.json`
+2. Create `agents/agents/<name>.ts` importing from `../runtime/runner`
+3. Run `bun agent:lint` to validate
+4. Test with `bun agent:run <id> --dry`
+5. See full guide: `docs/agentic/how-to.md`
 
-1. **AGENTS.md** é lido por AMBOS os agentes no startup
-2. **TASKS.md** é a SSOT de progresso — sempre atualizar
-3. **Commits descritivos** — cada commit explica o "porquê" para o outro agente
-4. **Handoffs** — usar `docs/_current_handoffs/` quando trocar de agente
-5. **compiladochats** — scanear antes de cada sessão nova
+## CROSS-REPO RULES
 
-## 🔑 ENV VARS
+| Repo | Purpose | Agents |
+|------|---------|--------|
+| `egos-lab` | Lab + Agentic Platform | 8 registered, 20 planned |
+| `carteira-livre` | Production SaaS | Uses .guarani rules only |
+
+## SECURITY
+
+- **API Keys:** NEVER hardcode. Use `.env`. Server-side via Vercel proxy.
+- **Pre-commit:** `scripts/security_scan.ts` runs automatically.
+- **Recursion:** MAX_DEPTH ~50. IGNORE_DIRS includes External/.
+- **PII:** Agents MUST mask CPF/email in all output.
+
+## ENV VARS
 
 ```env
-OPENROUTER_API_KEY=   # AI analysis (Gemini via OpenRouter)
-# NOT needed for MVP: SUPABASE_URL, SUPABASE_KEY (Phase 2+)
+OPENROUTER_API_KEY=   # AI (Gemini via OpenRouter) — server-side only
+GITHUB_TOKEN=         # GitHub API — server-side only
+VITE_SUPABASE_URL=    # Supabase (client-safe)
+VITE_SUPABASE_ANON_KEY= # Supabase anon (client-safe)
 ```
-## 🛡️ SECURITY & CODE QUALITY
-
-- **Recursion:** Always set `MAX_DEPTH` (limit ~50) for recursive functions.
-- **API Keys:** NEVER hardcode. Use `.env`. Validate restrictions (IP/Package). Ref: `docs/KEY_MANAGEMENT.md`.
-- **Review:** All Commits must pass `scripts/security_scan.ts`.
