@@ -11,15 +11,20 @@ import { supabase } from '../lib/supabase';
 type GitHubCommitResponseItem = {
   sha: string;
   html_url?: string;
+  message?: string;
+  author?: string;
+  author_login?: string;
+  author_avatar?: string;
+  date?: string;
+  url?: string;
+  stats?: { additions: number; deletions: number; total: number };
+  files?: { filename: string; additions: number; deletions: number; status: string }[];
   commit?: {
     message?: string;
     author?: {
       name?: string;
       date?: string;
     };
-  };
-  author?: {
-    login?: string;
   };
 };
 
@@ -95,11 +100,15 @@ async function fetchGitHubCommits(): Promise<CommitData[]> {
       .map((c) => ({
         id: c.sha,
         sha: c.sha,
-        message: (c.commit?.message || 'commit').split('\n')[0],
-        author: c.commit?.author?.name || c.author?.login || 'Unknown',
-        date: c.commit?.author?.date || new Date().toISOString(),
-        url: c.html_url || `https://github.com/enioxt/egos-lab/commit/${c.sha}`,
+        message: (c.message || c.commit?.message || 'commit').split('\n')[0],
+        author: (typeof c.author === 'string' ? c.author : null) || c.commit?.author?.name || 'Unknown',
+        author_login: c.author_login || undefined,
+        author_avatar: c.author_avatar || undefined,
+        date: c.date || c.commit?.author?.date || new Date().toISOString(),
+        url: c.url || c.html_url || `https://github.com/enioxt/egos-lab/commit/${c.sha}`,
         repo: 'enioxt/egos-lab',
+        stats: c.stats || undefined,
+        files: c.files || undefined,
       }));
   } catch {
     return [];

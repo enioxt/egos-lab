@@ -1966,6 +1966,13 @@ html, body {
   background: rgba(19, 182, 236, 0.2);
 }
 
+/* ═══ SPIRAL SECTION ═══ */
+.spiral-section {
+  padding: 80px 24px 60px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 /* ═══ COLLAPSIBLE RESPONSIVE ═══ */
 @media (max-width: 768px) {
   .collapsible-section { padding: 0 12px; }
@@ -1997,6 +2004,6 @@ html, body {
   .api-route-top { flex-direction: column; align-items: flex-start; gap: 6px; }
   .api-route-badges { flex-wrap: wrap; }
   .api-route-meta { flex-wrap: wrap; }
-  section[id="spiral"] { padding: 40px 0 30px !important; max-width: 100% !important; }
+  .spiral-section { padding: 40px 12px 30px !important; max-width: 100% !important; }
   .ecosystem { padding: 40px 0 30px; }
 }

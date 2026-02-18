@@ -1,10 +1,19 @@
 import { create } from 'zustand';
 
+export interface CommitFileData {
+  filename: string;
+  additions: number;
+  deletions: number;
+  status: string;
+}
+
 export interface CommitData {
   id: string;
   sha: string;
   message: string;
   author: string;
+  author_login?: string;
+  author_avatar?: string;
   date: string;
   url: string;
   repo: string;
@@ -14,6 +23,8 @@ export interface CommitData {
   tags?: string[];
   techDebt?: boolean;
   impactScore?: number;
+  stats?: { additions: number; deletions: number; total: number };
+  files?: CommitFileData[];
 }
 
 export interface ChatMessage {
