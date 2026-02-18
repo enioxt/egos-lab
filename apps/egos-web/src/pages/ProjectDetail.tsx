@@ -72,6 +72,9 @@ export default function ProjectDetail() {
             {project.description && <p className="hub-detail-desc">{project.description}</p>}
           </div>
           <div className="hub-detail-actions">
+            <Link to={`/p/${project.slug}/help`} className="hub-btn-secondary">
+              🤝 Pedidos de Ajuda
+            </Link>
             <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="hub-btn-primary">
               GitHub ↗
             </a>

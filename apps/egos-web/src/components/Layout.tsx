@@ -43,6 +43,7 @@ export default function Layout() {
                   <div className="auth-avatar-placeholder">{(username || 'U')[0].toUpperCase()}</div>
                 )}
               </Link>
+              <Link to="/settings" className="auth-settings" title="Configurações">⚙</Link>
               <button onClick={signOut} className="auth-signout" title="Sair">✕</button>
             </div>
           ) : (
