@@ -7,37 +7,37 @@
 
 | Metric | Value |
 |--------|-------|
-| **Total Files** | 1069 |
-| **Total Lines of Code** | 358,113 |
-| **Total Size** | 42.77 MB |
+| **Total Files** | 1117 |
+| **Total Lines of Code** | 368,361 |
+| **Total Size** | 44.48 MB |
 
 ### File Types
-- **.ts**: 427
-- **.md**: 293
-- **.tsx**: 204
-- **.json**: 29
+- **.ts**: 437
+- **.md**: 315
+- **.tsx**: 210
+- **.json**: 30
+- **.png**: 15
 - **.svg**: 15
 - **.html**: 13
-- **.png**: 13
 - **.gitignore**: 7
 - **.js**: 7
-- **.css**: 6
+- **.sql**: 6
 
 ---
 
 ## 🗺️ Module Map
 
 ### 📂 docs
-**Files:** 226 | **LOC:** 173,942
+**Files:** 242 | **LOC:** 175,925
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
 | `plans` | 157 | 149,782 | - |
-| `stitch` | 23 | 14,732 | - |
+| `stitch` | 39 | 16,713 | - |
 | `eagle-eye-results` | 4 | 5,336 | - |
-| `agentic` | 9 | 1,420 | - |
-| `_current_handoffs` | 5 | 301 | - |
+| `agentic` | 9 | 1,421 | - |
 | `partner_packages` | 4 | 299 | - |
+| `_current_handoffs` | 5 | 295 | - |
 | `case-studies` | 2 | 158 | - |
 | `valuation` | 1 | 124 | - |
 | `marketplace` | 2 | 117 | - |
@@ -48,14 +48,14 @@
 | `review` | 1 | 17 | - |
 
 ### 📂 agents
-**Files:** 14 | **LOC:** 26,147
+**Files:** 18 | **LOC:** 28,502
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
-| `.logs` | 4 | 24,390 | - |
-| `agents` | 5 | 1,179 | - |
+| `.logs` | 5 | 26,567 | - |
+| `agents` | 6 | 1,298 | - |
 | `runtime` | 1 | 255 | - |
-| `registry` | 1 | 172 | - |
+| `registry` | 2 | 228 | - |
 | `evals` | 0 | 0 | - |
 
 ### 📂 projects
@@ -79,30 +79,31 @@
 | `01-S-eagle-eye` | 1 | 11 | - |
 
 ### 📂 scripts
-**Files:** 14 | **LOC:** 1,679
+**Files:** 18 | **LOC:** 1,905
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
+| `hooks` | 1 | 87 | - |
 
 ### 📂 apps
-**Files:** 722 | **LOC:** 138,069
+**Files:** 735 | **LOC:** 142,529
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
 | `intelink` | 522 | 120,994 | - |
 | `eagle-eye` | 65 | 6,543 | - |
-| `egos-web` | 38 | 4,861 | - |
+| `egos-web` | 39 | 4,885 | - |
+| `nexus-web` | 26 | 4,077 | - |
 | `marketplace-core` | 46 | 3,227 | - |
 | `radio-philein` | 15 | 1,386 | - |
-| `nexus-mobile` | 12 | 430 | - |
-| `nexus-web` | 20 | 356 | - |
-| `nexus-market` | 3 | 235 | - |
+| `nexus-mobile` | 16 | 1,041 | - |
+| `nexus-market` | 5 | 339 | - |
 
 ### 📂 packages
-**Files:** 13 | **LOC:** 339
+**Files:** 18 | **LOC:** 996
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
+| `nexus-shared` | 12 | 738 | - |
 | `shared` | 5 | 224 | - |
-| `nexus-shared` | 7 | 81 | - |
 
