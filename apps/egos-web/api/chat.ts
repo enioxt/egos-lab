@@ -39,9 +39,9 @@ EGOS Lab is an open-source agentic platform for builders. It includes:
 4. **Marketplace Core** — Domain modeling for marketplace state machines, payment ledger, identity. Status: PROTOTYPE.
 5. **Radio Philein** — Community radio concept. Status: PAUSED.
 
-## 10 Autonomous Agents + Orchestrator
+## 11 Autonomous Agents + Orchestrator
 
-All run in <4s, zero external dependencies:
+All run in ~6s, zero external dependencies:
 - **SSOT Auditor** — Finds duplicate types, orphaned exports, scattered fields
 - **Security Scanner** — Detects hardcoded secrets, PII leaks
 - **Auth & Roles Checker** — Scans middleware guards, API session checks
@@ -51,6 +51,7 @@ All run in <4s, zero external dependencies:
 - **Idea Scanner** — Scans chat exports for actionable ideas
 - **Rho Calculator** — Project health score
 - **Knowledge Disseminator** — Saves patterns to memory
+- **UI Designer** — Generates UI mockups via Gemini from Stitch prompts
 - **E2E Smoke Validator** — Playwright smoke tests (planned)
 - **Orchestrator** — Runs all agents, generates combined report
 
@@ -76,7 +77,7 @@ These are IDEAS — they become PLANS when people join to build:
 - Monorepo: Bun workspaces
 - Frontend: React + Vite (egos-web), Next.js 15 (intelink)
 - Backend: Vercel serverless, Supabase PostgreSQL
-- AI: OpenRouter (Gemini 2.0 Flash), 10 local agents
+- AI: OpenRouter (Gemini 2.0 Flash), 11 local agents
 - Deploy: Vercel (auto on push), PM2 for bots
 
 ## How to Contribute
