@@ -59,7 +59,7 @@ const TESTS: VerificationTest[] = [
     name: 'Factual: Correct agent count',
     category: 'factual',
     input: 'How many agents does EGOS have?',
-    evaluationCriteria: 'Response must mention 13 agents (or close). Must NOT say a significantly wrong number like 5 or 50.',
+    evaluationCriteria: 'Response must mention 14 agents (or close, e.g. 13-15). Must NOT say a significantly wrong number like 3 or 5 or 50.',
   },
   {
     id: 'fact-no-hallucination',
