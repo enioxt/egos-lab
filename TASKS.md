@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 3.1.0 | **UPDATED:** 2026-02-18
-> **LAST SESSION:** Windsurf — Deep Intelink cleanup (86 files, PII removed) + Espiral de Escuta + Dependabot fixes + GOV progress
+> **VERSION:** 3.2.0 | **UPDATED:** 2026-02-18
+> **LAST SESSION:** Cascade — UI Designer agent + 7 mockups generated + 4 skills + registry schema + diagnostic
 
 ---
 
@@ -79,10 +79,10 @@
 
 **egos-lab skills to create:**
 - [x] `stitch-design` — Google Stitch UI workflow ✓ (exists in ~/.egos/skills/)
-- [ ] `agent-dev` — How to create, test, register agents
-- [ ] `deploy` — Vercel deploy procedures for egos-web
-- [ ] `security` — RLS, pre-commit, secrets scanning
-- [ ] `audit` — Running agents on external repos, case studies
+- [x] `agent-dev` — How to create, test, register agents ✓ (18/02/2026)
+- [x] `deploy` — Vercel deploy procedures for egos-web ✓ (18/02/2026)
+- [x] `security` — RLS, pre-commit, secrets scanning ✓ (18/02/2026)
+- [x] `audit` — Running agents on external repos, case studies ✓ (18/02/2026)
 
 **carteira-livre skills to review:**
 - [ ] Review 7 existing skills for accuracy (last updated Feb 2026)
@@ -126,7 +126,7 @@
 
 ### FINDINGS-001: Resolve 143 Agent Findings
 > **Report:** `docs/agentic/reports/findings-categorized.md`
-- [ ] Move `@types/pg` to devDependencies (2 files)
+- [x] Move `@types/pg` to devDependencies (2 files) ✓ (18/02/2026)
 - [ ] Consolidate `Finding` type — import from runner.ts in governance
 - [ ] Align TypeScript/React versions across workspaces
 - [ ] Consolidate `AIAnalysisResult`, `AnalysisResult`, `Territory` to shared
@@ -195,10 +195,10 @@
 
 ---
 
-### DOCS-002: Intelink Positioning Clarity
+### DOCS-002: Intelink Positioning Clarity ✅ (18/02/2026)
 > **Goal:** Clearly distinguish "Intelink (Police Tool)" vs "Intelink (General Intelligence Engine)"
-- [ ] Update landing page copy to define the dual role
-- [ ] Create `docs/INTELINK_IDENTITY.md`
+- [x] Update landing page copy to define the dual role
+- [x] Create `docs/INTELINK_IDENTITY.md` ✓
 - [ ] Ensure agents know the context (Context-Aware Prompts)
 
 ## P2 — Future (Medium Term)

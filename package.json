@@ -33,6 +33,8 @@
         "agent:dead:exec": "bun agents/agents/dead-code-detector.ts --exec",
         "agent:all": "bun agents/agents/orchestrator.ts",
         "agent:all:exec": "bun agents/agents/orchestrator.ts --exec",
+        "agent:ui": "bun agents/agents/ui-designer.ts",
+        "agent:ui:exec": "bun agents/agents/ui-designer.ts --exec",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },
@@ -44,7 +46,6 @@
         "husky": "^8.0.0"
     },
     "dependencies": {
-        "@types/pg": "^8.16.0",
         "dotenv": "^17.3.1",
         "pg": "^8.18.0"
     }

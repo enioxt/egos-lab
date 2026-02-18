@@ -88,6 +88,22 @@
       "migrated_from": "scripts/disseminate.ts"
     },
     {
+      "id": "ui_designer",
+      "name": "Stitch UI Designer",
+      "area": "design",
+      "description": "Generates UI mockup descriptions from Stitch prompts using Gemini via OpenRouter",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "agents/agents/ui-designer.ts",
+      "tools_allowed": ["filesystem:read", "filesystem:write", "ai:generate"],
+      "data_access": { "pii": false, "secrets_scan": false },
+      "triggers": ["manual"],
+      "memory_mode": "none",
+      "eval_suite": ["evals/ui_designer.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
+    },
+    {
       "id": "ssot_auditor",
       "name": "SSOT Auditor",
       "area": "architecture",

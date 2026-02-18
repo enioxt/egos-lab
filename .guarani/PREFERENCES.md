@@ -50,3 +50,14 @@ Available in `.windsurf/workflows/`:
 - `/consulting-diagnostic` — Full diagnostic suite for client projects
 - `/partnership-outreach` — Prepare and execute partnership contacts
 - `/launch-content` — Create content for public launch
+
+## 🎨 Design & UI (Google Stitch)
+
+> **ALWAYS** generate prompts for Google Stitch when designing new screens.
+> **ALWAYS** consolidate multiple prompts into a single file `docs/stitch/ALL_[PROJECT]_PROMPTS.md` for easy copying.
+
+### Component Rules
+- **Tailwind:** Use `className="..."` with utility classes. No inline styles.
+- **Icons:** Use `lucide-react`.
+- **Motion:** Use `framer-motion` for animations.
+- **Theme:** Dark mode first (`slate-900`/`950` backgrounds).

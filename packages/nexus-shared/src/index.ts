@@ -2,3 +2,8 @@ export * from './hooks';
 export * from './types';
 export * from './utils';
 export * from './lib/supabase';
+export * from './theme';
+export * from './ai/photo-hunter';
+export * from './ai/web-search';
+export * from './ai/image-generator';
+export * from './ai/product-enricher';

@@ -1,19 +1,37 @@
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-// These should be defined in the application's .env file
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.EXPO_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
+let _client: SupabaseClient | null = null;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn('Supabase URL or Anon Key is missing. Check your .env file.');
+/**
+ * Lazy-initialized Supabase client.
+ * Allows dotenv to load before first use.
+ */
+export function getSupabaseClient(): SupabaseClient {
+    if (!_client) {
+        const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.EXPO_PUBLIC_SUPABASE_URL || '';
+        const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+        if (!url || !key) {
+            console.warn('[Supabase] URL or Key is missing. Check your .env file.');
+        }
+
+        _client = createClient(url, key);
+    }
+    return _client;
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+/**
+ * @deprecated Use `getSupabaseClient()` instead.
+ * Kept for backward compat — lazily creates on first property access.
+ */
+export const supabase = new Proxy({} as SupabaseClient, {
+    get(_, prop: string) {
+        return (getSupabaseClient() as any)[prop];
+    },
+});
 
 /**
  * Helper to get table name with project prefix
- * @param table The base table name (e.g., 'users', 'products')
- * @returns The prefixed table name (e.g., 'nexusmkt_users')
  */
 export const getTableName = (table: string) => `nexusmkt_${table}`;

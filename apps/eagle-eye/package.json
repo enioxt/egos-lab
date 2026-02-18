@@ -16,10 +16,10 @@
     },
     "dependencies": {
         "@egos-lab/shared": "*",
-        "@types/pg": "^8.16.0",
         "pg": "^8.18.0"
     },
     "devDependencies": {
+        "@types/pg": "^8.16.0",
         "supabase": "^2.76.8"
     }
 }
