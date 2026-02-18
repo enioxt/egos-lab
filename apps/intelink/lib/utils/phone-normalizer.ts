@@ -4,20 +4,20 @@
  * Normaliza números de telefone brasileiros de qualquer formato para um formato padrão.
  * Reconhece e normaliza todos os formatos comuns:
  * 
- * - +55 24 99227-0880
- * - 55 24 99227-0880
- * - 24 99227-0880
- * - (24) 99227-0880
+ * - +55 24 91234-5678
+ * - 55 24 91234-5678
+ * - 24 91234-5678
+ * - (24) 91234-5678
  * - 24992270880
  * - 24.9.9227.0880
- * - 024 99227-0880
+ * - 024 91234-5678
  * - etc.
  */
 
 export interface PhoneInfo {
     /** Número completo sem formatação (apenas dígitos) */
     raw: string;
-    /** Número formatado para display: (24) 99227-0880 */
+    /** Número formatado para display: (24) 91234-5678 */
     formatted: string;
     /** Número para WhatsApp: 5524992270880 */
     whatsapp: string;
@@ -47,11 +47,11 @@ export function stripNonDigits(phone: string): string {
  * @returns PhoneInfo com todas as variações do número
  * 
  * @example
- * normalizePhone('+55 24 99227-0880')
- * // { raw: '5524992270880', formatted: '(24) 99227-0880', whatsapp: '5524992270880', ... }
+ * normalizePhone('+55 24 91234-5678')
+ * // { raw: '5524992270880', formatted: '(24) 91234-5678', whatsapp: '5524992270880', ... }
  * 
  * normalizePhone('24992270880')
- * // { raw: '24992270880', formatted: '(24) 99227-0880', whatsapp: '5524992270880', ... }
+ * // { raw: '24992270880', formatted: '(24) 91234-5678', whatsapp: '5524992270880', ... }
  */
 export function normalizePhone(phone: string | null | undefined): PhoneInfo {
     if (!phone) {
@@ -131,7 +131,7 @@ export function normalizePhone(phone: string | null | undefined): PhoneInfo {
     let formatted = '';
     if (ddd) {
         if (number.length === 9) {
-            // Celular: (24) 99227-0880
+            // Celular: (24) 91234-5678
             formatted = `(${ddd}) ${number.substring(0, 5)}-${number.substring(5)}`;
         } else {
             // Fixo: (24) 3322-1234
@@ -164,8 +164,8 @@ export function normalizePhone(phone: string | null | undefined): PhoneInfo {
  * Compara dois números de telefone ignorando formatação
  * 
  * @example
- * phonesMatch('+55 24 99227-0880', '24992270880') // true
- * phonesMatch('(24) 99227-0880', '24.99227.0880') // true
+ * phonesMatch('+55 24 91234-5678', '24992270880') // true
+ * phonesMatch('(24) 91234-5678', '24.99227.0880') // true
  */
 export function phonesMatch(phone1: string | null | undefined, phone2: string | null | undefined): boolean {
     if (!phone1 || !phone2) return false;
@@ -186,8 +186,8 @@ export function phonesMatch(phone1: string | null | undefined, phone2: string | 
  * Formata um telefone para display amigável
  * 
  * @example
- * formatPhoneDisplay('24992270880') // '(24) 99227-0880'
- * formatPhoneDisplay('+5524992270880') // '(24) 99227-0880'
+ * formatPhoneDisplay('24992270880') // '(24) 91234-5678'
+ * formatPhoneDisplay('+5524992270880') // '(24) 91234-5678'
  */
 export function formatPhoneDisplay(phone: string | null | undefined): string {
     return normalizePhone(phone).formatted;
@@ -215,8 +215,8 @@ export function getWhatsAppLink(phone: string | null | undefined, message?: stri
  * Extrai todos os telefones de um texto (útil para parsing de documentos)
  * 
  * @example
- * extractPhonesFromText('Ligue para (24) 99227-0880 ou 24 3322-1234')
- * // ['(24) 99227-0880', '24 3322-1234']
+ * extractPhonesFromText('Ligue para (24) 91234-5678 ou 24 3322-1234')
+ * // ['(24) 91234-5678', '24 3322-1234']
  */
 export function extractPhonesFromText(text: string): PhoneInfo[] {
     if (!text) return [];
@@ -243,7 +243,7 @@ export function isValidPhone(phone: string | null | undefined): boolean {
  * Retorna apenas dígitos, sem código do país
  * 
  * @example
- * cleanPhoneForStorage('+55 24 99227-0880') // '24992270880'
+ * cleanPhoneForStorage('+55 24 91234-5678') // '24992270880'
  */
 export function cleanPhoneForStorage(phone: string | null | undefined): string {
     const info = normalizePhone(phone);
