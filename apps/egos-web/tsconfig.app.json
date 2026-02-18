@@ -22,12 +22,7 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "baseUrl": ".",
-    "paths": {
-      "@egos/shared/*": ["../../packages/shared/src/*"]
-    }
+    "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "../../packages/shared/src/api-registry.ts"]
+  "include": ["src"]
 }

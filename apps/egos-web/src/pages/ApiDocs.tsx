@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { API_REGISTRY, getRegistryStats } from '@egos/shared/api-registry'
-import type { RouteEntry, RouteStatus, AutomationLevel } from '@egos/shared/api-registry'
+import { API_REGISTRY, getRegistryStats } from '../lib/api-registry'
+import type { RouteEntry, RouteStatus, AutomationLevel } from '../lib/api-registry'
 
 const METHOD_COLORS: Record<string, string> = {
   GET: '#3b82f6',
