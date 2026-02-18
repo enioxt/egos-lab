@@ -1,0 +1,47 @@
+{
+  "name": "Intelink - Inteligência Policial",
+  "short_name": "Intelink",
+  "description": "Sistema de Inteligência Policial com análise de vínculos e IA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "business"],
+  "shortcuts": [
+    {
+      "name": "Nova Operação",
+      "short_name": "Nova",
+      "description": "Criar nova operação de investigação",
+      "url": "/investigation/new"
+    },
+    {
+      "name": "Central",
+      "short_name": "Central",
+      "description": "Central de Inteligência",
+      "url": "/central"
+    },
+    {
+      "name": "Chat",
+      "short_name": "Chat",
+      "description": "Chat de Inteligência com IA",
+      "url": "/chat"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

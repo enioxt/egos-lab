@@ -1,0 +1,129 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+jspm_packages/
+bower_components/
+
+# Build outputs
+dist/
+!backend/mcp-server/dist/  # Exception: Keep MCP server compiled files for Railway deployment
+dist-ssr/
+build/
+.next/
+.turbo/
+out/
+.cache/
+
+# Environment files
+*.local
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+venv/
+.venv/
+env/
+.env/
+ENV/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist-py/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Backups (CRITICAL - prevent accidental commits)
+backups/
+*.backup
+*.bak
+*.old
+*.orig
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+test-*.js
+test-*.cjs
+test-*.mjs
+test-*.ts
+test-*.sh
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Lock files (keep only one type)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Reports and artifacts
+.jscpd-report/
+docs/handoff-reports/*.json
+.briefing_last.txt
+playwright-report/
+lighthouseci/
+telemetry/reports/*.json
+
+# Build artifacts
+frontend/tsconfig.tsbuildinfo
+frontend/.env.production
+
+# Archives
+.archive/
+
+# Temp files
+/cache
+brandforge-ai/
+test-results/
+.vercel
+apps/antigravity_forensics/
+Windows_Scanner_App/test_docs/terceiro.pdf
