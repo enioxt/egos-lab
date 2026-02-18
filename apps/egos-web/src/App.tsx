@@ -22,7 +22,7 @@ function App() {
       <CollapsibleSection
         id="ecosystem"
         icon={<Network size={18} />}
-        title="Espirais de Escuta"
+        title="Ecossistema"
         subtitle="Módulos do ecossistema — do estável ao experimental"
         badge="10 módulos"
         badgeColor="#10b981"
