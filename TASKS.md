@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.8.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Deploy live + orchestrator + EgosWeb hub vision + findings categorized
+> **VERSION:** 2.9.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — Hero fix + activity modal + governance audit + deploy rule
 
 ---
 
@@ -38,6 +38,86 @@
 ---
 
 ## P1 — Important
+
+### GOV-001: ~/.egos/ Governance Cleanup
+> **Location:** `/home/enio/.egos/`
+> **Problem:** `workflows/` and `skills/` are EMPTY — sync.sh has nothing to sync
+
+- [ ] Populate `~/.egos/workflows/` with shared workflows (start, end, research, pre, disseminate)
+- [ ] Populate `~/.egos/skills/` with shared skills (agent-dev, security-audit)
+- [ ] Update `~/.egos/guarani/IDENTITY.md` v1.0 → v2.0 (add egos-lab/intelink references)
+- [ ] Update `~/.egos/guarani/PREFERENCES_SHARED.md` (add end-of-message discipline)
+- [ ] Run `~/.egos/sync.sh` to propagate to both repos
+- [ ] Verify symlinks work in both egos-lab and carteira-livre
+
+### GOV-002: Intelink Workspace Integration
+> **Problem:** `/home/enio/intelink/` is NOT accessible from egos-lab workspace or filesystem MCP
+> **15 modals found** in Intelink (EntityDetailModal, EvidenceDetailModal, etc.)
+
+- [ ] Add `/home/enio/intelink` to filesystem MCP allowed directories
+- [ ] Add `/home/enio/intelink` as Windsurf workspace
+- [ ] Port modal patterns to egos-web (EntityDetailModal style)
+- [ ] Port toast/notification patterns
+- [ ] Consider symlinking `apps/intelink/` in egos-lab monorepo
+- [ ] Delete `/home/enio/INTELINK/` (empty skeleton, useless)
+
+### GOV-003: Memory Audit & Cleanup
+> **Problem:** 80+ memories, many stale/redundant. Only 2-3 egos-lab specific.
+
+**Stale (consolidate or delete):**
+- [ ] ~20 session summaries from carteira-livre (sessions 3-40) → consolidate into 1 summary
+- [ ] 5+ OAuth/auth memories (overlapping info) → merge into 1 definitive pattern
+- [ ] 3 build discipline memories (redundant) → merge into 1
+- [ ] DocSync, INPI, Nano Banana → archive or delete if inactive
+
+**Missing (create):**
+- [ ] egos-lab architecture + agent platform memory
+- [ ] EgosWeb product vision memory
+- [ ] Deploy discipline v3 (end-of-message mandatory) memory
+- [ ] ~/.egos/ governance structure memory
+- [ ] Intelink modal/toast patterns memory
+
+### GOV-004: Skills Audit & Creation
+> **Problem:** carteira-livre has 7 skills, egos-lab has 0
+
+**egos-lab skills to create:**
+- [ ] `agent-dev` — How to create, test, register agents
+- [ ] `deploy` — Vercel deploy procedures for egos-web
+- [ ] `security` — RLS, pre-commit, secrets scanning
+- [ ] `audit` — Running agents on external repos, case studies
+- [ ] `stitch-design` — Google Stitch UI workflow
+
+**carteira-livre skills to review:**
+- [ ] Review 7 existing skills for accuracy (last updated Feb 2026)
+- [ ] Add `payment` skill (Asaas patterns, split, webhook)
+- [ ] Add `ai-orchestrator` skill (agent routing, streaming)
+
+**Shared skills (~/.egos/skills/):**
+- [ ] `research` — Multi-modal intelligence gathering
+- [ ] `governance` — SSOT rules, task management, commit discipline
+
+### GOV-005: Rules Audit & Consistency
+> **Problem:** Global .windsurfrules references EGOSv3 (archived), MCP prefixes wrong
+
+**Global .windsurfrules (EGOSv3):**
+- [ ] Update project name: EGOSv3 → EGOS Ecosystem
+- [ ] Fix MCP prefixes (mcp18_, mcp13_ etc. → actual tool names)
+- [ ] Remove Intelink port reference (3001 — no longer relevant here)
+- [ ] Update deploy table (add egos.ia.br)
+- [ ] Add end-of-message discipline rule
+- [ ] Trim to 150 lines (current ~150, check after edits)
+
+**egos-lab .windsurfrules v2.1:**
+- [x] Added end-of-message discipline ✓
+- [x] Updated agent count to 10 ✓
+- [ ] Add Intelink port reference when integrated
+
+**carteira-livre .windsurfrules v4.0:**
+- [ ] Review for outdated info (port, Supabase ref still correct?)
+- [ ] Ensure end-of-message discipline is added
+
+**Rule files (always.md, database.md, ui.md):**
+- [ ] Verify all are current and consistent with .windsurfrules
 
 ### AGENT-007: SSOT Auditor v2 (Suggest + AI Handoff)
 - [ ] Add `suggestion` field to every finding (actionable fix)
