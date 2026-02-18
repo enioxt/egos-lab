@@ -165,12 +165,17 @@ async function upsertToSupabase(commits: EnrichedCommit[]): Promise<number> {
         Prefer: 'resolution=merge-duplicates',
       },
       body: JSON.stringify({
-        sha: commit.sha.slice(0, 7),
+        sha: commit.sha,
         message: commit.message.split('\n')[0],
         author: commit.author,
         date: commit.date,
         url: commit.url,
         repo: commit.repo,
+        category: commit.category,
+        tags: commit.tags,
+        summary: commit.summary,
+        tech_debt_flag: commit.tech_debt_flag,
+        impact_score: commit.impact_score,
       }),
     });
     if (res.ok) upserted++;
