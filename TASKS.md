@@ -13,11 +13,13 @@
 
 **Phase 1 — Foundation (this sprint)**
 - [ ] GitHub OAuth login via Supabase (add provider)
-- [ ] DB migrations: profiles, projects, project_runbook, stars, follows
-- [ ] DB migrations: help_requests, help_comments, project_comments
-- [ ] DB migrations: legal_lab_tasks, legal_lab_progress
-- [ ] RLS policies for all new tables
-- [ ] Auto-create profile trigger on signup
+- [x] DB migrations: profiles, projects, project_runbook, stars, follows ✓ (18/02/2026)
+- [x] DB migrations: help_requests, help_comments, project_comments ✓ (18/02/2026)
+- [x] DB migrations: legal_lab_tasks, legal_lab_progress ✓ (18/02/2026)
+- [x] RLS policies for all 10 hub_* tables ✓ (18/02/2026)
+- [x] Auto-create profile trigger on signup ✓ (18/02/2026)
+- [x] 10 LegalLab microtasks seeded ✓ (18/02/2026)
+- [x] TypeScript types: apps/egos-web/src/types/hub.ts ✓ (18/02/2026)
 
 **Phase 2 — Pages**
 - [ ] `/projects` feed with filters (tags, status, stars)
