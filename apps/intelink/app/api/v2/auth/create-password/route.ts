@@ -30,10 +30,10 @@ function normalizePhone(phone: string): string {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { phone, password, confirmPassword, name, rememberMe = false } = body;
+        const { phone, email, password, confirmPassword, name, rememberMe = false } = body;
 
         // Validation
-        if (!phone || !password || !confirmPassword) {
+        if ((!phone && !email) || !password || !confirmPassword) {
             return NextResponse.json(
                 { success: false, error: 'Todos os campos são obrigatórios' },
                 { status: 400 }
@@ -54,22 +54,28 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const normalizedPhone = normalizePhone(phone);
         const supabase = getSupabaseAdmin();
 
-        // Find member
-        const { data: member, error: memberError } = await supabase
+        // Find member by phone or email
+        let query = supabase
             .from('intelink_unit_members')
             .select(`
                 id, name, phone, email, role, system_role, unit_id,
                 telegram_chat_id, telegram_username, password_hash
-            `)
-            .or(`phone.eq.${normalizedPhone},phone.ilike.%${normalizedPhone}%`)
-            .single();
+            `);
+
+        if (email) {
+            query = query.eq('email', email.trim().toLowerCase());
+        } else {
+            const normalizedPhone = normalizePhone(phone);
+            query = query.or(`phone.eq.${normalizedPhone},phone.ilike.%${normalizedPhone}%`);
+        }
+
+        const { data: member, error: memberError } = await query.single();
 
         if (memberError || !member) {
             return NextResponse.json(
-                { success: false, error: 'Telefone não encontrado' },
+                { success: false, error: email ? 'Email não encontrado' : 'Telefone não encontrado' },
                 { status: 404 }
             );
         }

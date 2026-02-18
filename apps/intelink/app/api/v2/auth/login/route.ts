@@ -34,9 +34,12 @@ import {
 // ============================================================================
 
 const loginSchema = z.object({
-    phone: z.string().min(10).max(15),
+    phone: z.string().min(10).max(15).optional(),
+    email: z.string().email().optional(),
     password: z.string().min(1),
     rememberMe: z.boolean().optional().default(false),
+}).refine(data => data.phone || data.email, {
+    message: 'Phone or email is required',
 });
 
 // ============================================================================
@@ -90,25 +93,31 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const { phone, password, rememberMe } = validation.data;
-        const normalizedPhone = normalizePhone(phone);
+        const { phone, email, password, rememberMe } = validation.data;
         const supabase = getSupabase();
+        const identifier = email ? email.trim().toLowerCase() : normalizePhone(phone || '');
 
-        // Find member by phone
-        const { data: member, error: memberError } = await supabase
+        // Find member by phone or email
+        let query = supabase
             .from('intelink_unit_members')
             .select(`
                 id, name, phone, email, role, system_role, unit_id,
                 telegram_chat_id, telegram_username,
                 password_hash, failed_login_attempts, locked_until
-            `)
-            .or(`phone.eq.${normalizedPhone},phone.ilike.%${normalizedPhone}%`)
-            .single();
+            `);
+
+        if (email) {
+            query = query.eq('email', identifier);
+        } else {
+            query = query.or(`phone.eq.${identifier},phone.ilike.%${identifier}%`);
+        }
+
+        const { data: member, error: memberError } = await query.single();
 
         if (memberError || !member) {
-            await logLoginFailed(normalizedPhone, request, 'Member not found');
+            await logLoginFailed(identifier, request, 'Member not found');
             return NextResponse.json(
-                { success: false, error: AUTH_ERRORS.PHONE_NOT_FOUND },
+                { success: false, error: email ? 'Email não encontrado' : AUTH_ERRORS.PHONE_NOT_FOUND },
                 { status: 404 }
             );
         }
@@ -128,7 +137,7 @@ export async function POST(request: NextRequest) {
 
         // Check password - if not set, redirect to password setup
         if (!member.password_hash) {
-            await logLoginFailed(normalizedPhone, request, 'No password set');
+            await logLoginFailed(identifier, request, 'No password set');
             return NextResponse.json(
                 { 
                     success: false, 
@@ -136,7 +145,7 @@ export async function POST(request: NextRequest) {
                     needsPasswordSetup: true,
                     memberId: member.id,
                     memberName: member.name,
-                    memberPhone: normalizedPhone,
+                    memberPhone: identifier,
                 },
                 { status: 401 }
             );
@@ -178,7 +187,7 @@ export async function POST(request: NextRequest) {
                 .update({ failed_login_attempts: newFailedAttempts })
                 .eq('id', member.id);
 
-            await logLoginFailed(normalizedPhone, request, 'Invalid password');
+            await logLoginFailed(identifier, request, 'Invalid password');
 
             return NextResponse.json(
                 { 

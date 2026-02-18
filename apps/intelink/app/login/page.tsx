@@ -16,7 +16,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { 
     Shield, Loader2, Phone, Lock, Eye, EyeOff, 
-    AlertCircle, CheckCircle, ArrowLeft, MessageCircle, KeyRound, User
+    AlertCircle, CheckCircle, ArrowLeft, MessageCircle, KeyRound, User, Mail
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 
@@ -30,7 +30,9 @@ function LoginContent() {
 
     // Form state
     const [step, setStep] = useState<LoginStep>('phone');
+    const [loginMode, setLoginMode] = useState<'phone' | 'email'>('phone');
     const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [otp, setOtp] = useState('');
@@ -161,7 +163,53 @@ function LoginContent() {
         }
     };
 
-    // Removed: handleRequestAccess (simplified flow - auto-create members)
+    // Check if email exists
+    const handleEmailSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+
+        const trimmedEmail = email.trim().toLowerCase();
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+            setError('Email inválido');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/v2/auth/check-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: trimmedEmail }),
+            });
+
+            const data = await res.json();
+
+            if (!data.success) {
+                setError(data.error || 'Erro ao verificar email');
+                setLoading(false);
+                return;
+            }
+
+            setMemberId(data.memberId || '');
+            setMemberName(data.autoCreated ? '' : (data.memberName || ''));
+
+            if (data.hasPassword) {
+                setStep('password');
+            } else {
+                const greeting = data.autoCreated
+                    ? `Bem-vindo! Este é seu primeiro acesso.`
+                    : `Olá ${data.memberName}! Crie sua senha para acessar.`;
+                setSuccess(greeting);
+                setStep('create-password');
+            }
+        } catch (e) {
+            setError('Erro de conexão');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Handle login
     const handleLogin = async (e: React.FormEvent) => {
@@ -170,17 +218,16 @@ function LoginContent() {
         setLoading(true);
 
         const normalizedPhone = normalizePhone(phone);
+        const loginPayload = loginMode === 'email'
+            ? { email: email.trim().toLowerCase(), password, rememberMe }
+            : { phone: normalizedPhone, password, rememberMe };
 
         try {
             const res = await fetch('/api/v2/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({
-                    phone: normalizedPhone,
-                    password,
-                    rememberMe,
-                }),
+                body: JSON.stringify(loginPayload),
             });
 
             const data = await res.json();
@@ -346,17 +393,15 @@ function LoginContent() {
         setLoading(true);
 
         try {
+            const createPayload = loginMode === 'email'
+                ? { email: email.trim().toLowerCase(), password, confirmPassword, name: memberName.trim() || undefined, rememberMe }
+                : { phone: normalizePhone(phone), password, confirmPassword, name: memberName.trim() || undefined, rememberMe };
+
             const res = await fetch('/api/v2/auth/create-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({
-                    phone: normalizePhone(phone),
-                    password,
-                    confirmPassword,
-                    name: memberName.trim() || undefined,
-                    rememberMe,
-                }),
+                body: JSON.stringify(createPayload),
             });
 
             const data = await res.json();
@@ -391,6 +436,7 @@ function LoginContent() {
             setStep('phone');
             setPassword('');
             setConfirmPassword('');
+            setMemberName('');
         } else if (step === 'otp') {
             setStep('password');
             setOtp('');
@@ -438,36 +484,80 @@ function LoginContent() {
                         </div>
                     )}
 
-                    {/* Step: Phone */}
+                    {/* Step: Phone or Email */}
                     {step === 'phone' && (
-                        <form onSubmit={handlePhoneSubmit}>
-                            <div className="mb-4">
-                                <label className="block text-sm text-slate-400 mb-2">Telefone</label>
-                                <div className="relative">
-                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                                    {/* Hidden field for password managers - stores only digits */}
-                                    <input
-                                        type="hidden"
-                                        name="username"
-                                        autoComplete="username"
-                                        value={normalizePhone(phone)}
-                                    />
-                                    <input
-                                        type="tel"
-                                        value={phone}
-                                        onChange={handlePhoneChange}
-                                        placeholder="(00) 00000-0000"
-                                        className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none"
-                                        autoFocus
-                                        autoComplete="tel"
-                                        name="phone"
-                                    />
-                                </div>
+                        <form onSubmit={loginMode === 'phone' ? handlePhoneSubmit : handleEmailSubmit}>
+                            {/* Toggle: Phone / Email */}
+                            <div className="flex mb-4 bg-slate-900/50 rounded-lg p-1 border border-slate-700">
+                                <button
+                                    type="button"
+                                    onClick={() => { setLoginMode('phone'); setError(''); }}
+                                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-colors ${
+                                        loginMode === 'phone'
+                                            ? 'bg-cyan-600/20 text-cyan-400 border border-cyan-500/30'
+                                            : 'text-slate-400 hover:text-slate-300'
+                                    }`}
+                                >
+                                    <Phone className="w-4 h-4" /> Telefone
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => { setLoginMode('email'); setError(''); }}
+                                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-colors ${
+                                        loginMode === 'email'
+                                            ? 'bg-cyan-600/20 text-cyan-400 border border-cyan-500/30'
+                                            : 'text-slate-400 hover:text-slate-300'
+                                    }`}
+                                >
+                                    <Mail className="w-4 h-4" /> Email
+                                </button>
                             </div>
+
+                            {loginMode === 'phone' ? (
+                                <div className="mb-4">
+                                    <label className="block text-sm text-slate-400 mb-2">Telefone</label>
+                                    <div className="relative">
+                                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                                        <input
+                                            type="hidden"
+                                            name="username"
+                                            autoComplete="username"
+                                            value={normalizePhone(phone)}
+                                        />
+                                        <input
+                                            type="tel"
+                                            value={phone}
+                                            onChange={handlePhoneChange}
+                                            placeholder="(00) 00000-0000"
+                                            className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none"
+                                            autoFocus
+                                            autoComplete="tel"
+                                            name="phone"
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="mb-4">
+                                    <label className="block text-sm text-slate-400 mb-2">Email</label>
+                                    <div className="relative">
+                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                                        <input
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="seu@email.com"
+                                            className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none"
+                                            autoFocus
+                                            autoComplete="email"
+                                            name="email"
+                                        />
+                                    </div>
+                                </div>
+                            )}
 
                             <button
                                 type="submit"
-                                disabled={loading || !phone}
+                                disabled={loading || (loginMode === 'phone' ? !phone : !email)}
                                 className="w-full py-3 bg-cyan-600 hover:bg-cyan-700 disabled:bg-slate-600 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
                             >
                                 {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Continuar'}
@@ -487,7 +577,7 @@ function LoginContent() {
                             />
                             <div className="mb-4 p-3 bg-slate-700/50 rounded-lg">
                                 <p className="text-slate-400 text-sm">Olá, <span className="text-white font-medium">{memberName}</span></p>
-                                <p className="text-slate-500 text-xs">{formatPhone(normalizePhone(phone))}</p>
+                                <p className="text-slate-500 text-xs">{loginMode === 'email' ? email : formatPhone(normalizePhone(phone))}</p>
                             </div>
 
                             <div className="mb-4">
