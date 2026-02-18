@@ -157,6 +157,13 @@
 - [ ] Build Report UI: Render JSONL findings as interactive components
 - [ ] Add "Fix with EGOS" CTA (leads to fork/CLI)
 
+### UX-002: Ecosystem Visualization (Learnings from EGOS Universe)
+> **Goal:** Port the 3D Graph experience to Mission Control
+- [ ] Replace/Augment `EcosystemGrid` with `EcosystemGraph3D`
+- [ ] Use `react-force-graph-3d` (already in Intelink)
+- [ ] Click node → Slide-over panel with details (like Timeline/Intelink)
+- [ ] Nodes: Apps, Agents, Rules, Knowledge
+
 ### WEB-001: Automate Commit Ingestion
 - [x] Created `/api/ingest-commits.ts` — AI-enriched ingestion via OpenRouter Gemini 2.0 Flash
 - [x] Added AI enrichment columns to commits table (category, tags, tech_debt_flag, impact_score)
@@ -188,7 +195,13 @@
 
 ---
 
-## P2 — Future
+### DOCS-002: Intelink Positioning Clarity
+> **Goal:** Clearly distinguish "Intelink (Police Tool)" vs "Intelink (General Intelligence Engine)"
+- [ ] Update landing page copy to define the dual role
+- [ ] Create `docs/INTELINK_IDENTITY.md`
+- [ ] Ensure agents know the context (Context-Aware Prompts)
+
+## P2 — Future (Medium Term)
 
 ### PNCP-001: PNCP API Integration
 - [ ] Research PNCP API endpoints

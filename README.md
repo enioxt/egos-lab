@@ -75,6 +75,8 @@ See **[docs/CONTRIBUTING_WITH_AI.md](docs/CONTRIBUTING_WITH_AI.md)** for the ful
 
 ## Ecosystem Map
 
+> **🗺️ Deep Dive:** See [docs/SYSTEM_MAP.md](docs/SYSTEM_MAP.md) for a complete inventory of every file, module, and line of code in the repository.
+
 ```
 egos-lab/
 ├── agents/                 ← Agentic Platform (8 registered, 20 planned)

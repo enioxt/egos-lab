@@ -1,71 +1,41 @@
 # Intelink
 
-> Sistema de Inteligência Policial para DHPP
+> **Status:** Integrated into `egos-lab` Monorepo (Feb 2026)
+> **Role:** Intelligence Visualization Engine & Police System (DHPP)
+> **Stack:** Next.js 15, Supabase, Tailwind, Shadcn/UI
 
-## 🚀 Quick Start
+## 🦅 Overview
+
+Intelink is the "Cortex" of the ecosystem — a visualization engine for complex data relationships.
+Originally built as a Police Intelligence System for DHPP (Homicide Department), it is now being generalized to visualize *any* graph data (including the EGOS ecosystem itself).
+
+## 🚀 Features
+
+- **Timeline Analysis**: Visual chronological events
+- **Graph Explorer**: Force-directed graph of entities (People, Vehicles, Phones)
+- **Telemetry**: Real-time system observability
+- **Auth**: RBAC with Supabase (Police/Admin roles)
+
+## 🛠️ Development
 
 ```bash
-# Install dependencies
-npm install
-
-# Setup environment
-cp .env.example .env.local
-# Edit .env.local with your credentials
-
-# Run development server
-npm run dev
+# Run from monorepo root
+cd apps/intelink
+bun dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001)
+## 🏗️ Architecture
 
-## 🔧 Environment Variables
+- **`app/`**: Next.js App Router
+- **`components/`**: UI Components (many specialized for data viz)
+- **`lib/`**: Core logic (graph algorithms, timeline processing)
+- **`migrations/`**: Supabase SQL migrations (historical)
 
-Create `.env.local` with:
+## 🔐 Security
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_key
-```
-
-## 📚 Documentation
-
-- [AGENTS.md](./AGENTS.md) - AI Agent Configuration
-- [.guarani/](/.guarani/) - Agent Context
-- [.windsurf/](/.windsurf/) - IDE Configuration
-
-## 🏗️ Stack
-
-- **Framework:** Next.js 15 (App Router)
-- **UI:** React 18 + TailwindCSS + Shadcn/UI
-- **Database:** Supabase (lhscgsqhiooyatkebose)
-- **Auth:** Supabase Auth
-
-## 📦 Project Structure
-
-```
-intelink/
-├── app/           # Next.js App Router pages
-├── components/    # React components
-├── lib/           # Business logic & utilities
-├── hooks/         # Custom React hooks
-├── types/         # TypeScript types
-├── .windsurf/     # AI agent rules
-├── .guarani/      # Agent context
-└── AGENTS.md      # Universal AI config
-```
-
-## 🔄 Scripts
-
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run test` | Run tests |
+- **RLS Enabled**: All tables protected by Row Level Security
+- **RBAC**: Strict role checks (`admin`, `police`, `analyst`)
+- **Audit Logs**: All actions recorded in `telemetry_events`
 
 ---
-
-*Sacred Code: 000.111.369.963.1618*
-*Generated: 2025-12-26T01:40:28.004Z*
+*Part of the [EGOS Lab](../../README.md) Ecosystem.*
