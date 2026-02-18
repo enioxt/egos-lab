@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   GitCommit, Sparkles, Bug, FileText, Wrench, Zap,
   Users, ArrowUpRight, Clock, MessageCircle, TrendingUp,
-  ChevronDown, ExternalLink
+  ChevronDown, ExternalLink, Github, LogOut
 } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
+import { useAuth } from '../hooks/useAuth';
 
 /* ── Types ── */
 type CommitCategory = 'feat' | 'fix' | 'docs' | 'refactor' | 'chore' | 'other';
@@ -54,6 +55,7 @@ const categoryConfig: Record<CommitCategory, { icon: React.ElementType; color: s
 /* ── Component ── */
 const ListeningSpiral: React.FC = () => {
   const { commits } = useAppStore();
+  const { isAuthenticated, avatarUrl, username, signInWithGitHub, signOut } = useAuth();
   const [showCount, setShowCount] = useState(20);
   const [activeAuthor, setActiveAuthor] = useState<string | null>(null);
   const threadRef = useRef<HTMLDivElement>(null);
@@ -355,47 +357,155 @@ const ListeningSpiral: React.FC = () => {
           border: '1px solid rgba(19, 182, 236, 0.1)',
         }}
       >
-        <TrendingUp size={20} style={{ color: '#13b6ec', marginBottom: 8 }} />
-        <h3 style={{
-          fontSize: 16,
-          fontWeight: 700,
-          color: '#fff',
-          margin: '0 0 6px',
-          fontFamily: 'Space Grotesk, sans-serif',
-        }}>Participe da Conversa</h3>
-        <p style={{
-          fontSize: 12,
-          color: 'rgba(255,255,255,0.5)',
-          margin: '0 0 16px',
-          maxWidth: 400,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          lineHeight: 1.5,
-        }}>
-          Cada commit é sua voz. Faça fork, contribua e sua mensagem aparece aqui.
-          Em breve: login via GitHub para identidade completa.
-        </p>
-        <a
-          href="https://github.com/enioxt/egos-lab/fork"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            padding: '8px 20px',
-            borderRadius: 10,
-            background: '#13b6ec',
-            color: '#050508',
-            fontSize: 13,
-            fontWeight: 700,
-            textDecoration: 'none',
-            transition: 'all 0.2s',
-          }}
-        >
-          <ArrowUpRight size={14} />
-          Fork & Contribua
-        </a>
+        {isAuthenticated ? (
+          <>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 12,
+              marginBottom: 12,
+            }}>
+              {avatarUrl && (
+                <img
+                  src={avatarUrl}
+                  alt={username || 'avatar'}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    border: '2px solid rgba(19, 182, 236, 0.4)',
+                  }}
+                />
+              )}
+              <div style={{ textAlign: 'left' }}>
+                <p style={{
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: '#fff',
+                  margin: 0,
+                  fontFamily: 'Space Grotesk, sans-serif',
+                }}>
+                  {username || 'Builder'}
+                </p>
+                <p style={{
+                  fontSize: 11,
+                  color: 'rgba(255,255,255,0.4)',
+                  margin: 0,
+                }}>
+                  Conectado via GitHub
+                </p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a
+                href="https://github.com/enioxt/egos-lab/fork"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '8px 20px',
+                  borderRadius: 10,
+                  background: '#13b6ec',
+                  color: '#050508',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                }}
+              >
+                <ArrowUpRight size={14} />
+                Fork & Contribua
+              </a>
+              <button
+                onClick={signOut}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '8px 16px',
+                  borderRadius: 10,
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: 'rgba(255,255,255,0.5)',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                <LogOut size={12} />
+                Sair
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <TrendingUp size={20} style={{ color: '#13b6ec', marginBottom: 8 }} />
+            <h3 style={{
+              fontSize: 16,
+              fontWeight: 700,
+              color: '#fff',
+              margin: '0 0 6px',
+              fontFamily: 'Space Grotesk, sans-serif',
+            }}>Participe da Conversa</h3>
+            <p style={{
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.5)',
+              margin: '0 0 16px',
+              maxWidth: 400,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              lineHeight: 1.5,
+            }}>
+              Cada commit é sua voz. Conecte seu GitHub para identidade completa,
+              ou faça fork e contribua diretamente.
+            </p>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={signInWithGitHub}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '10px 24px',
+                  borderRadius: 10,
+                  background: '#fff',
+                  color: '#0d1117',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <Github size={16} />
+                Entrar com GitHub
+              </button>
+              <a
+                href="https://github.com/enioxt/egos-lab/fork"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '10px 20px',
+                  borderRadius: 10,
+                  background: 'rgba(19, 182, 236, 0.1)',
+                  border: '1px solid rgba(19, 182, 236, 0.25)',
+                  color: '#13b6ec',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                }}
+              >
+                <ArrowUpRight size={14} />
+                Fork & Contribua
+              </a>
+            </div>
+          </>
+        )}
       </motion.div>
     </section>
   );
