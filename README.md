@@ -18,7 +18,7 @@ EGOS Lab is an open-source monorepo that combines **working applications**, **pr
 
 | Layer | Contents | Status |
 |-------|----------|--------|
-| **Agents** | 11 autonomous agents + orchestrator: SSOT Auditor, Security Scanner, Code Reviewer, UI Designer, Dead Code Detector... | Beta |
+| **Agents** | 14 autonomous agents + orchestrator: SSOT Auditor, Security Scanner, Code Reviewer, UI Designer, Contract Tester, Integration Tester, AI Verifier... | Beta |
 | **Apps** | `egos-web` (Mission Control), `eagle-eye` (OSINT gazette monitor), `intelink` (police intel), `radio-philein` | Live / Alpha |
 | **Projects** | 14 blueprints from public procurement OSINT to agent-centric architecture | Concept → Alpha |
 | **Packages** | Shared AI client, rate limiter, types, config rules | Stable |
@@ -79,7 +79,7 @@ See **[docs/CONTRIBUTING_WITH_AI.md](docs/CONTRIBUTING_WITH_AI.md)** for the ful
 
 ```
 egos-lab/
-├── agents/                 ← Agentic Platform (11 registered, 20 planned)
+├── agents/                 ← Agentic Platform (14 registered, 20 planned)
 │   ├── runtime/runner.ts   ← Core: registry, logger, correlation IDs
 │   ├── registry/agents.json← Agent definitions (SSOT)
 │   └── agents/*.ts         ← SSOT Auditor, Auth Checker, etc.
