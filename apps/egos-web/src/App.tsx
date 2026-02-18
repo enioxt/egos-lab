@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Network, Bot, GitCommit, MessageCircle, Lightbulb } from 'lucide-react'
+import { Network, Bot, GitCommit, MessageCircle, Lightbulb, Shield } from 'lucide-react'
 import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
 import CollapsibleSection from './components/CollapsibleSection'
@@ -8,6 +8,7 @@ import { useAuth } from './hooks/useAuth'
 import './App.css'
 
 const UserWorkspace = lazy(() => import('./components/UserWorkspace'))
+const SystemPrompts = lazy(() => import('./components/SystemPrompts'))
 const IntelligenceChat = lazy(() => import('./components/IntelligenceChat'))
 const ActivityStream = lazy(() => import('./components/ActivityStream'))
 const IdeasCatalog = lazy(() => import('./components/IdeasCatalog'))
@@ -41,6 +42,19 @@ function App() {
         defaultOpen={true}
       >
         <EcosystemGrid />
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        id="system-prompts"
+        icon={<Shield size={18} />}
+        title="Guardrails & System Prompts"
+        subtitle="As regras que governam os agentes AI — explore e copie"
+        badge="5 arquivos"
+        badgeColor="#8b5cf6"
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <SystemPrompts />
+        </Suspense>
       </CollapsibleSection>
 
       <CollapsibleSection
