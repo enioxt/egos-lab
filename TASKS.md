@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 3.3.0 | **UPDATED:** 2026-02-18
-> **LAST SESSION:** Cascade — Testing Architecture (5 layers) + Contract Tester (9/10) + Integration Tester (10/10) + 13 agents total
+> **VERSION:** 3.4.0 | **UPDATED:** 2026-02-18
+> **LAST SESSION:** Cascade — Regression Watcher (Layer 4) + Pre-push gate + Prompt injection fix v2 + 15 agents total
 
 ---
 
@@ -139,11 +139,11 @@
 - [x] Layer 1: Static Analysis — existing agents (SSOT, Dead Code, Dep, Security) ✓
 - [x] Layer 2: Contract Tester — API routes, status codes, schemas (9/10 passed) ✓ (18/02/2026)
 - [x] Layer 3: Integration Tester — Supabase RLS, integrity, SQL injection, XSS (10/10 passed) ✓ (18/02/2026)
-- [ ] Layer 4: Regression Watcher — compare results over time, detect flaky/broken
-- [ ] Layer 5: AI Verifier — AI tests AI responses, adversarial inputs, false positive review
+- [x] Layer 4: Regression Watcher — compare results over time, detect flaky/broken ✓ (18/02/2026)
+- [x] Layer 5: AI Verifier — AI tests AI responses, adversarial inputs, false positive review ✓ (18/02/2026)
 - [ ] Wire test agents into orchestrator (run as part of `bun agent:all`)
 - [ ] Test history tracking (agents/.logs/test-history.jsonl)
-- [ ] Pre-push gate: `bun agent:test:exec` must pass before push
+- [x] Pre-push gate: registry lint (always) + test agents (opt-in EGOS_TEST_GATE=1) ✓ (18/02/2026)
 
 **Found real bugs:**
 - `chat-long-message`: validation exists but not enforced on prod (Vercel deploy lag)

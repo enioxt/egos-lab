@@ -1,6 +1,15 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# ── Step 1: Registry Lint (fast, ~1s) ──
+echo "🔍 Pre-push: Validating agent registry..."
+bun agents/cli.ts lint-registry 2>&1 | tail -3
+if [ $? -ne 0 ]; then
+  echo "❌ Agent registry has errors. Push aborted."
+  exit 1
+fi
+
+# ── Step 2: Build egos-web (required, ~10s) ──
 echo "🔨 Pre-push: Building egos-web to prevent failed Vercel deploys..."
 cd apps/egos-web && npx vite build --logLevel error 2>&1
 
@@ -10,4 +19,21 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "✅ Build passed. Safe to push."
+cd ../..
+
+# ── Step 3: Contract + Integration Tests (opt-in, ~30s) ──
+# Enable with: EGOS_TEST_GATE=1 git push origin main
+if [ "$EGOS_TEST_GATE" = "1" ]; then
+  echo "🧪 Pre-push: Running contract + integration tests..."
+  set -a && source .env 2>/dev/null && set +a
+  bun agent:test:exec 2>&1 | tail -20
+  if [ $? -ne 0 ]; then
+    echo "❌ Test agents FAILED. Push aborted."
+    exit 1
+  fi
+  echo "✅ Tests passed."
+else
+  echo "ℹ️  Skipping test agents (enable: EGOS_TEST_GATE=1 git push)"
+fi
+
+echo "✅ All pre-push checks passed. Safe to push."

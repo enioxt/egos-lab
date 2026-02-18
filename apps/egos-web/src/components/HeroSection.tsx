@@ -115,7 +115,7 @@ const HeroSection: React.FC = () => {
           <p className="hero-subtitle">Agentic Platform for Builders</p>
           <p className="hero-desc">
             Plataforma open-source de agentes autônomos que auditam, protegem
-            e evoluem codebases. 14 agentes rodando em ~6s — SSOT Auditor,
+            e evoluem codebases. 15 agentes rodando em ~7s — SSOT Auditor,
             Security Scanner, Code Reviewer, UI Designer e mais.
           </p>
           <div className="hero-ctas">

@@ -216,6 +216,22 @@
       "status": "active"
     },
     {
+      "id": "regression_watcher",
+      "name": "Regression Watcher",
+      "area": "qa",
+      "description": "Layer 4: Compares test results across runs to detect regressions, flaky tests, fixes, and new issues",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "agents/agents/regression-watcher.ts",
+      "tools_allowed": ["filesystem:read", "filesystem:write"],
+      "data_access": { "pii": false, "secrets_scan": false },
+      "triggers": ["manual", "pre-push"],
+      "memory_mode": "session",
+      "eval_suite": ["evals/regression_watcher.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
+    },
+    {
       "id": "ai_verifier",
       "name": "AI Verifier",
       "area": "qa",
