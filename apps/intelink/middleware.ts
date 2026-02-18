@@ -138,19 +138,8 @@ export function middleware(request: NextRequest) {
         }
     }
 
-    // For page routes (not API), check session and redirect to login if needed
-    if (!token && !pathname.startsWith('/api/')) {
-        // Allow access to login page
-        if (pathname === '/login' || pathname.startsWith('/login')) {
-            return NextResponse.next();
-        }
-        
-        // Redirect to login with return URL
-        const loginUrl = new URL('/login', request.url);
-        loginUrl.searchParams.set('returnUrl', pathname);
-        return NextResponse.redirect(loginUrl);
-    }
-
+    // PUBLIC MODE: All page routes are publicly accessible (data has been cleaned)
+    // Auth is optional — logged-in users get extra features
     return NextResponse.next();
 }
 

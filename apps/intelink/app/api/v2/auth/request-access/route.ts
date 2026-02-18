@@ -54,7 +54,7 @@ function normalizePhone(phone: string): string {
 // ============================================================================
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN_INTELINK;
-const ADMIN_CHAT_ID = '171767219'; // ENIO's Telegram chat ID
+const ADMIN_CHAT_ID = process.env.TELEGRAM_ADMIN_CHAT_ID || '';
 
 async function notifyAdmin(phone: string, name: string | null, requestId: string): Promise<boolean> {
     if (!TELEGRAM_BOT_TOKEN) {

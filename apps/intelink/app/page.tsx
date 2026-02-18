@@ -287,17 +287,23 @@ export default function IntelinkHome() {
         );
     }
 
-    if (!isAuthenticated) {
-        if (typeof window !== 'undefined') {
-            window.location.href = '/login';
-        }
-        return <SkeletonPage />;
-    }
+    // PUBLIC MODE: show dashboard for everyone (data is clean)
+    const isVisitor = !isAuthenticated;
 
     return (
         <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 text-white overflow-hidden">
             <DemoComponent />
             <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                {isVisitor && (
+                    <div className="w-full px-4 py-3 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border-b border-cyan-500/20 flex items-center justify-between">
+                        <span className="text-sm text-slate-300">
+                            Modo visitante — <span className="text-cyan-400 font-medium">explore o sistema livremente</span>
+                        </span>
+                        <Link href="/login" className="px-3 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 rounded-lg text-xs font-semibold text-cyan-300 transition-colors">
+                            Fazer Login
+                        </Link>
+                    </div>
+                )}
                 <DashboardHeader
                     memberInfo={memberInfo}
                     canAccessAdmin={canAccessAdmin || false}
