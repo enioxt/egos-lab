@@ -1685,3 +1685,238 @@
 .api-route-agent { font-size: 11px; color: #8b5cf6; }
 .api-route-cost { font-size: 11px; color: #10b981; }
 .api-route-rate { font-size: 11px; color: rgba(255,255,255,0.3); }
+
+/* ═══ COLLAPSIBLE SECTIONS ═══ */
+.collapsible-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.2s;
+  color: inherit;
+}
+
+.collapsible-header:hover {
+  border-bottom-color: rgba(19, 182, 236, 0.15);
+}
+
+.collapsible-header:hover .collapsible-title {
+  color: #fff;
+}
+
+.collapsible-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.collapsible-header:hover .collapsible-icon {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.collapsible-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.collapsible-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  transition: color 0.2s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.collapsible-subtitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 2px 0 0;
+  line-height: 1.4;
+}
+
+.collapsible-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+.collapsible-chevron {
+  color: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.collapsible-header:hover .collapsible-chevron {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.collapsible-body {
+  overflow: hidden;
+}
+
+.collapsible-content {
+  padding: 8px 0 32px;
+}
+
+/* Remove internal padding when inside collapsible */
+.collapsible-content .ecosystem,
+.collapsible-content .intelligence,
+.collapsible-content .activity,
+.collapsible-content #spiral,
+.collapsible-content #ideas {
+  padding: 0;
+  max-width: none;
+}
+
+.collapsible-content .section-intro {
+  display: none;
+}
+
+/* ═══ AUTH UI ═══ */
+.auth-skeleton {
+  width: 80px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.auth-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-avatar-link {
+  display: flex;
+  align-items: center;
+}
+
+.auth-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(19, 182, 236, 0.3);
+  transition: border-color 0.2s;
+}
+
+.auth-avatar:hover {
+  border-color: rgba(19, 182, 236, 0.6);
+}
+
+.auth-avatar-placeholder {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(19, 182, 236, 0.15);
+  color: #13b6ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.auth-settings {
+  font-size: 16px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.auth-settings:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-signout {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.auth-signout:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.auth-github-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.auth-github-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.hub-btn-small {
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: rgba(19, 182, 236, 0.12);
+  color: #13b6ec;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.hub-btn-small:hover {
+  background: rgba(19, 182, 236, 0.2);
+}
+
+/* ═══ COLLAPSIBLE RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .collapsible-section { padding: 0 16px; }
+  .collapsible-header { gap: 10px; padding: 16px 0; }
+  .collapsible-icon { width: 36px; height: 36px; border-radius: 10px; }
+  .collapsible-title { font-size: 14px; }
+  .collapsible-subtitle { display: none; }
+  .collapsible-badge { font-size: 10px; padding: 2px 8px; }
+  .auth-github-btn { padding: 6px 10px; font-size: 11px; }
+}

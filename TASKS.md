@@ -43,6 +43,11 @@
 - [ ] 10 LegalLab microtasks (GitHub basics → publish project)
 - [ ] Import wizard: auto-detect stack from GitHub repo
 - [ ] "Keys & Costs" structured section per project
+- [x] GitHub OAuth fix: flowType='implicit' for pure SPA ✓ (18/02/2026)
+- [x] Collapsible sections: mobile-first, animated, all homepage sections ✓ (18/02/2026)
+  - `CollapsibleSection.tsx` reusable component (Framer Motion)
+  - Ecosystem open by default, rest collapsed → drastically reduces page scroll
+  - Auth UI styles: avatar, skeleton, signout button
 - [ ] Mobile-first UI, skeleton loading, empty states
 
 ---

@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react'
+import { Network, Bot, GitCommit, MessageCircle, Lightbulb } from 'lucide-react'
 import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
+import CollapsibleSection from './components/CollapsibleSection'
 import './App.css'
 
 const IntelligenceChat = lazy(() => import('./components/IntelligenceChat'))
@@ -16,19 +18,68 @@ function App() {
   return (
     <>
       <HeroSection />
-      <EcosystemGrid />
-      <Suspense fallback={<SectionLoader />}>
-        <IntelligenceChat />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <ActivityStream />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <ListeningSpiral />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <IdeasCatalog />
-      </Suspense>
+
+      <CollapsibleSection
+        id="ecosystem"
+        icon={<Network size={18} />}
+        title="Espirais de Escuta"
+        subtitle="Módulos do ecossistema — do estável ao experimental"
+        badge="10 módulos"
+        badgeColor="#10b981"
+        defaultOpen={true}
+      >
+        <EcosystemGrid />
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        id="intelligence"
+        icon={<Bot size={18} />}
+        title="EGOS Intelligence"
+        subtitle="Converse com a IA do ecossistema"
+        badge="AI"
+        badgeColor="#13b6ec"
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <IntelligenceChat />
+        </Suspense>
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        id="activity"
+        icon={<GitCommit size={18} />}
+        title="Atividade Recente"
+        subtitle="Commits, deploys e mudanças em tempo real"
+        badge="LIVE"
+        badgeColor="#22c55e"
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <ActivityStream />
+        </Suspense>
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        id="spiral"
+        icon={<MessageCircle size={18} />}
+        title="Espiral de Escuta"
+        subtitle="Cada commit é uma mensagem — builders colaborando"
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <ListeningSpiral />
+        </Suspense>
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        id="ideas"
+        icon={<Lightbulb size={18} />}
+        title="Central de Ideias & MVPs"
+        subtitle="Projetos, protótipos e oportunidades abertas"
+        badge="14 itens"
+        badgeColor="#a855f7"
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <IdeasCatalog />
+        </Suspense>
+      </CollapsibleSection>
     </>
   )
 }
