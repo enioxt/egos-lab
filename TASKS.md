@@ -22,14 +22,16 @@
 - [x] TypeScript types: apps/egos-web/src/types/hub.ts ✓ (18/02/2026)
 
 **Phase 2 — Pages**
-- [ ] `/projects` feed with filters (tags, status, stars)
-- [ ] `/p/[slug]` project detail (README + runbook + keys & costs)
+- [x] `/projects` feed with filters (tags, status, stars) ✓ (18/02/2026)
+- [x] `/p/[slug]` project detail (README + runbook + keys & costs) ✓ (18/02/2026)
 - [ ] `/new-project` import wizard (paste GitHub URL → scaffold)
 - [ ] `/p/[slug]/help` + `/p/[slug]/help/new` help request flow
 - [ ] `/help/[id]` detail with comments + accepted solution
 - [ ] `/u/[handle]` user profile
-- [ ] `/legal` LegalLab home + `/legal/[slug]` microtask
+- [x] `/legal` LegalLab home (accordion with 10 microtasks) ✓ (18/02/2026)
 - [ ] `/settings` connections (GitHub, Google)
+- [x] React Router + Layout component + Builder Hub CSS ✓ (18/02/2026)
+- [x] Vercel deploy (manual, Root Directory = apps/egos-web) ✓ (18/02/2026)
 
 **Phase 3 — Content & Polish**
 - [ ] 10 LegalLab microtasks (GitHub basics → publish project)
