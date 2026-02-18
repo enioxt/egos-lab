@@ -149,6 +149,14 @@
 - [ ] Run on 1 more repo (Supabase — large, needs shallow clone strategy)
 - [ ] Publish article + social media push
 
+### LAUNCH-002: Self-Service Audit Hub (Phase 2)
+> **Goal:** "Paste Repo URL → Get Audit Report"
+- [ ] Expose `orchestrator.ts` via secure API endpoint (server-side)
+- [ ] Create UI: "Paste Repo URL" input on Dashboard
+- [ ] Implement `agent:audit-external` runner (clones, runs, cleans up)
+- [ ] Build Report UI: Render JSONL findings as interactive components
+- [ ] Add "Fix with EGOS" CTA (leads to fork/CLI)
+
 ### WEB-001: Automate Commit Ingestion
 - [x] Created `/api/ingest-commits.ts` — AI-enriched ingestion via OpenRouter Gemini 2.0 Flash
 - [x] Added AI enrichment columns to commits table (category, tags, tech_debt_flag, impact_score)
