@@ -170,6 +170,13 @@ egos-lab/
 - **Streaks**: Daily contribution streaks (CodeTriage-style habit building)
 - **Impact Score**: How many people benefited from your contributions (downstream usage)
 
+#### G. Security Audit Gate (The Hook)
+- **"Audit My Project"**: Public service where anyone can submit a GitHub URL.
+- **Automated Scan**: Runs our agents (`security_scan`, `ssot_auditor`, `dep_auditor`) in a sandboxed environment.
+- **Scorecard**: Generates a public health report (Security, Architecture, SSOT compliance).
+- **Value**: Attracts new users to the platform by giving immediate value before they even contribute.
+- **Disclaimer**: "Automated analysis only. Not a guarantee of safety."
+
 ---
 
 ## 4. Technical Architecture
