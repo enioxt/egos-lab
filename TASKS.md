@@ -34,6 +34,12 @@
 - [x] Vercel deploy (manual, Root Directory = apps/egos-web) ✓ (18/02/2026)
 
 **Phase 3 — Content & Polish**
+- [x] API Registry — SSOT for all ecosystem routes ✓ (18/02/2026)
+  - `packages/shared/src/api-registry.ts` (SSOT — 28 routes, 5 apps, 4 automation levels)
+  - `apps/egos-web/api/registry.ts` (GET /api/registry — searchable JSON endpoint)
+  - `apps/egos-web/src/pages/ApiDocs.tsx` (UI page at /api-docs)
+  - Nav link in Layout, CSS complete
+  - Pattern improved from carteira-livre: multi-app, automation tracking, agent bridge, typed
 - [ ] 10 LegalLab microtasks (GitHub basics → publish project)
 - [ ] Import wizard: auto-detect stack from GitHub repo
 - [ ] "Keys & Costs" structured section per project

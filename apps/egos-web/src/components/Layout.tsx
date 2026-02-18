@@ -29,6 +29,9 @@ export default function Layout() {
           <Link to="/legal" className={`nav-link ${location.pathname === '/legal' ? 'active' : ''}`}>
             LegalLab
           </Link>
+          <Link to="/api-docs" className={`nav-link ${location.pathname === '/api-docs' ? 'active' : ''}`}>
+            APIs
+          </Link>
         </nav>
         <div className="top-bar-right">
           {loading ? (

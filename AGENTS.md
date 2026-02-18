@@ -36,7 +36,7 @@ egos-lab/
 │   │   └── supabase/        #    Schema, seeds
 │   └── radio-philein/       # Community radio (paused)
 ├── packages/
-│   ├── shared/              # AI client, rate limiter, types
+│   ├── shared/              # AI client, rate limiter, types, api-registry
 │   └── nexus-shared/        # Nexus types, theme, product pipeline
 ├── scripts/                 # Proto-agents (security, ideas, rho, review)
 ├── docs/                    # Plans, stitch designs, agentic docs
