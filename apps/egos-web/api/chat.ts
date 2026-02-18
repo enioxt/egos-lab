@@ -154,6 +154,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'Message too long (max 1000 chars)' });
   }
 
+  /* ── Application-layer prompt injection filter ── */
+  const INJECTION_PATTERNS = [
+    /ignore\s+(all\s+)?previous\s+instructions/i,
+    /you\s+are\s+now\s+(a|an)\s+/i,
+    /act\s+as\s+(a|an)?\s*/i,
+    /pretend\s+(to\s+be|you\s+are)/i,
+    /\bdan\b.*\bdo\s+anything/i,
+    /jailbreak/i,
+    /new\s+instructions/i,
+    /override\s+(your|all|previous)/i,
+    /forget\s+(your|all|previous)/i,
+    /system\s+prompt/i,
+    /repeat\s+your\s+(instructions|prompt)/i,
+  ];
+
+  const isInjection = INJECTION_PATTERNS.some(pattern => pattern.test(message));
+  if (isInjection) {
+    return res.status(200).json({
+      reply: 'Sou o EGOS Intelligence. Posso te ajudar a conhecer nosso ecossistema open-source. O que gostaria de saber?',
+      model: CHAT_MODEL,
+      filtered: true,
+    });
+  }
+
   const systemPrompt = buildSystemPrompt(context || '');
 
   try {
