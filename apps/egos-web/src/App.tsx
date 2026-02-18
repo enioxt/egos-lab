@@ -4,8 +4,10 @@ import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
 import CollapsibleSection from './components/CollapsibleSection'
 import NetworkBackground from './components/NetworkBackground'
+import { useAuth } from './hooks/useAuth'
 import './App.css'
 
+const UserWorkspace = lazy(() => import('./components/UserWorkspace'))
 const IntelligenceChat = lazy(() => import('./components/IntelligenceChat'))
 const ActivityStream = lazy(() => import('./components/ActivityStream'))
 const IdeasCatalog = lazy(() => import('./components/IdeasCatalog'))
@@ -16,10 +18,18 @@ function SectionLoader() {
 }
 
 function App() {
+  const { isAuthenticated } = useAuth()
+
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       <NetworkBackground />
       <HeroSection />
+
+      {isAuthenticated && (
+        <Suspense fallback={<SectionLoader />}>
+          <UserWorkspace />
+        </Suspense>
+      )}
 
       <CollapsibleSection
         id="ecosystem"
