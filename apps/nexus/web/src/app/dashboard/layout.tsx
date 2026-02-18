@@ -9,8 +9,10 @@ import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
     { href: '/dashboard', label: 'Visão Geral', icon: '📊' },
+    { href: '/dashboard/driver', label: 'Motorista', icon: '🚚' },
     { href: '/dashboard/products', label: 'Produtos', icon: '📦' },
     { href: '/dashboard/import', label: 'Importar', icon: '⬆️' },
+    { href: '/dashboard/chat', label: 'Assistente IA', icon: '🤖' },
     { href: '/dashboard/settings', label: 'Configurações', icon: '⚙️' },
 ];
 
@@ -38,8 +40,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isActive
-                                        ? 'bg-green-600/20 text-green-400'
-                                        : 'hover:bg-gray-800 hover:text-white'
+                                    ? 'bg-green-600/20 text-green-400'
+                                    : 'hover:bg-gray-800 hover:text-white'
                                     }`}
                             >
                                 <span className="text-lg">{item.icon}</span>

@@ -1,7 +1,7 @@
 # AGENTS.md — egos-lab
 
-> **VERSION:** 2.3.0 | **UPDATED:** 2026-02-18
-> **TYPE:** Monorepo Lab + Agentic Platform
+> **VERSION:** 3.0.0 | **UPDATED:** 2026-02-18
+> **TYPE:** Monorepo Lab + Agentic Platform + Nexus Market
 
 ---
 
@@ -29,12 +29,37 @@ egos-lab/
 ├── apps/
 │   ├── egos-web/            # Mission Control (React + Vite)
 │   ├── eagle-eye/           # OSINT gazette monitor + AI
+│   ├── nexus/               # 🛒 Nexus Market (consolidated)
+│   │   ├── web/             #    Next.js merchant + driver dashboard
+│   │   ├── mobile/          #    Expo consumer app
+│   │   ├── docs/            #    Architecture, PRD
+│   │   └── supabase/        #    Schema, seeds
 │   └── radio-philein/       # Community radio (paused)
-├── packages/shared/         # AI client, rate limiter, types
+├── packages/
+│   ├── shared/              # AI client, rate limiter, types
+│   └── nexus-shared/        # Nexus types, theme, product pipeline
 ├── scripts/                 # Proto-agents (security, ideas, rho, review)
 ├── docs/                    # Plans, stitch designs, agentic docs
 └── .guarani/                # Agent identity + coding rules
 ```
+
+## Nexus Market
+
+| Item | Value |
+|------|-------|
+| **Product** | Nexus Market — AI-First Marketplace |
+| **Primary Persona** | 🚚 Driver/Merchant (registers products, manages deliveries) |
+| **Secondary** | Consumer (browses/buys via mobile app) |
+| **Dashboard** | `/dashboard/driver` (deliveries), `/dashboard/chat` (AI assistant) |
+| **AI Features** | Product enrichment, image search/generation, chatbot operator |
+| **Architecture** | White-label, multi-tenant (RLS), financial split |
+
+## ❄️ Frozen Zones
+
+> **DO NOT EDIT** without explicit user request:
+> - OAuth flow (any auth-related files)
+> - Agent runtime (`agents/runtime/runner.ts`)
+> - Pre-commit hooks (`.husky/`)
 
 ## Commands
 
