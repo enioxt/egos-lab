@@ -115,8 +115,8 @@ const HeroSection: React.FC = () => {
           <p className="hero-subtitle">Agentic Platform for Builders</p>
           <p className="hero-desc">
             Plataforma open-source de agentes autônomos que auditam, protegem
-            e evoluem codebases. 10 agentes rodando em 3.8s — SSOT Auditor,
-            Security Scanner, Code Reviewer e mais.
+            e evoluem codebases. 11 agentes rodando em 6s — SSOT Auditor,
+            Security Scanner, Code Reviewer, UI Designer e mais.
           </p>
           <div className="hero-ctas">
             <button className="cta-primary" onClick={() => scrollToSection('ecosystem')}>
@@ -135,7 +135,7 @@ const HeroSection: React.FC = () => {
           transition={{ delay: 0.5, duration: 0.6 }}
         >
           <div className="hero-stat">
-            <span className="stat-value">10</span>
+            <span className="stat-value">11</span>
             <span className="stat-label">Agentes</span>
           </div>
           <div className="hero-stat-divider" />
