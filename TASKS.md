@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.9.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Hero fix + activity modal + governance audit + deploy rule
+> **VERSION:** 3.0.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — Intelink integration + Ideas Catalog + SSOT Chatbot + PII security scan
 
 ---
 
