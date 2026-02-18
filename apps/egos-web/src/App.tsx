@@ -3,6 +3,7 @@ import EcosystemGrid from './components/EcosystemGrid'
 import IntelligenceChat from './components/IntelligenceChat'
 import ActivityStream from './components/ActivityStream'
 import IdeasCatalog from './components/IdeasCatalog'
+import ListeningSpiral from './components/ListeningSpiral'
 import './App.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <a href="#ecosystem" className="nav-link">Ecossistema</a>
           <a href="#intelligence" className="nav-link">Intelligence</a>
           <a href="#activity" className="nav-link">Atividade</a>
+          <a href="#spiral" className="nav-link">Espiral</a>
           <a href="#ideas" className="nav-link">Ideias</a>
         </nav>
         <a
@@ -35,6 +37,7 @@ function App() {
       <EcosystemGrid />
       <IntelligenceChat />
       <ActivityStream />
+      <ListeningSpiral />
       <IdeasCatalog />
 
       {/* Footer */}
