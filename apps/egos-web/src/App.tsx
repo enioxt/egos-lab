@@ -2,6 +2,7 @@ import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
 import IntelligenceChat from './components/IntelligenceChat'
 import ActivityStream from './components/ActivityStream'
+import IdeasCatalog from './components/IdeasCatalog'
 import './App.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <a href="#ecosystem" className="nav-link">Ecossistema</a>
           <a href="#intelligence" className="nav-link">Intelligence</a>
           <a href="#activity" className="nav-link">Atividade</a>
+          <a href="#ideas" className="nav-link">Ideias</a>
         </nav>
         <a
           href="https://github.com/enioxt/egos-lab"
@@ -33,6 +35,7 @@ function App() {
       <EcosystemGrid />
       <IntelligenceChat />
       <ActivityStream />
+      <IdeasCatalog />
 
       {/* Footer */}
       <footer className="site-footer">

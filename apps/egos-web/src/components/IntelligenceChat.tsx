@@ -45,10 +45,10 @@ const IntelligenceChat: React.FC = () => {
   };
 
   const suggestions = [
-    'O que é o Eagle Eye?',
-    'Quais projetos estão ativos?',
-    'Como contribuir?',
-    'Qual a arquitetura do sistema?',
+    'Quais MVPs existem hoje?',
+    'O que o Eagle Eye encontra nos Diários Oficiais?',
+    'Como posso contribuir?',
+    'Quais ideias estão abertas para construir?',
   ];
 
   return (
