@@ -7,13 +7,13 @@
 
 | Metric | Value |
 |--------|-------|
-| **Total Files** | 1051 |
-| **Total Lines of Code** | 357,377 |
-| **Total Size** | 42.59 MB |
+| **Total Files** | 1069 |
+| **Total Lines of Code** | 358,113 |
+| **Total Size** | 42.77 MB |
 
 ### File Types
-- **.ts**: 425
-- **.md**: 283
+- **.ts**: 427
+- **.md**: 293
 - **.tsx**: 204
 - **.json**: 29
 - **.svg**: 15
@@ -28,7 +28,7 @@
 ## 🗺️ Module Map
 
 ### 📂 docs
-**Files:** 222 | **LOC:** 173,691
+**Files:** 226 | **LOC:** 173,942
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
@@ -36,8 +36,8 @@
 | `stitch` | 23 | 14,732 | - |
 | `eagle-eye-results` | 4 | 5,336 | - |
 | `agentic` | 9 | 1,420 | - |
+| `_current_handoffs` | 5 | 301 | - |
 | `partner_packages` | 4 | 299 | - |
-| `_current_handoffs` | 4 | 261 | - |
 | `case-studies` | 2 | 158 | - |
 | `valuation` | 1 | 124 | - |
 | `marketplace` | 2 | 117 | - |
@@ -48,7 +48,7 @@
 | `review` | 1 | 17 | - |
 
 ### 📂 agents
-**Files:** 13 | **LOC:** 26,104
+**Files:** 14 | **LOC:** 26,147
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
@@ -59,7 +59,7 @@
 | `evals` | 0 | 0 | - |
 
 ### 📂 projects
-**Files:** 27 | **LOC:** 11,317
+**Files:** 28 | **LOC:** 11,355
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
@@ -79,30 +79,30 @@
 | `01-S-eagle-eye` | 1 | 11 | - |
 
 ### 📂 scripts
-**Files:** 13 | **LOC:** 1,597
+**Files:** 14 | **LOC:** 1,679
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
 
 ### 📂 apps
-**Files:** 715 | **LOC:** 137,907
+**Files:** 722 | **LOC:** 138,069
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
-| `intelink` | 520 | 120,949 | - |
+| `intelink` | 522 | 120,994 | - |
 | `eagle-eye` | 65 | 6,543 | - |
 | `egos-web` | 38 | 4,861 | - |
 | `marketplace-core` | 46 | 3,227 | - |
 | `radio-philein` | 15 | 1,386 | - |
-| `nexus-mobile` | 11 | 427 | - |
-| `nexus-web` | 18 | 352 | - |
-| `nexus-market` | 2 | 162 | - |
+| `nexus-mobile` | 12 | 430 | - |
+| `nexus-web` | 20 | 356 | - |
+| `nexus-market` | 3 | 235 | - |
 
 ### 📂 packages
-**Files:** 11 | **LOC:** 283
+**Files:** 13 | **LOC:** 339
 
 | Module | Files | LOC | Description |
 |---|---|---|---|
 | `shared` | 5 | 224 | - |
-| `nexus-shared` | 6 | 59 | - |
+| `nexus-shared` | 7 | 81 | - |
 
