@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 3.2.0 | **UPDATED:** 2026-02-18
-> **LAST SESSION:** Cascade — UI Designer agent + 7 mockups generated + 4 skills + registry schema + diagnostic
+> **VERSION:** 3.3.0 | **UPDATED:** 2026-02-18
+> **LAST SESSION:** Cascade — Testing Architecture (5 layers) + Contract Tester (9/10) + Integration Tester (10/10) + 13 agents total
 
 ---
 
@@ -131,6 +131,22 @@
 - [ ] Align TypeScript/React versions across workspaces
 - [ ] Consolidate `AIAnalysisResult`, `AnalysisResult`, `Territory` to shared
 - [ ] Clean orphaned types in egos-web
+
+### AGENT-008: Multi-Layer Testing Architecture (Agents Testing Agents)
+> **Architecture:** `docs/agentic/TESTING_ARCHITECTURE.md`
+> **Vision:** Real production-close tests, AI-powered verification, agents testing each other in layers
+
+- [x] Layer 1: Static Analysis — existing agents (SSOT, Dead Code, Dep, Security) ✓
+- [x] Layer 2: Contract Tester — API routes, status codes, schemas (9/10 passed) ✓ (18/02/2026)
+- [x] Layer 3: Integration Tester — Supabase RLS, integrity, SQL injection, XSS (10/10 passed) ✓ (18/02/2026)
+- [ ] Layer 4: Regression Watcher — compare results over time, detect flaky/broken
+- [ ] Layer 5: AI Verifier — AI tests AI responses, adversarial inputs, false positive review
+- [ ] Wire test agents into orchestrator (run as part of `bun agent:all`)
+- [ ] Test history tracking (agents/.logs/test-history.jsonl)
+- [ ] Pre-push gate: `bun agent:test:exec` must pass before push
+
+**Found real bugs:**
+- `chat-long-message`: validation exists but not enforced on prod (Vercel deploy lag)
 
 ### AGENT-004: E2E Smoke Validator
 - [ ] Set up Playwright in egos-web
