@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 3.4.0 | **UPDATED:** 2026-02-18
-> **LAST SESSION:** Cascade — Regression Watcher (Layer 4) + Pre-push gate + Prompt injection fix v2 + 15 agents total
+> **VERSION:** 3.5.0 | **UPDATED:** 2026-02-18
+> **LAST SESSION:** Cascade — Security Hub + AI Insertion Audit + Intelink email auth + 15 agents total
 
 ---
 
@@ -203,6 +203,36 @@
 - [x] Vercel env vars set (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 - [ ] Add agent run outputs to activity stream
 - [ ] Add Rho score display to website
+
+### SECURITY-HUB-001: Community Security Hub ✅ (18/02/2026)
+> **Goal:** Help users set up secure public repos with shared rules and AI-powered improvement tracking
+
+- [x] DB: hub_shared_rules, hub_rule_versions, hub_rule_insights, hub_rule_stars, hub_security_tools (all RLS)
+- [x] Seeded 15 real security tools (Husky, gitleaks, Semgrep, Snyk, Dependabot, etc.)
+- [x] Seeded 5 official EGOS rules from actual project files
+- [x] API: `/api/security-tools` (GET with category/recommended filters)
+- [x] API: `/api/shared-rules` (GET/POST with category/tag/sort)
+- [x] API: `/api/rule-history` (GET history + POST new version with AI diff analysis via Gemini)
+- [x] SecurityHub component: 3 tabs (Tools, Rules, Contribute)
+- [x] AI-powered version insights: every rule edit analyzed for improvement type + impact score
+- [x] Integrated in App.tsx as CollapsibleSection
+- [ ] Rule Validator: AI checks new submissions for mistakes
+- [ ] Benchmark Scoring: OWASP/OSSF comparison for user's security setup
+
+### AI-AUDIT-001: Full Ecosystem AI Insertion Audit ✅ (18/02/2026)
+> **Report:** `docs/AI_INSERTION_AUDIT.md`
+
+- [x] Intelink: 17 existing AI features documented, 15 new opportunities identified across full funnel
+- [x] egos-web: 4 existing AI features + 10 new opportunities (Project Health Score, Help Triage, etc.)
+- [x] Carteira Livre: 2 existing AI features + 10 new opportunities (OCR, matching, fraud detection)
+- [x] Agent Platform: 6 new agent proposals (Rule Optimizer, Onboarding Advisor, etc.)
+- [x] Priority matrix: 4 quick wins, 4 medium effort, 4 strategic items
+
+### INTELINK-AUTH-001: Email+Password Registration ✅ (18/02/2026)
+- [x] `/api/v2/auth/check-email` — auto-create member by email
+- [x] Login API updated: accepts email OR phone
+- [x] Create-password API: supports email-based member lookup
+- [x] Login page UI: phone/email segmented toggle, all handlers email-aware
 
 ### GOVERNANCE-001: SSOT Enforcement
 - [x] Created `docs/agentic/GOVERNANCE_RULES.md` — SSOT registry + rule sharing design
