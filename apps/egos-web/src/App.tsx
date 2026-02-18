@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Network, Bot, GitCommit, MessageCircle, Lightbulb, Shield } from 'lucide-react'
+import { Network, Bot, GitCommit, MessageCircle, Lightbulb, Shield, Lock } from 'lucide-react'
 import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
 import CollapsibleSection from './components/CollapsibleSection'
@@ -13,6 +13,7 @@ const IntelligenceChat = lazy(() => import('./components/IntelligenceChat'))
 const ActivityStream = lazy(() => import('./components/ActivityStream'))
 const IdeasCatalog = lazy(() => import('./components/IdeasCatalog'))
 const ListeningSpiral = lazy(() => import('./components/ListeningSpiral'))
+const SecurityHub = lazy(() => import('./components/SecurityHub'))
 
 function SectionLoader() {
   return <div className="section-loader"><div className="loader-pulse" /></div>
@@ -54,6 +55,19 @@ function App() {
       >
         <Suspense fallback={<SectionLoader />}>
           <SystemPrompts />
+        </Suspense>
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        id="security-hub"
+        icon={<Lock size={18} />}
+        title="Security Hub"
+        subtitle="Tools, shared rules, and AI-powered improvement insights"
+        badge="Community"
+        badgeColor="#f59e0b"
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <SecurityHub />
         </Suspense>
       </CollapsibleSection>
 
