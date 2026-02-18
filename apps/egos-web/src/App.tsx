@@ -3,6 +3,7 @@ import { Network, Bot, GitCommit, MessageCircle, Lightbulb } from 'lucide-react'
 import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
 import CollapsibleSection from './components/CollapsibleSection'
+import NetworkBackground from './components/NetworkBackground'
 import './App.css'
 
 const IntelligenceChat = lazy(() => import('./components/IntelligenceChat'))
@@ -16,7 +17,8 @@ function SectionLoader() {
 
 function App() {
   return (
-    <>
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
+      <NetworkBackground />
       <HeroSection />
 
       <CollapsibleSection
@@ -80,7 +82,7 @@ function App() {
           <IdeasCatalog />
         </Suspense>
       </CollapsibleSection>
-    </>
+    </div>
   )
 }
 

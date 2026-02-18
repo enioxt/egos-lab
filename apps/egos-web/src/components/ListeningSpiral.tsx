@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   GitCommit, Sparkles, Bug, FileText, Wrench, Zap,
@@ -6,8 +6,21 @@ import {
   ChevronDown, ExternalLink, Github, GitBranch,
   Plus, Minus, FolderTree, BarChart3, Info, Code2
 } from 'lucide-react';
-import { useAppStore, type CommitData } from '../store/useAppStore';
+import { useAppStore } from '../store/useAppStore';
+import type { CommitData } from '../store/useAppStore';
 import { useAuth } from '../hooks/useAuth';
+
+interface APICommit {
+  sha: string;
+  message?: string;
+  author?: string;
+  author_login?: string;
+  author_avatar?: string;
+  date?: string;
+  url?: string;
+  stats?: { additions: number; deletions: number; total: number };
+  files?: { filename: string; additions: number; deletions: number; status: string }[];
+}
 
 /* ── Types ── */
 type CommitCategory = 'feat' | 'fix' | 'docs' | 'refactor' | 'chore' | 'other';
@@ -186,13 +199,45 @@ const ModuleBreakdown: React.FC<{ commits: CommitData[] }> = ({ commits }) => {
 
 /* ── Main Component ── */
 const ListeningSpiral: React.FC = () => {
-  const { commits } = useAppStore();
+  const { commits, setCommits, isLoadingCommits, setIsLoadingCommits } = useAppStore();
   const { isAuthenticated, avatarUrl, username, signInWithGitHub } = useAuth();
   const [showCount, setShowCount] = useState(15);
   const [activeCategory, setActiveCategory] = useState<CommitCategory | null>(null);
   const [activeAuthor, setActiveAuthor] = useState<string | null>(null);
   const [expandedSha, setExpandedSha] = useState<string | null>(null);
   const [showHowTo, setShowHowTo] = useState(false);
+
+  // Self-fetch if store is empty
+  useEffect(() => {
+    if (commits.length > 0) return;
+    let cancelled = false;
+    const load = async () => {
+      setIsLoadingCommits(true);
+      try {
+        const res = await fetch('/api/github-commits');
+        if (!res.ok) throw new Error('API error');
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data)) {
+          setCommits(data.filter((c: APICommit) => c?.sha).map((c: APICommit) => ({
+            id: c.sha,
+            sha: c.sha,
+            message: (c.message || '').split('\n')[0],
+            author: c.author || 'Unknown',
+            author_login: c.author_login || undefined,
+            author_avatar: c.author_avatar || undefined,
+            date: c.date || new Date().toISOString(),
+            url: c.url || `https://github.com/enioxt/egos-lab/commit/${c.sha}`,
+            repo: 'enioxt/egos-lab',
+            stats: c.stats || undefined,
+            files: c.files || undefined,
+          })));
+        }
+      } catch { /* silent */ }
+      if (!cancelled) setIsLoadingCommits(false);
+    };
+    load();
+    return () => { cancelled = true; };
+  }, [commits.length, setCommits, setIsLoadingCommits]);
 
   const messages = useMemo(() =>
     [...commits]
@@ -238,6 +283,21 @@ const ListeningSpiral: React.FC = () => {
     return { additions, deletions, filesChanged };
   }, [commits]);
 
+  if (isLoadingCommits && commits.length === 0) {
+    return (
+      <section id="spiral" className="spiral-section" style={{ textAlign: 'center', padding: '80px 24px' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 20, background: 'rgba(19,182,236,0.08)', border: '1px solid rgba(19,182,236,0.15)' }}>
+          <MessageCircle size={14} style={{ color: '#13b6ec' }} />
+          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#13b6ec', textTransform: 'uppercase' }}>Espiral de Escuta</span>
+        </div>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 16 }}>Carregando contribuições do GitHub...</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 16 }}>
+          {[1,2,3].map(i => (<div key={i} style={{ width: 80, height: 8, borderRadius: 4, background: 'rgba(255,255,255,0.04)', animation: 'pulse 1.5s infinite', animationDelay: `${i * 0.2}s` }} />))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="spiral" className="spiral-section">
       {/* Header */}
@@ -279,7 +339,7 @@ const ListeningSpiral: React.FC = () => {
         </button>
       </motion.div>
 
-      {/* How to Participate */}
+      {/* How to Participate — IDE Onboarding */}
       <AnimatePresence>
         {showHowTo && (
           <motion.div
@@ -289,31 +349,89 @@ const ListeningSpiral: React.FC = () => {
             style={{ overflow: 'hidden', marginBottom: 24 }}
           >
             <div style={{
-              padding: 20, borderRadius: 14,
+              padding: 24, borderRadius: 14,
               background: 'linear-gradient(135deg, rgba(19,182,236,0.06), rgba(139,92,246,0.06))',
               border: '1px solid rgba(19,182,236,0.12)',
-              display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16,
             }}>
-              {[
-                { icon: GitBranch, title: '1. Fork o Repositório', desc: 'Crie sua cópia do código no GitHub para trabalhar livremente.' },
-                { icon: Code2, title: '2. Faça Mudanças', desc: 'Implemente features, corrija bugs ou melhore docs na sua IDE.' },
-                { icon: ArrowUpRight, title: '3. Abra um PR', desc: 'Envie um Pull Request. Seu commit aparece aqui automaticamente.' },
-                { icon: MessageCircle, title: '4. Colabore', desc: 'Discuta nas issues, revise PRs. Cada ação é parte da Espiral.' },
-              ].map(step => (
-                <div key={step.title} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-                    background: 'rgba(19,182,236,0.1)', border: '1px solid rgba(19,182,236,0.2)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#13b6ec',
-                  }}>
-                    <step.icon size={14} />
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 12, fontWeight: 700, color: '#fff', margin: '0 0 2px' }}>{step.title}</p>
-                    <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', margin: 0, lineHeight: 1.5 }}>{step.desc}</p>
-                  </div>
+              {/* Step 1: Fork + Clone */}
+              <div style={{ marginBottom: 20 }}>
+                <h4 style={{ fontSize: 14, fontWeight: 700, color: '#13b6ec', margin: '0 0 8px', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <GitBranch size={14} /> 1. Fork e Clone o Repositório
+                </h4>
+                <div style={{ padding: '10px 14px', borderRadius: 8, background: 'rgba(0,0,0,0.3)', fontFamily: 'monospace', fontSize: 12, color: 'rgba(255,255,255,0.7)', lineHeight: 1.8 }}>
+                  <span style={{ color: 'rgba(255,255,255,0.35)' }}># Fork via GitHub, depois:</span><br />
+                  git clone https://github.com/SEU_USER/egos-lab.git<br />
+                  cd egos-lab<br />
+                  bun install
                 </div>
-              ))}
+              </div>
+
+              {/* Step 2: Choose your IDE */}
+              <div style={{ marginBottom: 20 }}>
+                <h4 style={{ fontSize: 14, fontWeight: 700, color: '#a78bfa', margin: '0 0 10px', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <Code2 size={14} /> 2. Abra na sua IDE com AI
+                </h4>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 8 }}>
+                  {[
+                    { name: 'Windsurf', cmd: 'windsurf .', color: '#13b6ec', desc: 'Cascade AI integrado. O .windsurfrules já configura o agente automaticamente.' },
+                    { name: 'Cursor', cmd: 'cursor .', color: '#22c55e', desc: 'Composer Mode. Lê .cursorrules (symlink do .windsurfrules).' },
+                    { name: 'Claude Code', cmd: 'claude', color: '#f59e0b', desc: 'Terminal-first. Use /init para carregar o contexto do projeto.' },
+                    { name: 'VS Code + Copilot', cmd: 'code .', color: '#6b7280', desc: 'GitHub Copilot Chat. Copie o system prompt de .guarani/IDENTITY.md.' },
+                  ].map(ide => (
+                    <div key={ide.name} style={{
+                      padding: '10px 12px', borderRadius: 8,
+                      background: 'rgba(255,255,255,0.03)', border: `1px solid ${ide.color}20`,
+                    }}>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: ide.color, marginBottom: 4 }}>{ide.name}</div>
+                      <div style={{ fontFamily: 'monospace', fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 6, padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.2)', display: 'inline-block' }}>
+                        $ {ide.cmd}
+                      </div>
+                      <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', margin: 0, lineHeight: 1.5 }}>{ide.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 3: Starter Prompt */}
+              <div style={{ marginBottom: 20 }}>
+                <h4 style={{ fontSize: 14, fontWeight: 700, color: '#22c55e', margin: '0 0 8px', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <Sparkles size={14} /> 3. Use o Prompt de Ativação
+                </h4>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', margin: '0 0 8px', lineHeight: 1.5 }}>
+                  Cole este prompt no chat da sua IDE para ativar o sistema EGOS. Ele carrega regras, tarefas e contexto automaticamente:
+                </p>
+                <div style={{ padding: '12px 14px', borderRadius: 8, background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(19,182,236,0.15)', fontFamily: 'monospace', fontSize: 11, color: '#13b6ec', lineHeight: 1.8, position: 'relative' }}>
+                  <div style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 4 }}>{'//'} Prompt de Ativação EGOS</div>
+                  Leia AGENTS.md, TASKS.md e .guarani/PREFERENCES.md.<br />
+                  Identifique as tasks P0 (bloqueantes).<br />
+                  Verifique o último commit com `git log -5`.<br />
+                  Liste o que já está implementado vs pendente.<br />
+                  Pergunte como posso ajudar.
+                </div>
+              </div>
+
+              {/* Step 4: Contribute */}
+              <div style={{ marginBottom: 8 }}>
+                <h4 style={{ fontSize: 14, fontWeight: 700, color: '#f59e0b', margin: '0 0 8px', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <ArrowUpRight size={14} /> 4. Contribua e Apareça na Espiral
+                </h4>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 8 }}>
+                  {[
+                    { title: 'Crie uma Branch', desc: 'git checkout -b feat/minha-feature' },
+                    { title: 'Commit Convencional', desc: 'feat(web): add dark mode toggle' },
+                    { title: 'Abra um PR', desc: 'Seu commit aparece aqui automaticamente' },
+                    { title: 'Compartilhe Regras', desc: 'Adicione .guarani/ ao seu projeto para replicar o sistema' },
+                  ].map(item => (
+                    <div key={item.title} style={{
+                      padding: '8px 10px', borderRadius: 6,
+                      background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)',
+                    }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: 2 }}>{item.title}</div>
+                      <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', fontFamily: 'monospace' }}>{item.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
