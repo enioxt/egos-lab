@@ -12,7 +12,7 @@
 > **Core:** Projects + Help Requests + LegalLab onboarding
 
 **Phase 1 — Foundation (this sprint)**
-- [ ] GitHub OAuth login via Supabase (add provider)
+- [x] GitHub OAuth login via Supabase (useAuth hook + Layout) ✓ (18/02/2026) — ⚠️ USER: enable GitHub provider in Supabase Dashboard
 - [x] DB migrations: profiles, projects, project_runbook, stars, follows ✓ (18/02/2026)
 - [x] DB migrations: help_requests, help_comments, project_comments ✓ (18/02/2026)
 - [x] DB migrations: legal_lab_tasks, legal_lab_progress ✓ (18/02/2026)
@@ -24,12 +24,12 @@
 **Phase 2 — Pages**
 - [x] `/projects` feed with filters (tags, status, stars) ✓ (18/02/2026)
 - [x] `/p/[slug]` project detail (README + runbook + keys & costs) ✓ (18/02/2026)
-- [ ] `/new-project` import wizard (paste GitHub URL → scaffold)
-- [ ] `/p/[slug]/help` + `/p/[slug]/help/new` help request flow
-- [ ] `/help/[id]` detail with comments + accepted solution
-- [ ] `/u/[handle]` user profile
+- [x] `/new-project` import wizard (3-step: URL → details → runbook) ✓ (18/02/2026)
+- [x] `/p/[slug]/help` + `/p/[slug]/help/new` help request flow ✓ (18/02/2026)
+- [x] `/help/[id]` detail with comments + accepted solution ✓ (18/02/2026)
+- [x] `/u/[handle]` user profile ✓ (18/02/2026)
 - [x] `/legal` LegalLab home (accordion with 10 microtasks) ✓ (18/02/2026)
-- [ ] `/settings` connections (GitHub, Google)
+- [x] `/settings` connections + profile edit ✓ (18/02/2026)
 - [x] React Router + Layout component + Builder Hub CSS ✓ (18/02/2026)
 - [x] Vercel deploy (manual, Root Directory = apps/egos-web) ✓ (18/02/2026)
 
