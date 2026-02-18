@@ -51,15 +51,18 @@ export default function ProjectsFeed() {
     <section className="hub-page">
       <div className="hub-header">
         <div>
-          <h1 className="hub-title">Projetos</h1>
-          <p className="hub-subtitle">Projetos open-source com runbooks completos — saiba exatamente como rodar.</p>
+          <h1 className="hub-title">Projetos do Ecossistema</h1>
+          <p className="hub-subtitle">
+            Explore projetos open-source da comunidade EGOS. Cada projeto inclui documentação,
+            stack técnica e status atual. Você pode contribuir, pedir ajuda ou publicar o seu.
+          </p>
         </div>
       </div>
 
       <div className="hub-filters">
         <input
           type="text"
-          placeholder="Buscar por nome ou tag..."
+          placeholder="Buscar por nome, tecnologia ou tag..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="hub-search"
@@ -83,9 +86,20 @@ export default function ProjectsFeed() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="hub-empty">
-          <div className="hub-empty-icon">📦</div>
-          <h3>Nenhum projeto ainda</h3>
-          <p>Seja o primeiro a publicar! Cole a URL do seu repo GitHub.</p>
+          <div className="hub-empty-icon">�</div>
+          <h3>Nenhum projeto publicado ainda</h3>
+          <p style={{ color: 'rgba(255,255,255,0.5)', maxWidth: 400, margin: '8px auto 16px', lineHeight: 1.6 }}>
+            Aqui aparecerão os projetos da comunidade EGOS. Para publicar o seu,
+            clique em <strong style={{ color: '#13b6ec' }}>+ Projeto</strong> no menu superior
+            e cole a URL do repositório GitHub.
+          </p>
+          <Link to="/new-project" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            padding: '10px 24px', borderRadius: 10, background: '#13b6ec',
+            color: '#050508', fontSize: 13, fontWeight: 700, textDecoration: 'none',
+          }}>
+            + Publicar Primeiro Projeto
+          </Link>
         </div>
       ) : (
         <div className="hub-grid">

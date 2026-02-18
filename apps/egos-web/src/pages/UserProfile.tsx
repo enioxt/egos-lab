@@ -1,30 +1,62 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import { useAuth } from '../hooks/useAuth'
 import type { HubProfile, HubProject } from '../types/hub'
 
 export default function UserProfile() {
   const { handle } = useParams<{ handle: string }>()
+  const { user, isAuthenticated, username } = useAuth()
   const [profile, setProfile] = useState<HubProfile | null>(null)
   const [projects, setProjects] = useState<HubProject[]>([])
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const isOwnProfile = isAuthenticated && (handle === username || handle === user?.id)
 
   useEffect(() => {
     if (!handle) return
     async function load() {
-      const { data: prof } = await supabase
+      let prof: HubProfile | null = null
+
+      const { data: byHandle } = await supabase
         .from('hub_profiles')
         .select('id, handle, display_name, bio, avatar_url, github_username, website_url, created_at')
         .eq('handle', handle)
         .single()
+
+      if (byHandle) {
+        prof = byHandle as HubProfile
+      } else if (user) {
+        const { data: byId } = await supabase
+          .from('hub_profiles')
+          .select('id, handle, display_name, bio, avatar_url, github_username, website_url, created_at')
+          .eq('id', user.id)
+          .single()
+        if (byId) prof = byId as HubProfile
+      }
+
+      if (!prof && isOwnProfile && user) {
+        const newHandle = username || handle || 'user'
+        const { data: created } = await supabase
+          .from('hub_profiles')
+          .upsert({
+            id: user.id,
+            handle: newHandle,
+            display_name: user.user_metadata?.full_name || user.user_metadata?.name || newHandle,
+            avatar_url: user.user_metadata?.avatar_url || null,
+            github_username: user.user_metadata?.user_name || null,
+          }, { onConflict: 'id' })
+          .select('id, handle, display_name, bio, avatar_url, github_username, website_url, created_at')
+          .single()
+        if (created) prof = created as HubProfile
+      }
 
       if (!prof) {
         setNotFound(true)
         setLoading(false)
         return
       }
-      setProfile(prof as HubProfile)
+      setProfile(prof)
 
       const { data: projs } = await supabase
         .from('hub_projects')
@@ -38,7 +70,7 @@ export default function UserProfile() {
       setLoading(false)
     }
     load()
-  }, [handle])
+  }, [handle, user, isOwnProfile, username])
 
   if (loading) {
     return (

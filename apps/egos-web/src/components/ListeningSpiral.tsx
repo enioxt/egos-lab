@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   GitCommit, Sparkles, Bug, FileText, Wrench, Zap,
   Users, ArrowUpRight, Clock, MessageCircle, TrendingUp,
-  ChevronDown, ExternalLink, Github, LogOut
+  ChevronDown, ExternalLink, Github
 } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 import { useAuth } from '../hooks/useAuth';
@@ -55,7 +55,7 @@ const categoryConfig: Record<CommitCategory, { icon: React.ElementType; color: s
 /* ── Component ── */
 const ListeningSpiral: React.FC = () => {
   const { commits } = useAppStore();
-  const { isAuthenticated, avatarUrl, username, signInWithGitHub, signOut } = useAuth();
+  const { isAuthenticated, avatarUrl, username, signInWithGitHub } = useAuth();
   const [showCount, setShowCount] = useState(20);
   const [activeAuthor, setActiveAuthor] = useState<string | null>(null);
   const threadRef = useRef<HTMLDivElement>(null);
@@ -393,50 +393,54 @@ const ListeningSpiral: React.FC = () => {
                   color: 'rgba(255,255,255,0.4)',
                   margin: 0,
                 }}>
-                  Conectado via GitHub
+                  {username === 'enioxt' ? 'Proprietário do projeto' : 'Conectado via GitHub'}
                 </p>
               </div>
             </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a
-                href="https://github.com/enioxt/egos-lab/fork"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '8px 20px',
-                  borderRadius: 10,
-                  background: '#13b6ec',
-                  color: '#050508',
-                  fontSize: 13,
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                }}
-              >
-                <ArrowUpRight size={14} />
-                Fork & Contribua
-              </a>
-              <button
-                onClick={signOut}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '8px 16px',
-                  borderRadius: 10,
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: 'rgba(255,255,255,0.5)',
-                  fontSize: 12,
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                }}
-              >
-                <LogOut size={12} />
-                Sair
-              </button>
+              {username === 'enioxt' ? (
+                <a
+                  href="https://github.com/enioxt/egos-lab"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '8px 20px',
+                    borderRadius: 10,
+                    background: '#13b6ec',
+                    color: '#050508',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Github size={14} />
+                  Ver Repositório
+                </a>
+              ) : (
+                <a
+                  href="https://github.com/enioxt/egos-lab/fork"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '8px 20px',
+                    borderRadius: 10,
+                    background: '#13b6ec',
+                    color: '#050508',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <ArrowUpRight size={14} />
+                  Fork & Contribua
+                </a>
+              )}
             </div>
           </>
         ) : (

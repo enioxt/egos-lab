@@ -31,6 +31,7 @@ export default function ApiDocs() {
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [automationFilter, setAutomationFilter] = useState<string>('all')
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
+  const [expandedRoute, setExpandedRoute] = useState<string | null>(null)
 
   const stats = useMemo(() => getRegistryStats(), [])
 
@@ -162,8 +163,15 @@ export default function ApiDocs() {
                 {routes.map((r: RouteEntry, i: number) => {
                   const statusStyle = STATUS_STYLES[r.status]
                   const autoStyle = AUTOMATION_STYLES[r.automation]
+                  const routeKey = `${r.path}-${i}`
+                  const isExpanded = expandedRoute === routeKey
                   return (
-                    <div key={`${r.path}-${i}`} className="api-route-card">
+                    <div
+                      key={routeKey}
+                      className={`api-route-card ${isExpanded ? 'expanded' : ''}`}
+                      onClick={() => setExpandedRoute(isExpanded ? null : routeKey)}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <div className="api-route-top">
                         <div className="api-route-methods">
                           {r.methods.map((m: string) => (
@@ -187,6 +195,46 @@ export default function ApiDocs() {
                         {r.rateLimit && <span className="api-route-rate">{r.rateLimit}</span>}
                         {r.tags?.map((t: string) => <span key={t} className="hub-tag">{t}</span>)}
                       </div>
+                      {isExpanded && (
+                        <div className="api-route-detail" onClick={(e) => e.stopPropagation()}>
+                          <div className="api-detail-grid">
+                            <div className="api-detail-item">
+                              <span className="api-detail-label">Status</span>
+                              <span style={{ color: statusStyle.color }}>{statusStyle.label} — {r.status === 'active' ? 'Funcionando em produção' : r.status === 'planned' ? 'Planejado, ainda não implementado' : r.status === 'deprecated' ? 'Em desuso, será removido' : 'Inativo'}</span>
+                            </div>
+                            <div className="api-detail-item">
+                              <span className="api-detail-label">Automação</span>
+                              <span style={{ color: autoStyle.color }}>{autoStyle.icon} {autoStyle.label} — {r.automation === 'full_auto' ? 'Executa sem intervenção humana' : r.automation === 'auto_review' ? 'IA executa, humano revisa resultado' : r.automation === 'human_ai' ? 'Humano inicia, IA assiste' : 'Apenas humano opera'}</span>
+                            </div>
+                            <div className="api-detail-item">
+                              <span className="api-detail-label">Autenticação</span>
+                              <span>{r.auth ? '🔒 Requer login (token JWT no header)' : '🌐 Pública — sem autenticação necessária'}</span>
+                            </div>
+                            {r.agent && (
+                              <div className="api-detail-item">
+                                <span className="api-detail-label">Agente</span>
+                                <span>🤖 {r.agent} — agente de IA que valida/processa esta rota</span>
+                              </div>
+                            )}
+                            {r.costPerCall && (
+                              <div className="api-detail-item">
+                                <span className="api-detail-label">Custo por chamada</span>
+                                <span>{r.costPerCall} (custo do modelo de IA por requisição)</span>
+                              </div>
+                            )}
+                            {r.rateLimit && (
+                              <div className="api-detail-item">
+                                <span className="api-detail-label">Rate Limit</span>
+                                <span>{r.rateLimit} (máximo de requisições permitidas)</span>
+                              </div>
+                            )}
+                            <div className="api-detail-item">
+                              <span className="api-detail-label">App</span>
+                              <span>{r.app} — {r.app === 'egos-web' ? 'Aplicação principal (Mission Control)' : r.app === 'agents' ? 'Plataforma de agentes de IA' : r.app === 'eagle-eye' ? 'Monitor de diários oficiais (OSINT)' : r.app === 'supabase' ? 'Trigger/função no banco de dados' : r.app}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )
                 })}
