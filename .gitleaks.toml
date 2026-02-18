@@ -1,0 +1,78 @@
+# .gitleaks.toml — Secret scanning configuration for egos-lab
+# GitGuardian + Gitleaks rules to prevent credential exposure
+# 
+# Usage: gitleaks detect --config .gitleaks.toml
+# Pre-commit: gitleaks protect --staged --config .gitleaks.toml
+
+title = "Egos-Lab Secret Scanning Rules"
+
+# ─── Custom Rules ────────────────────────────────────────
+
+[[rules]]
+id = "supabase-db-password"
+description = "Supabase Database Password"
+regex = '''(?i)(supabase[_-]?db[_-]?password\s*[=:]\s*)([^\s'",}{]+)'''
+tags = ["supabase", "database", "password"]
+
+[[rules]]
+id = "supabase-service-role"
+description = "Supabase Service Role Key (JWT)"
+regex = '''eyJhbGciOi[A-Za-z0-9_-]{100,}\.ey[A-Za-z0-9_-]{100,}\.[A-Za-z0-9_-]{40,}'''
+tags = ["supabase", "jwt", "service-role"]
+
+[[rules]]
+id = "openrouter-api-key"
+description = "OpenRouter API Key"
+regex = '''sk-or-v1-[a-f0-9]{64}'''
+tags = ["openrouter", "api-key"]
+
+[[rules]]
+id = "exa-api-key"
+description = "Exa API Key"
+regex = '''[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'''
+tags = ["exa", "api-key"]
+[rules.allowlist]
+paths = ['''package\.json''', '''package-lock\.json''', '''bun\.lockb''', '''\.gitleaks\.toml''']
+
+[[rules]]
+id = "github-pat"
+description = "GitHub Personal Access Token"
+regex = '''(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{82})'''
+tags = ["github", "token"]
+
+[[rules]]
+id = "serper-api-key"
+description = "Serper API Key"
+regex = '''(?i)(serper[_-]?api[_-]?key\s*[=:]\s*)([a-f0-9]{40})'''
+tags = ["serper", "api-key"]
+
+[[rules]]
+id = "brave-api-key"
+description = "Brave Search API Key"
+regex = '''(?i)(brave[_-]?api[_-]?key\s*[=:]\s*)([A-Za-z0-9_-]{20,})'''
+tags = ["brave", "api-key"]
+
+[[rules]]
+id = "generic-password-in-comment"
+description = "Password or secret in code comments"
+regex = '''(?i)(?:\/\/|#|\/\*)\s*.*(?:password|secret|token|api[_-]?key)\s*[=:]\s*[^\s]{8,}'''
+tags = ["generic", "comment", "credential"]
+
+[[rules]]
+id = "connection-string-with-password"
+description = "Database connection string with embedded password"
+regex = '''postgres(?:ql)?:\/\/[^:]+:[^@\s]{8,}@[^\s]+'''
+tags = ["database", "connection-string"]
+
+# ─── Allowlists ──────────────────────────────────────────
+
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''\.env\.example''',
+  '''\.gitleaks\.toml''',
+  '''node_modules/''',
+  '''\.next/''',
+  '''dist/''',
+  '''\.git/''',
+]
