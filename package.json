@@ -41,6 +41,8 @@
         "agent:integration:exec": "bun agents/agents/integration-tester.ts --exec",
         "agent:test": "bun agents/agents/contract-tester.ts && bun agents/agents/integration-tester.ts",
         "agent:test:exec": "bun agents/agents/contract-tester.ts --exec && bun agents/agents/integration-tester.ts --exec",
+        "agent:ai-verify": "bun agents/agents/ai-verifier.ts",
+        "agent:ai-verify:exec": "bun agents/agents/ai-verifier.ts --exec",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },

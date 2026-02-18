@@ -214,6 +214,22 @@
       "eval_suite": ["evals/integration_tester.json"],
       "run_modes": ["dry_run", "execute"],
       "status": "active"
+    },
+    {
+      "id": "ai_verifier",
+      "name": "AI Verifier",
+      "area": "qa",
+      "description": "Layer 5: Uses AI to test AI responses — adversarial inputs, factual accuracy, safety, prompt injection resistance",
+      "owner": "enioxt",
+      "risk_level": "medium",
+      "entrypoint": "agents/agents/ai-verifier.ts",
+      "tools_allowed": ["http:request", "openrouter:chat"],
+      "data_access": { "pii": false, "secrets_scan": false },
+      "triggers": ["manual"],
+      "memory_mode": "session",
+      "eval_suite": ["evals/ai_verifier.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
     }
   ]
 }
