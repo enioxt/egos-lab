@@ -80,7 +80,7 @@ Every agent MUST have:
 
 | Repo | Purpose | Agents |
 |------|---------|--------|
-| `egos-lab` | Lab + Agentic Platform | 8 registered, 20 planned |
+| `egos-lab` | Lab + Agentic Platform | 10 registered + orchestrator, 20 planned |
 | `carteira-livre` | Production SaaS | Uses .guarani rules only |
 
 ## DEPLOY DISCIPLINE (CRITICAL — Added 2026-02-17)
@@ -116,6 +116,15 @@ git push origin main --no-verify
 - **No WITH CHECK (true):** Use `auth.role() = 'authenticated'` or `current_setting('role') = 'service_role'`.
 - **SET search_path:** Every function MUST include `SET search_path = public`.
 - **Extensions:** Install in `extensions` schema, never `public`.
+
+## END-OF-MESSAGE DISCIPLINE (MANDATORY)
+
+> **Every message that modifies code MUST end with:**
+> 1. Build verification (`npx tsc -b && npx vite build` in egos-web)
+> 2. `git add + commit` (conventional message)
+> 3. `git push origin main`
+> 4. `vercel inspect` or Vercel CLI to confirm deploy status = Ready
+> 5. **Do NOT finalize message until deploy passes**
 
 ## ENV VARS
 
