@@ -19,11 +19,13 @@ import {
     RefreshControl,
     ActivityIndicator,
     Dimensions,
+    TouchableOpacity,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useProducts, useCategories, type Product } from '../hooks/useProducts';
 import { ProductCard } from '../components/ProductCard';
 import { CategoryFilter } from '../components/CategoryFilter';
+import { useTheme } from '../hooks/useTheme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -33,6 +35,7 @@ export function HomeScreen() {
     const [selectedCategory, setSelectedCategory] = useState('Todos');
     const [searchQuery, setSearchQuery] = useState('');
     const [refreshing, setRefreshing] = useState(false);
+    const { colors, isDark, toggle } = useTheme();
 
     // Filter products by category and search
     const filteredProducts = useMemo(() => {
@@ -106,9 +109,9 @@ export function HomeScreen() {
 
     if (loading && products.length === 0) {
         return (
-            <SafeAreaView style={styles.centered}>
-                <ActivityIndicator size="large" color="#16A34A" />
-                <Text style={styles.loadingText}>Carregando produtos...</Text>
+            <SafeAreaView style={[styles.centered, { backgroundColor: colors.background }]}>
+                <ActivityIndicator size="large" color={colors.primary} />
+                <Text style={[styles.loadingText, { color: colors.textMuted }]}>Carregando produtos...</Text>
             </SafeAreaView>
         );
     }
@@ -124,8 +127,8 @@ export function HomeScreen() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="dark" />
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+            <StatusBar style={isDark ? 'light' : 'dark'} />
             <FlatList
                 data={filteredProducts}
                 renderItem={renderProduct}
@@ -151,23 +154,23 @@ export function HomeScreen() {
             />
 
             {/* Floating Bottom Nav */}
-            <View style={styles.bottomNav}>
+            <View style={[styles.bottomNav, { backgroundColor: colors.surface }]}>
                 <View style={styles.navItem}>
-                    <Text style={[styles.navIcon, styles.navActive]}>🏠</Text>
-                    <Text style={[styles.navLabel, styles.navActive]}>Início</Text>
+                    <Text style={[styles.navIcon, { color: colors.primary, opacity: 1 }]}>🏠</Text>
+                    <Text style={[styles.navLabel, { color: colors.primary }]}>Início</Text>
                 </View>
                 <View style={styles.navItem}>
-                    <Text style={styles.navIcon}>🔍</Text>
-                    <Text style={styles.navLabel}>Buscar</Text>
+                    <Text style={[styles.navIcon, { color: colors.textMuted }]}>🔍</Text>
+                    <Text style={[styles.navLabel, { color: colors.textMuted }]}>Buscar</Text>
                 </View>
                 <View style={styles.navItem}>
-                    <Text style={styles.navIcon}>🛒</Text>
-                    <Text style={styles.navLabel}>Carrinho</Text>
+                    <Text style={[styles.navIcon, { color: colors.textMuted }]}>🛒</Text>
+                    <Text style={[styles.navLabel, { color: colors.textMuted }]}>Carrinho</Text>
                 </View>
-                <View style={styles.navItem}>
-                    <Text style={styles.navIcon}>👤</Text>
-                    <Text style={styles.navLabel}>Perfil</Text>
-                </View>
+                <TouchableOpacity style={styles.navItem} onPress={toggle} activeOpacity={0.7}>
+                    <Text style={[styles.navIcon, { color: colors.textMuted, opacity: 1 }]}>{isDark ? '☀️' : '🌙'}</Text>
+                    <Text style={[styles.navLabel, { color: colors.textMuted }]}>{isDark ? 'Claro' : 'Escuro'}</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
