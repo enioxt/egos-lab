@@ -182,6 +182,38 @@
       "eval_suite": ["evals/dead_code.json"],
       "run_modes": ["dry_run", "execute"],
       "status": "active"
+    },
+    {
+      "id": "contract_tester",
+      "name": "Contract Tester",
+      "area": "qa",
+      "description": "Layer 2: Tests API routes for contract compliance — status codes, response shapes, error handling",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "agents/agents/contract-tester.ts",
+      "tools_allowed": ["http:request"],
+      "data_access": { "pii": false, "secrets_scan": false },
+      "triggers": ["manual", "pre-push"],
+      "memory_mode": "session",
+      "eval_suite": ["evals/contract_tester.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
+    },
+    {
+      "id": "integration_tester",
+      "name": "Integration Tester",
+      "area": "qa",
+      "description": "Layer 3: Tests Supabase RLS, full flows, data integrity, and edge cases with real queries",
+      "owner": "enioxt",
+      "risk_level": "medium",
+      "entrypoint": "agents/agents/integration-tester.ts",
+      "tools_allowed": ["http:request", "supabase:query"],
+      "data_access": { "pii": false, "secrets_scan": false },
+      "triggers": ["manual", "pre-push"],
+      "memory_mode": "session",
+      "eval_suite": ["evals/integration_tester.json"],
+      "run_modes": ["dry_run", "execute"],
+      "status": "active"
     }
   ]
 }

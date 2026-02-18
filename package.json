@@ -35,6 +35,12 @@
         "agent:all:exec": "bun agents/agents/orchestrator.ts --exec",
         "agent:ui": "bun agents/agents/ui-designer.ts",
         "agent:ui:exec": "bun agents/agents/ui-designer.ts --exec",
+        "agent:contract": "bun agents/agents/contract-tester.ts",
+        "agent:contract:exec": "bun agents/agents/contract-tester.ts --exec",
+        "agent:integration": "bun agents/agents/integration-tester.ts",
+        "agent:integration:exec": "bun agents/agents/integration-tester.ts --exec",
+        "agent:test": "bun agents/agents/contract-tester.ts && bun agents/agents/integration-tester.ts",
+        "agent:test:exec": "bun agents/agents/contract-tester.ts --exec && bun agents/agents/integration-tester.ts --exec",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },

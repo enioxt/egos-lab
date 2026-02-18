@@ -1,6 +1,6 @@
 # AGENTS.md — egos-lab
 
-> **VERSION:** 2.1.0 | **UPDATED:** 2026-02-18
+> **VERSION:** 2.2.0 | **UPDATED:** 2026-02-18
 > **TYPE:** Monorepo Lab + Agentic Platform
 
 ---
@@ -21,7 +21,7 @@
 
 ```
 egos-lab/
-├── agents/                  # Agentic Platform (11 registered, 20 planned)
+├── agents/                  # Agentic Platform (13 registered, 20 planned)
 │   ├── cli.ts               # CLI: list, run, lint-registry
 │   ├── runtime/runner.ts    # Core: registry, logger, runner
 │   ├── registry/agents.json # Agent definitions (SSOT)
@@ -40,11 +40,16 @@ egos-lab/
 
 ```bash
 # Agentic Platform
-bun agent:list              # List all 11 registered agents
+bun agent:list              # List all 13 registered agents
 bun agent:ssot              # Run SSOT Auditor (dry-run)
 bun agent:ssot:exec         # Run SSOT Auditor (writes report)
 bun agent:ui                # UI Designer (dry-run)
 bun agent:ui:exec           # Generate UI mockups via Gemini
+bun agent:contract          # Contract Tester (dry-run)
+bun agent:contract:exec     # Run real API contract tests
+bun agent:integration       # Integration Tester (dry-run)
+bun agent:integration:exec  # Run real Supabase RLS/integrity tests
+bun agent:test:exec         # Run ALL test agents (contract + integration)
 bun agent:lint              # Validate registry
 bun agent:run <id> --dry    # Run any agent in dry-run
 bun agent:all               # Run ALL agents (orchestrator)
