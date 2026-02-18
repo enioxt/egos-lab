@@ -1,7 +1,7 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 3.0.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Intelink integration + Ideas Catalog + SSOT Chatbot + PII security scan
+> **VERSION:** 3.1.0 | **UPDATED:** 2026-02-18
+> **LAST SESSION:** Windsurf — Deep Intelink cleanup (86 files, PII removed) + Espiral de Escuta + Dependabot fixes + GOV progress
 
 ---
 
@@ -39,27 +39,24 @@
 
 ## P1 — Important
 
-### GOV-001: ~/.egos/ Governance Cleanup
+### GOV-001: ~/.egos/ Governance Cleanup ✅ (17/02/2026)
 > **Location:** `/home/enio/.egos/`
-> **Problem:** `workflows/` and `skills/` are EMPTY — sync.sh has nothing to sync
 
-- [ ] Populate `~/.egos/workflows/` with shared workflows (start, end, research, pre, disseminate)
-- [ ] Populate `~/.egos/skills/` with shared skills (agent-dev, security-audit)
+- [x] Workflows populated: start, end, research, pre, disseminate, prompt, regras (7 total)
+- [x] Skills populated: stitch-design
 - [ ] Update `~/.egos/guarani/IDENTITY.md` v1.0 → v2.0 (add egos-lab/intelink references)
 - [ ] Update `~/.egos/guarani/PREFERENCES_SHARED.md` (add end-of-message discipline)
 - [ ] Run `~/.egos/sync.sh` to propagate to both repos
-- [ ] Verify symlinks work in both egos-lab and carteira-livre
 
-### GOV-002: Intelink Workspace Integration
-> **Problem:** `/home/enio/intelink/` is NOT accessible from egos-lab workspace or filesystem MCP
-> **15 modals found** in Intelink (EntityDetailModal, EvidenceDetailModal, etc.)
+### GOV-002: Intelink Workspace Integration ✅ (17/02/2026)
+> **Resolved:** Intelink now lives at `apps/intelink/` in egos-lab monorepo
 
-- [ ] Add `/home/enio/intelink` to filesystem MCP allowed directories
-- [ ] Add `/home/enio/intelink` as Windsurf workspace
-- [ ] Port modal patterns to egos-web (EntityDetailModal style)
-- [ ] Port toast/notification patterns
-- [ ] Consider symlinking `apps/intelink/` in egos-lab monorepo
-- [ ] Delete `/home/enio/INTELINK/` (empty skeleton, useless)
+- [x] Integrated 604 files → trimmed to 518 (core only)
+- [x] Security: removed .env secrets, .git, PII (real names, CPFs, phones, local paths)
+- [x] Removed: .archive, scripts/test-*, dev pages, dated docs, Docker, .guarani
+- [x] Sanitized phone-normalizer.ts (24)99227→(11)91234
+- [ ] Delete `/home/enio/INTELINK/` (empty skeleton)
+- [ ] Port modal/toast patterns to egos-web
 
 ### GOV-003: Memory Audit & Cleanup
 > **Problem:** 80+ memories, many stale/redundant. Only 2-3 egos-lab specific.
@@ -78,14 +75,14 @@
 - [ ] Intelink modal/toast patterns memory
 
 ### GOV-004: Skills Audit & Creation
-> **Problem:** carteira-livre has 7 skills, egos-lab has 0
+> **Problem:** carteira-livre has 7 skills, egos-lab has 1 (stitch-design)
 
 **egos-lab skills to create:**
+- [x] `stitch-design` — Google Stitch UI workflow ✓ (exists in ~/.egos/skills/)
 - [ ] `agent-dev` — How to create, test, register agents
 - [ ] `deploy` — Vercel deploy procedures for egos-web
 - [ ] `security` — RLS, pre-commit, secrets scanning
 - [ ] `audit` — Running agents on external repos, case studies
-- [ ] `stitch-design` — Google Stitch UI workflow
 
 **carteira-livre skills to review:**
 - [ ] Review 7 existing skills for accuracy (last updated Feb 2026)
@@ -110,7 +107,7 @@
 **egos-lab .windsurfrules v2.1:**
 - [x] Added end-of-message discipline ✓
 - [x] Updated agent count to 10 ✓
-- [ ] Add Intelink port reference when integrated
+- [x] Intelink integrated at apps/intelink/ ✓
 
 **carteira-livre .windsurfrules v4.0:**
 - [ ] Review for outdated info (port, Supabase ref still correct?)
