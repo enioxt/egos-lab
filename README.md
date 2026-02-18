@@ -18,8 +18,8 @@ EGOS Lab is an open-source monorepo that combines **working applications**, **pr
 
 | Layer | Contents | Status |
 |-------|----------|--------|
-| **Agents** | 8 autonomous agents: SSOT Auditor, Auth Checker, Code Reviewer, Security Scanner, Rho Calculator... | Beta |
-| **Apps** | `egos-web` (Mission Control), `eagle-eye` (OSINT gazette monitor), `radio-philein` | Live / Alpha |
+| **Agents** | 11 autonomous agents + orchestrator: SSOT Auditor, Security Scanner, Code Reviewer, UI Designer, Dead Code Detector... | Beta |
+| **Apps** | `egos-web` (Mission Control), `eagle-eye` (OSINT gazette monitor), `intelink` (police intel), `radio-philein` | Live / Alpha |
 | **Projects** | 14 blueprints from public procurement OSINT to agent-centric architecture | Concept → Alpha |
 | **Packages** | Shared AI client, rate limiter, types, config rules | Stable |
 | **Docs** | 40+ idea files, 12+ UI designs (Stitch), business strategy, partner packages | Growing |
@@ -79,13 +79,14 @@ See **[docs/CONTRIBUTING_WITH_AI.md](docs/CONTRIBUTING_WITH_AI.md)** for the ful
 
 ```
 egos-lab/
-├── agents/                 ← Agentic Platform (8 registered, 20 planned)
+├── agents/                 ← Agentic Platform (11 registered, 20 planned)
 │   ├── runtime/runner.ts   ← Core: registry, logger, correlation IDs
 │   ├── registry/agents.json← Agent definitions (SSOT)
 │   └── agents/*.ts         ← SSOT Auditor, Auth Checker, etc.
 ├── apps/
 │   ├── egos-web/           ← Mission Control (egos.ia.br)
 │   ├── eagle-eye/          ← OSINT gazette monitor + AI
+│   ├── intelink/           ← Police intelligence platform
 │   └── radio-philein/      ← Community radio (paused)
 ├── packages/shared/        ← AI client, rate limiter, types
 ├── projects/               ← 14 project blueprints
