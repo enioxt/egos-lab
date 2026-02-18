@@ -1,17 +1,59 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 2.7.0 | **UPDATED:** 2026-02-17
-> **LAST SESSION:** Windsurf — Orchestrator + deploy fix v2 + agent validation (9/9 pass, 100% health)
+> **VERSION:** 2.8.0 | **UPDATED:** 2026-02-17
+> **LAST SESSION:** Windsurf — Deploy live + orchestrator + EgosWeb hub vision + findings categorized
 
 ---
 
 ## P0 — Critical
 
-_(none — all P0 items completed this session)_
+### EGOSWEB-001: GitHub-First Builder Hub (MVP)
+> **Vision:** `docs/EGOSWEB_PRODUCT_VISION.md`
+> **Core:** Projects + Help Requests + LegalLab onboarding
+
+**Phase 1 — Foundation (this sprint)**
+- [ ] GitHub OAuth login via Supabase (add provider)
+- [ ] DB migrations: profiles, projects, project_runbook, stars, follows
+- [ ] DB migrations: help_requests, help_comments, project_comments
+- [ ] DB migrations: legal_lab_tasks, legal_lab_progress
+- [ ] RLS policies for all new tables
+- [ ] Auto-create profile trigger on signup
+
+**Phase 2 — Pages**
+- [ ] `/projects` feed with filters (tags, status, stars)
+- [ ] `/p/[slug]` project detail (README + runbook + keys & costs)
+- [ ] `/new-project` import wizard (paste GitHub URL → scaffold)
+- [ ] `/p/[slug]/help` + `/p/[slug]/help/new` help request flow
+- [ ] `/help/[id]` detail with comments + accepted solution
+- [ ] `/u/[handle]` user profile
+- [ ] `/legal` LegalLab home + `/legal/[slug]` microtask
+- [ ] `/settings` connections (GitHub, Google)
+
+**Phase 3 — Content & Polish**
+- [ ] 10 LegalLab microtasks (GitHub basics → publish project)
+- [ ] Import wizard: auto-detect stack from GitHub repo
+- [ ] "Keys & Costs" structured section per project
+- [ ] Mobile-first UI, skeleton loading, empty states
 
 ---
 
 ## P1 — Important
+
+### AGENT-007: SSOT Auditor v2 (Suggest + AI Handoff)
+- [ ] Add `suggestion` field to every finding (actionable fix)
+- [ ] Generate fix patches (e.g., "move type X to shared/types.ts")
+- [ ] Export findings as structured JSON for AI consumption
+- [ ] Create `ssot-fixer.ts` agent that takes findings JSON and applies fixes
+- [ ] Reduce false positives (filter import re-exports, test files)
+> **Goal:** detect → suggest → hand off to AI → auto-fix
+
+### FINDINGS-001: Resolve 143 Agent Findings
+> **Report:** `docs/agentic/reports/findings-categorized.md`
+- [ ] Move `@types/pg` to devDependencies (2 files)
+- [ ] Consolidate `Finding` type — import from runner.ts in governance
+- [ ] Align TypeScript/React versions across workspaces
+- [ ] Consolidate `AIAnalysisResult`, `AnalysisResult`, `Territory` to shared
+- [ ] Clean orphaned types in egos-web
 
 ### AGENT-004: E2E Smoke Validator
 - [ ] Set up Playwright in egos-web
@@ -71,6 +113,15 @@ _(none — all P0 items completed this session)_
 - [ ] Design in Google Stitch
 - [ ] Schema for shareable rule packs
 - [ ] Upload/download flow
+
+### EGOSWEB-002: Advanced Features (Post-MVP)
+- [ ] Full-text search (pg_trgm)
+- [ ] Analytics (views, copies, remixes)
+- [ ] Collections/playlists
+- [ ] Moderation + anti-spam
+- [ ] GitHub auto-follow (opt-in, separate OAuth)
+- [ ] Reputation system (solutions accepted, projects run)
+- [ ] Project Import Wizard v2 (auto-detect .env.example, docker-compose)
 
 ---
 
