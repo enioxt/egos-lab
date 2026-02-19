@@ -1,7 +1,19 @@
 # TASKS.md — egos-lab
 
-> **VERSION:** 3.5.0 | **UPDATED:** 2026-02-18
-> **LAST SESSION:** Cascade — Security Hub + AI Insertion Audit + Intelink email auth + 15 agents total
+> **VERSION:** 4.0.0 | **UPDATED:** 2026-02-19
+> **LAST SESSION:** Agent Hub Webhook API, Build Rules, UI Fixes, and Strategic Roadmap
+
+---
+
+## 🚀 ROADMAP & VISÃO ESTRATÉGICA (Curto, Médio e Longo Prazo)
+*Para onde o EGOS-Lab está indo e como atrairemos mais desenvolvedores.*
+
+### As 5 Grandes Metas (The Master Plan)
+1. **Self-Service Audit Hub (Curto Prazo - Atração):** Transformar nossos agentes internos em um serviço público "Cole o Repo → Receba o Relatório" para atrair milhares de devs para o ecossistema.
+2. **EGOS-Kit Starter (Curto Prazo - Onboarding):** Repo template com `.windsurfrules`, Husky, e Stack Base pra qualquer dev clonar e sair codando seguro.
+3. **Agent API Gateway (Médio Prazo - Monetização):** Chaves de API (`EGOS_SK_...`) para B2B. Empresas usam nossos 15 agentes via REST nas próprias esteiras de CI/CD.
+4. **Marketplace de Regras (Médio Prazo - Comunidade):** Stack-specific `.windsurfrules` compartilháveis. O "NPM" dos prompts de sistema.
+5. **Mycelium Network & Sov-OS (Longo Prazo - Enterprise/Gov):** Comunicação entre agentes P2P em background. O EGOS vira um Sistema Operacional instalável On-Premise para corporações e governos.
 
 ---
 
@@ -183,9 +195,9 @@
 ### LAUNCH-002: Self-Service Audit Hub (Phase 2)
 > **Goal:** "Paste Repo URL → Get Audit Report"
 - [ ] Expose `orchestrator.ts` via secure API endpoint (server-side)
-- [ ] Create UI: "Paste Repo URL" input on Dashboard
+- [x] Create UI: "Paste Repo URL" input on Dashboard
 - [ ] Implement `agent:audit-external` runner (clones, runs, cleans up)
-- [ ] Build Report UI: Render JSONL findings as interactive components
+- [x] Build Report UI: Render findings as interactive components (MVP Mocked)
 - [ ] Add "Fix with EGOS" CTA (leads to fork/CLI)
 
 ### UX-002: Ecosystem Visualization (Learnings from EGOS Universe)

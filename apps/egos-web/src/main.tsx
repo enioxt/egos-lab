@@ -16,6 +16,7 @@ const HelpDetail = lazy(() => import('./pages/HelpDetail.tsx'))
 const UserProfile = lazy(() => import('./pages/UserProfile.tsx'))
 const Settings = lazy(() => import('./pages/Settings.tsx'))
 const ApiDocs = lazy(() => import('./pages/ApiDocs.tsx'))
+const AuditHub = lazy(() => import('./pages/AuditHub.tsx'))
 
 function PageLoader() {
   return (
@@ -43,6 +44,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/settings" element={<S><Settings /></S>} />
           <Route path="/legal" element={<S><LegalLab /></S>} />
           <Route path="/api-docs" element={<S><ApiDocs /></S>} />
+          <Route path="/audit" element={<S><AuditHub /></S>} />
         </Route>
       </Routes>
     </BrowserRouter>
