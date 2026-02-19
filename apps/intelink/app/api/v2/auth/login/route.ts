@@ -200,7 +200,8 @@ export async function POST(request: NextRequest) {
         }
 
         // Check if 2FA is required (mandatory for super_admin)
-        const requiresOtp = member.system_role === 'super_admin';
+        // USER REQUEST 19/02/2026: Comment out Telegram OTP to allow simple email/password login
+        const requiresOtp = false; // member.system_role === 'super_admin';
         
         if (requiresOtp) {
             // Verify telegram is linked

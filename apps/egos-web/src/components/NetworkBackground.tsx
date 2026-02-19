@@ -22,17 +22,18 @@ const NetworkBackground: React.FC = () => {
 
     let animId: number;
     const nodes: Node[] = [];
-    const NODE_COUNT = 80;
-    const CONNECT_DIST = 120;
-    const MOUSE_RADIUS = 150;
+    const isMobile = window.innerWidth < 768;
+    const NODE_COUNT = isMobile ? 30 : 100;
+    const CONNECT_DIST = isMobile ? 80 : 150;
+    const MOUSE_RADIUS = isMobile ? 100 : 200;
     const MOUSE_ATTRACT = 0.02;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio, 2);
       canvas.width = window.innerWidth * dpr;
-      canvas.height = document.documentElement.scrollHeight * dpr;
-      canvas.style.width = '100%';
-      canvas.style.height = `${document.documentElement.scrollHeight}px`;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = '100vw';
+      canvas.style.height = '100vh';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
@@ -43,7 +44,7 @@ const NetworkBackground: React.FC = () => {
     resizeObserver.observe(document.documentElement);
 
     const w = () => window.innerWidth;
-    const h = () => document.documentElement.scrollHeight;
+    const h = () => window.innerHeight;
 
     for (let i = 0; i < NODE_COUNT; i++) {
       nodes.push({
@@ -59,14 +60,14 @@ const NetworkBackground: React.FC = () => {
 
     const onMouseMove = (e: MouseEvent) => {
       mouseRef.current.x = e.clientX;
-      mouseRef.current.y = e.clientY + window.scrollY;
+      mouseRef.current.y = e.clientY;
     };
     const onMouseDown = () => { mouseRef.current.down = true; };
     const onMouseUp = () => { mouseRef.current.down = false; };
     const onTouchMove = (e: TouchEvent) => {
       if (e.touches[0]) {
         mouseRef.current.x = e.touches[0].clientX;
-        mouseRef.current.y = e.touches[0].clientY + window.scrollY;
+        mouseRef.current.y = e.touches[0].clientY;
         mouseRef.current.down = true;
       }
     };
@@ -173,10 +174,11 @@ const NetworkBackground: React.FC = () => {
     <canvas
       ref={canvasRef}
       style={{
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
-        width: '100%',
+        width: '100vw',
+        height: '100vh',
         pointerEvents: 'none',
         zIndex: 0,
       }}
