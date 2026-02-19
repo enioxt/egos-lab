@@ -4,6 +4,7 @@ import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
 import CollapsibleSection from './components/CollapsibleSection'
 import NetworkBackground from './components/NetworkBackground'
+import Footer from './components/Footer'
 import { useAuth } from './hooks/useAuth'
 import './App.css'
 
@@ -120,6 +121,8 @@ function App() {
           <IdeasCatalog />
         </Suspense>
       </CollapsibleSection>
+
+      <Footer />
     </div>
   )
 }
