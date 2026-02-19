@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from './_types';
 
 /**
  * GET /api/registry — Serve the API registry as JSON

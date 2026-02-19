@@ -1,23 +1,9 @@
 import type { VercelRequest, VercelResponse } from './_types';
+import { chatLimiter, getClientIp } from './_rate-limit';
+import { costGuard } from './_cost-guard';
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const CHAT_MODEL = 'google/gemini-2.0-flash-001';
-
-/* ── Rate Limiter (in-memory, per Vercel instance) ── */
-const RATE_LIMIT = 10; // requests per window
-const RATE_WINDOW_MS = 60_000; // 1 minute
-const rateBuckets = new Map<string, { count: number; resetAt: number }>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const bucket = rateBuckets.get(ip);
-  if (!bucket || now > bucket.resetAt) {
-    rateBuckets.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
-  }
-  bucket.count++;
-  return bucket.count > RATE_LIMIT;
-}
 
 /* ── SSOT System Prompt (Single Source of Truth) ── */
 function buildSystemPrompt(context: string): string {
@@ -137,11 +123,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   /* Rate limit by IP */
-  const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim()
-    || req.headers['x-real-ip'] as string
-    || 'unknown';
-  if (isRateLimited(ip)) {
+  const ip = getClientIp(req.headers as Record<string, string | string[] | undefined>);
+  if (chatLimiter.isLimited(ip)) {
     return res.status(429).json({ error: 'Rate limit exceeded. Try again in 1 minute.', retryAfter: 60 });
+  }
+
+  /* AI cost guard */
+  if (costGuard.isOverBudget()) {
+    return res.status(503).json({ error: 'Daily AI budget exceeded. Try again tomorrow.', budget: costGuard.getStats() });
   }
 
   const { message, context } = req.body as { message?: string; context?: string };
@@ -206,8 +195,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(502).json({ error: `AI error (${response.status})` });
     }
 
-    const data = await response.json();
+    const data = await response.json() as { choices?: { message?: { content?: string } }[]; usage?: { prompt_tokens?: number; completion_tokens?: number } };
     const reply = data.choices?.[0]?.message?.content || 'Sem resposta da IA.';
+
+    // Track AI spend
+    costGuard.recordUsage(
+      data.usage?.prompt_tokens || 0,
+      data.usage?.completion_tokens || 0
+    );
+
     return res.status(200).json({ reply, model: CHAT_MODEL });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
