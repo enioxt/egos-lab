@@ -29,8 +29,8 @@ function LoginContent() {
     const { isAuthenticated, isLoading: authLoading, login, error: authError, clearError } = useAuth();
 
     // Form state
-    const [step, setStep] = useState<LoginStep>('phone');
-    const [loginMode, setLoginMode] = useState<'phone' | 'email'>('phone');
+    const [step, setStep] = useState<LoginStep>('phone'); // Keeping 'phone' as the initial step state name for backward compatibility in code, but it now represents the first step (email input)
+    const [loginMode, setLoginMode] = useState<'phone' | 'email'>('email');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

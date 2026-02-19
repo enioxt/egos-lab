@@ -128,6 +128,8 @@ git push origin main --no-verify
 
 ## ENV VARS
 
+- **Graceful Degradation:** NEVER throw top-level errors for missing environment variables in shared utilities (like database clients). Use `console.warn` and provide fallback mock objects so builds (e.g., Vite/Next.js on Vercel) compile successfully without silent crashes.
+
 ```env
 OPENROUTER_API_KEY=   # AI (Gemini via OpenRouter) — server-side only
 GITHUB_TOKEN=         # GitHub API — server-side only

@@ -3,44 +3,40 @@ import type { VercelRequest, VercelResponse } from '../_types';
 /**
  * AGENT HUB WEBHOOK GATEWAY
  * 
- * Central API to receive events from Carteira Livre, Intelink, or external services
+ * Receives events from Carteira Livre, Intelink, or external services
  * to trigger EGOS autonomous agents.
  * 
- * This endpoint validates the request and pushes the task to a Redis queue
- * consumed by the 24/7 background worker (Oracle Cloud / Railway).
+ * Instead of long-running in Vercel, it forwards the task to the 
+ * Railway Worker via HTTPS. The Railway Worker drops it into its internal Redis queue.
  * 
  * Endpoint: POST /api/agents/webhook
  */
 
-const AGENT_WEBHOOK_SECRET = process.env.AGENT_WEBHOOK_SECRET;
-const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL;
-const UPSTASH_REDIS_REST_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+const AGENT_WEBHOOK_SECRET = process.env.AGENT_WEBHOOK_SECRET || 'dev_secret';
+const AGENT_WEBHOOK_URL = process.env.AGENT_WEBHOOK_URL || 'https://egos-lab-infrastructure-production.up.railway.app/queue';
 
-const TASK_QUEUE = 'agent:tasks';
+async function forwardToWorker(task: Record<string, unknown>): Promise<boolean> {
+    try {
+        const res = await fetch(AGENT_WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${AGENT_WEBHOOK_SECRET}`,
+            },
+            body: JSON.stringify(task),
+        });
 
-async function pushToRedis(task: Record<string, unknown>): Promise<boolean> {
-    if (!UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) {
-        console.warn('[Agent Gateway] Redis not configured — task logged but not queued');
+        if (!res.ok) {
+            const text = await res.text();
+            console.error(`[Agent Gateway] Worker rejected task: ${res.status} — ${text}`);
+            return false;
+        }
+
+        return true;
+    } catch (err) {
+        console.error(`[Agent Gateway] Failed to reach Worker at ${AGENT_WEBHOOK_URL}:`, err);
         return false;
     }
-
-    // Upstash REST API: LPUSH
-    const res = await fetch(`${UPSTASH_REDIS_REST_URL}/lpush/${TASK_QUEUE}`, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([JSON.stringify(task)]),
-    });
-
-    if (!res.ok) {
-        const text = await res.text();
-        console.error(`[Agent Gateway] Redis push failed: ${res.status} — ${text}`);
-        return false;
-    }
-
-    return true;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -51,9 +47,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
     }
 
-    // 1. Authorization Check
+    // 1. Authorization Check (Client -> Vercel)
     const authHeader = req.headers.authorization;
-    if (!AGENT_WEBHOOK_SECRET || authHeader !== `Bearer ${AGENT_WEBHOOK_SECRET}`) {
+    if (authHeader !== `Bearer ${AGENT_WEBHOOK_SECRET}`) {
         console.warn('[Agent Gateway] Unauthorized attempt or missing secret');
         return res.status(401).json({
             success: false,
@@ -89,23 +85,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             requestedAt: new Date().toISOString(),
         };
 
-        // 3. Push to Redis queue (consumed by the 24/7 worker)
-        const queued = await pushToRedis(task);
+        // 3. Forward to the 24/7 worker on Railway
+        const queued = await forwardToWorker(task);
 
-        console.log(`[Agent Gateway] Task ${queued ? 'queued' : 'logged'} for agent: ${agent_id}`, { event_type, jobId });
+        console.log(`[Agent Gateway] Task ${queued ? 'forwarded' : 'failed'} for agent: ${agent_id}`, { event_type, jobId });
+
+        if (!queued) {
+            return res.status(502).json({
+                success: false,
+                error: { code: 'WORKER_UNAVAILABLE', message: 'Failed to queue task on the worker cluster' }
+            });
+        }
 
         return res.status(202).json({
             success: true,
             data: {
-                status: queued ? 'queued' : 'accepted_no_queue',
-                message: `Task ${queued ? 'queued' : 'accepted'} for agent '${agent_id}'`,
+                status: 'queued',
+                message: `Task queued for agent '${agent_id}'`,
                 job_id: jobId,
                 queued_at: new Date().toISOString(),
             }
         });
     } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
-        console.error('[Agent Gateway] Error queueing task:', msg);
+        console.error('[Agent Gateway] Error queuing task:', msg);
         return res.status(500).json({
             success: false,
             error: { code: 'SERVER_ERROR', message: 'Failed to queue agent task' }
