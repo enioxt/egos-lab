@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
             zIndex: 10
         }}>
             <div style={{ marginBottom: '20px', color: 'rgba(255,255,255,0.6)', fontSize: '14px', fontWeight: 500 }}>
-                Conecte-se com Enio Rocha (Criador do EGOS)
+                Conecte-se com o desenvolvedor
             </div>
             <div style={{
                 display: 'flex',
