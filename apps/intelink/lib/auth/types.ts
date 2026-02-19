@@ -10,7 +10,7 @@
 // ============================================================================
 
 /** Functional role within the unit (job title) */
-export type MemberRole = 
+export type MemberRole =
     | 'delegado'      // Head of unit
     | 'escrivao'      // Administrative staff
     | 'investigador'  // Field investigator
@@ -18,7 +18,7 @@ export type MemberRole =
     | 'estagiario';   // Intern
 
 /** System-wide permission level */
-export type SystemRole = 
+export type SystemRole =
     | 'super_admin'   // Full system access
     | 'unit_admin'    // Unit-level admin
     | 'member'        // Regular member
@@ -32,34 +32,34 @@ export type SystemRole =
 export interface Member {
     /** UUID - PRIMARY IDENTIFIER (no more fake chat_ids!) */
     id: string;
-    
+
     /** Display name */
     name: string;
-    
+
     /** Brazilian phone (11 digits, normalized) */
     phone: string;
-    
+
     /** Email for notifications */
     email?: string;
-    
+
     /** Functional role */
     role: MemberRole;
-    
+
     /** System permission level */
     systemRole: SystemRole;
-    
+
     /** Unit UUID */
     unitId: string;
-    
+
     /** Unit name (for display) */
     unitName?: string;
-    
+
     /** Telegram chat ID (optional, for 2FA) */
     telegramChatId?: number;
-    
+
     /** Telegram username */
     telegramUsername?: string;
-    
+
     /** Account creation date */
     createdAt?: Date;
 }
@@ -71,25 +71,25 @@ export interface Member {
 export interface Session {
     /** Session UUID */
     id: string;
-    
+
     /** Member UUID (foreign key) */
     memberId: string;
-    
+
     /** JWT access token (short-lived, 15-60 min) */
     accessToken: string;
-    
+
     /** Refresh token (long-lived, 7-30 days) */
     refreshToken?: string;
-    
+
     /** Access token expiration */
     expiresAt: Date;
-    
+
     /** Member data (populated from join) */
     member: Member;
-    
+
     /** Device/browser info */
     deviceInfo?: SessionDeviceInfo;
-    
+
     /** Last activity timestamp */
     lastActivityAt?: Date;
 }
@@ -107,13 +107,13 @@ export interface SessionDeviceInfo {
 export interface AuthState {
     /** Is user authenticated? */
     isAuthenticated: boolean;
-    
+
     /** Is auth check in progress? */
     isLoading: boolean;
-    
+
     /** Current session (if authenticated) */
     session: Session | null;
-    
+
     /** Error message (if any) */
     error: string | null;
 }
@@ -125,32 +125,32 @@ export interface AuthState {
 export interface LoginRequest {
     /** Brazilian phone (will be normalized) */
     phone: string;
-    
+
     /** Password */
     password: string;
-    
+
     /** Keep session for 30 days */
     rememberMe?: boolean;
 }
 
 export interface LoginResponse {
     success: boolean;
-    
+
     /** Session data (if login successful) */
     session?: Session;
-    
+
     /** Requires 2FA OTP? */
     requiresOtp?: boolean;
-    
+
     /** OTP sent to (masked) */
     otpSentTo?: string;
-    
+
     /** Error message */
     error?: string;
-    
+
     /** Remaining login attempts */
     remainingAttempts?: number;
-    
+
     /** Account locked until */
     lockedUntil?: Date;
 }
@@ -158,13 +158,13 @@ export interface LoginResponse {
 export interface OtpRequest {
     /** Member phone */
     phone: string;
-    
+
     /** 6-digit OTP code */
     otp: string;
-    
+
     /** Original password (for session creation) */
     password: string;
-    
+
     /** Keep session for 30 days */
     rememberMe?: boolean;
 }
@@ -182,26 +182,26 @@ export interface RefreshRequest {
 
 export interface RefreshResponse {
     success: boolean;
-    
+
     /** New access token */
     accessToken?: string;
-    
+
     /** New refresh token (rotation) */
     refreshToken?: string;
-    
+
     /** New expiration */
     expiresAt?: Date;
-    
+
     error?: string;
 }
 
 export interface VerifyResponse {
     /** Is session valid? */
     valid: boolean;
-    
+
     /** Session data (if valid) */
     session?: Session;
-    
+
     /** Should refresh? (token expiring soon) */
     shouldRefresh?: boolean;
 }
@@ -217,23 +217,23 @@ export interface ForgotPasswordRequest {
 
 export interface ForgotPasswordResponse {
     success: boolean;
-    
+
     /** Code sent to (masked) */
     sentTo?: string;
-    
+
     /** Delivery method */
     method?: 'email' | 'telegram' | 'whatsapp_manual';
-    
+
     error?: string;
 }
 
 export interface ResetPasswordRequest {
     /** Reset code (ABC123 format) */
     code: string;
-    
+
     /** New password */
     newPassword: string;
-    
+
     /** Confirm new password */
     confirmPassword: string;
 }
@@ -247,7 +247,7 @@ export interface ResetPasswordResponse {
 // AUDIT
 // ============================================================================
 
-export type AuditAction = 
+export type AuditAction =
     | 'login'
     | 'logout'
     | 'login_failed'
@@ -276,7 +276,7 @@ export interface AuditLogEntry {
 // PERMISSIONS
 // ============================================================================
 
-export type Permission = 
+export type Permission =
     | 'admin:manage_users'
     | 'admin:manage_units'
     | 'admin:view_audit'
@@ -346,8 +346,16 @@ export const ROLE_PERMISSIONS: Record<SystemRole, Permission[]> = {
         'graph:edit',
     ],
     visitor: [
+        'investigation:create',
+        'investigation:edit',
         'investigation:view',
+        'entity:create',
+        'entity:edit',
+        'report:create',
+        'report:export',
+        'chat:access',
         'graph:view',
+        'graph:edit',
     ],
     intern: [
         'investigation:view',
