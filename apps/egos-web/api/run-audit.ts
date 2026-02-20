@@ -15,7 +15,7 @@
  */
 
 import type { VercelRequest, VercelResponse } from './_types';
-import { chatLimiter, getClientIp } from './_rate-limit';
+import { auditLimiter, getClientIp } from './_rate-limit';
 
 
 const WORKER_URL = process.env.AGENT_WORKER_URL || 'https://egos-lab-infrastructure-production.up.railway.app';
@@ -48,10 +48,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(405).json({ error: 'Only POST allowed' });
     }
 
-    // Rate limit: 5 audits per minute per IP
+    // Rate limit: 3 audits per minute per IP using strict audit limiter
     const ip = getClientIp(req.headers as Record<string, string | string[] | undefined>);
-    if (chatLimiter.isLimited(ip)) {
+    if (auditLimiter.isLimited(ip)) {
         return res.status(429).json({ error: 'Rate limited. Try again in 1 minute.', retryAfterMs: 60_000 });
+    }
+
+    // Limit Payload Size (Vercel max body size is 4MB by default, but we should reject long strings early)
+    const rawBodySize = JSON.stringify(req.body || {}).length;
+    if (rawBodySize > 50_000) { // 50KB total payload max
+        return res.status(413).json({ error: 'Payload Too Large. Maximum 50KB allowed.' });
     }
 
     // Guard: worker secret must be configured
@@ -62,8 +68,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Parse body
     const { repoUrl, agentId, githubToken } = req.body || {};
 
-    if (!repoUrl || typeof repoUrl !== 'string') {
-        return res.status(400).json({ error: 'Missing required field: repoUrl' });
+    if (!repoUrl || typeof repoUrl !== 'string' || repoUrl.length > 255) {
+        return res.status(400).json({ error: 'Missing or malformed required field: repoUrl' });
     }
 
     if (!isValidGitHubUrl(repoUrl)) {
@@ -74,8 +80,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Validate token if provided
-    if (githubToken && typeof githubToken !== 'string') {
-        return res.status(400).json({ error: 'GitHub token must be a string' });
+    if (githubToken && (typeof githubToken !== 'string' || githubToken.length > 255)) {
+        return res.status(400).json({ error: 'GitHub token must be a string under 255 characters' });
     }
     if (githubToken && !isValidGitHubToken(githubToken as string)) {
         return res.status(400).json({

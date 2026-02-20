@@ -13,6 +13,7 @@
 
 import { existsSync } from 'fs';
 import { join } from 'path';
+import { $ } from 'bun';
 
 // EGOS install directory (where agents live)
 const EGOS_ROOT = join(import.meta.dir, '..', '..');
@@ -162,6 +163,36 @@ async function runSingleAgent(agent: AgentDef, targetDir: string, mode: string):
 }
 
 /**
+ * Pre-flight Prompt Sanitization Firewall
+ * Scans the repository for common LLM jailbreak instructions before allowing agents to read them.
+ */
+async function sanitizeSandbox(targetDir: string): Promise<boolean> {
+    const maliciousPatterns = [
+        "ignore previous instructions",
+        "ignore all previous",
+        "you are now",
+        "print the server",
+        "system prompt",
+        "developer mode enabled"
+    ];
+
+    try {
+        // Run a fast ripgrep/grep across the repo for malicious strings (case-insensitive)
+        const pattern = maliciousPatterns.join('|');
+        const { exitCode, stdout } = await $`grep -riE "${pattern}" .`.cwd(targetDir).quiet().nothrow();
+
+        // If grep finds a match, exitCode is 0. If nothing is found, exitCode is 1.
+        if (exitCode === 0 && stdout.length > 0) {
+            console.error('[FIREWALL] Malicious prompt injection payload detected in sandbox!');
+            return false;
+        }
+        return true;
+    } catch (e) {
+        return true; // Fallback to allow if grep fails for unrelated reasons
+    }
+}
+
+/**
  * Execute agents against a sandboxed repo
  * 
  * @param sandboxPath - Path to the cloned repo
@@ -181,6 +212,20 @@ export async function executeAgents(
         : registry.filter(a => a.status === 'active' && a.run_modes.includes('dry_run'));
 
     const results: AgentRunResult[] = [];
+
+    // Prompt Sanitization Firewall Check
+    const isSafe = await sanitizeSandbox(sandboxPath);
+    if (!isSafe) {
+        return [{
+            agentId: 'firewall',
+            agentName: 'Prompt Injection Firewall',
+            status: 'fail',
+            durationMs: 0,
+            findings: 1, errors: 1, warnings: 0, info: 0, criticals: 1,
+            output: 'BLOCKED: Repository contains malicious Prompt Injection payloads (Jailbreak attempts). Audit aborted to protect agent integrity.',
+            errorMessage: 'Prompt Injection Detected'
+        }];
+    }
 
     for (const agent of agents) {
         const result = await runSingleAgent(agent, sandboxPath, mode);

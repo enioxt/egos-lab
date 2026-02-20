@@ -58,6 +58,7 @@ export const chatLimiter = new RateLimiter({ max: 10, windowMs: 60_000 });      
 export const webhookLimiter = new RateLimiter({ max: 30, windowMs: 60_000 });    // 30/min for webhooks
 export const ingestLimiter = new RateLimiter({ max: 5, windowMs: 60_000 });      // 5/min for commit ingestion
 export const publicLimiter = new RateLimiter({ max: 60, windowMs: 60_000 });     // 60/min for public reads
+export const auditLimiter = new RateLimiter({ max: 3, windowMs: 60_000 });       // 3/min strictly for heavy audits
 
 export function getClientIp(headers: Record<string, string | string[] | undefined>): string {
     const forwarded = headers['x-forwarded-for'];

@@ -64,4 +64,10 @@ CREATE POLICY "Users view own audits" ON public.user_audits
 CREATE POLICY "Users update own audits" ON public.user_audits
     FOR UPDATE USING ((SELECT auth.uid()) = user_id);
 
+CREATE POLICY "Users insert own audits" ON public.user_audits
+    FOR INSERT WITH CHECK ((SELECT auth.uid()) = user_id);
+
+CREATE POLICY "Users delete own audits" ON public.user_audits
+    FOR DELETE USING ((SELECT auth.uid()) = user_id);
+
 COMMIT;
