@@ -398,11 +398,60 @@
 - [x] Fix chat auto-scroll on mobile
 > **Commit:** 1a803a3
 
-### SETUP-001: egos-lab Monorepo ✅ (2026-02-13)
-- [x] Bun workspaces, packages/shared, apps/eagle-eye, 12 idea files
+### INTELINK-001: Projeto "The Open Epstein Network" (Crowdsourcing Investigativo)
 
-### EAGLE-EYE-001: Eagle Eye MVP ✅ (2026-02-13)
-- [x] Querido Diário API, 17 opportunity patterns, AI analysis
+*Phase 1: Data Ingestion*
+- [ ] Baixar CSVs públicos (epsteininvestigation.org): entities, flights, relationships, emails
+- [ ] Criar script ETL para ingestão no Supabase (tabelas `epstein_entities`, `epstein_flights`, `epstein_relationships`)
+- [ ] Processar PDFs da DOJ (`justice.gov/epstein`) usando módulo OCR/Extração do Intelink (`lib/ocr`, `lib/documents`)
+- [ ] Alimentar o módulo `entity-resolution` para deduplicar e normalizar nomes
+
+*Phase 2: Intelligence Layer*
+- [ ] Rodar `modus-operandi.ts` (pattern detection) nos dados para detectar padrões comportamentais
+- [ ] Integrar `link-prediction` para sugerir conexões ocultas entre entidades
+- [ ] Integrar Pramana (grau de certeza) para scoring de cada relação
+- [ ] AI analysis: extrair padrões por pessoa, data, país, tipo de envolvimento
+
+*Phase 3: Public Interface*
+- [ ] Criar interface pública (Next.js) com grafo 3D interativo (`react-force-graph-3d`)
+- [ ] Filtros avançados: por pessoa, data, país, bairro, tipo de envolvimento, relações cruzadas
+- [ ] Relatórios exportáveis: PDF, CSV, JSON — filtráveis por entidade, período, geografia
+- [ ] Bot Telegram aberto para cidadãos enviarem dicas/evidências
+- [ ] Sistema de contribuição com validação Pramana (score de confiança público)
+
+*Phase 4: Monetização (Credit System)*
+- [ ] Tier gratuito: navegar o grafo, ver entidades públicas (0 créditos)
+- [ ] Tier pago: análise AI, relatórios cruzados, OCR de novos documentos, padrões comportamentais
+- [ ] Integrar com CREDITS-001 (sistema de créditos universal)
+> **Dados:** epsteininvestigation.org (CSV+API), justice.gov/epstein (PDFs)
+> **Plano completo:** `docs/plans/CREDIT_SYSTEM_PLAN.md`
+
+### CREDITS-001: Sistema de Créditos Universal (Pay-Per-Process AI)
+
+*Evolução do GayTaoUai Gateway (EGOSv2) para sistema de créditos moderno*
+- [ ] Schema: `credit_ledger` (imutável, append-only) + `credit_purchases`
+- [ ] Compra via PIX (Asaas, já integrado em Carteira Livre)
+- [ ] Compra via Cartão de Crédito/Débito (Asaas ou Stripe)
+- [ ] Compra via Crypto (BTCPay Server ou Coinbase Commerce)
+- [ ] Webhook automático: pagamento confirmado → créditos adicionados em tempo real
+- [ ] API de consumo: verificar saldo → deduzir → executar operação AI → retornar resultado
+- [ ] Painel de saldo em tempo real (Supabase Realtime)
+- [ ] Pacotes: Starter (R$19.90/100cr), Pro (R$49.90/300cr), Enterprise (R$149.90/1000cr)
+> **Plano completo:** `docs/plans/CREDIT_SYSTEM_PLAN.md`
+> **Origem:** GayTaoUai Gateway (`EGOSv2/apps/mcp-bridge/gaytaouai_gateway_mcp.py`)
+
+### ENTERPRISE-001: Evolução do Módulo de Pagamentos (B2B Ready)
+- [ ] Conciliação Bancária automatizada (Webhook -> Ledger imutável)
+- [ ] Roteamento Multi-Gateway (Fallback: Asaas → Stripe → BTCPay)
+- [ ] Integração com ERP (ContaAzul/Bling) para emissão de NFe automática
+- [ ] Sistema avançado de split de assinaturas com proration (cálculo proporcional)
+- [ ] Agnosticismo de domínio: `InstructorWallet` → `TenantWallet` (multi-tenant)
+
+### ENTERPRISE-002: Criação da Identidade Corporativa
+- [ ] Escolher nome oficial (candidatos: Agnostik, Pramana Labs, +10 alternativas)
+- [ ] Registrar domínio e preparar landing page B2B
+- [ ] Definir oferta: "AI Agents & Intelligence Infrastructure"
+- [ ] Refatorar repositórios necessários para a nova marca
 
 ### TASK-016: Agnostic Domain-to-Solution Engine v2 ✅ (20/02/2026)
 - [x] Deep research: Descript tech stack (Temporal, Go, Whisper, transcript-as-SSOT)
