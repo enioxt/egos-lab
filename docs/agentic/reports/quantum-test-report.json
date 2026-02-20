@@ -1,0 +1,148 @@
+{
+  "timestamp": "2026-02-20T16:21:12.253Z",
+  "durationMs": 193,
+  "layers": {
+    "property": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0
+    },
+    "behavioral": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0
+    },
+    "aiEdge": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0
+    },
+    "mutation": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "results": [
+    {
+      "id": "topic-self-match",
+      "layer": "property",
+      "name": "Any topic matches itself exactly",
+      "status": "pass",
+      "durationMs": 17
+    },
+    {
+      "id": "wildcard-catch-all",
+      "layer": "property",
+      "name": "Pattern \"*\" matches any single-segment topic",
+      "status": "pass",
+      "durationMs": 2
+    },
+    {
+      "id": "emit-receive-parity",
+      "layer": "property",
+      "name": "Events emitted = events received by matching subs",
+      "status": "pass",
+      "durationMs": 30
+    },
+    {
+      "id": "history-cap-invariant",
+      "layer": "property",
+      "name": "History length <= maxHistory after any number of emits",
+      "status": "pass",
+      "durationMs": 102
+    },
+    {
+      "id": "unsub-guarantee",
+      "layer": "property",
+      "name": "After off(), handler receives zero more events",
+      "status": "pass",
+      "durationMs": 34
+    },
+    {
+      "id": "stats-consistency",
+      "layer": "property",
+      "name": "stats().total always equals getHistory().length",
+      "status": "pass",
+      "durationMs": 5
+    },
+    {
+      "id": "registry-integrity",
+      "layer": "behavioral",
+      "name": "All active agents have valid entrypoints in filesystem",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "no-duplicate-ids",
+      "layer": "behavioral",
+      "name": "Agent registry has zero duplicate IDs",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "cross-agent-signaling",
+      "layer": "behavioral",
+      "name": "Security finding emitted → knowledge agent receives it",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "run-isolation",
+      "layer": "behavioral",
+      "name": "Bus reset fully isolates consecutive orchestrator runs",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "area-coverage",
+      "layer": "behavioral",
+      "name": "Registry covers minimum required areas",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "taxonomy-routing",
+      "layer": "behavioral",
+      "name": "All Topics.* constants route correctly with wildcards",
+      "status": "pass",
+      "durationMs": 1
+    },
+    {
+      "id": "workspace-integrity",
+      "layer": "behavioral",
+      "name": "All declared workspaces exist on disk",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "broken-wildcard-detector",
+      "layer": "mutation",
+      "name": "Mutation: wildcard always returns true → tests catch it",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "event-drop-detector",
+      "layer": "mutation",
+      "name": "Mutation: bus drops 50% of events → property tests catch it",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "history-amnesia-detector",
+      "layer": "mutation",
+      "name": "Mutation: empty history after emits → stats test catches it",
+      "status": "pass",
+      "durationMs": 0
+    },
+    {
+      "id": "phantom-subscriber-detector",
+      "layer": "mutation",
+      "name": "Mutation: off() is no-op → unsub test catches it",
+      "status": "pass",
+      "durationMs": 0
+    }
+  ],
+  "quantumScore": 100
+}
