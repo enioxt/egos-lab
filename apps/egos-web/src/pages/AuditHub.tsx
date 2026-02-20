@@ -1,5 +1,39 @@
 import { useState } from 'react';
-import { Search, Loader2, ShieldCheck, AlertTriangle, FileWarning, ArrowRight } from 'lucide-react';
+import { Search, Loader2, ShieldCheck, AlertTriangle, FileWarning, ArrowRight, ExternalLink, Key } from 'lucide-react';
+
+// Real case studies from docs/case-studies/
+const CASE_STUDIES = [
+    {
+        repo: 'calcom/cal.com',
+        url: 'https://github.com/calcom/cal.com',
+        stars: '35K+',
+        files: 7302,
+        totalFindings: 1469,
+        errors: 277,
+        warnings: 492,
+        info: 700,
+        duration: '~2s',
+        agents: ['SSOT Auditor'],
+        highlight: 'Named-type duplication across 7K+ TS files. PageProps duplicated in 38 files.',
+        healthScore: 71,
+        reportUrl: 'https://github.com/enioxt/egos-lab/blob/main/docs/case-studies/calcom.md',
+    },
+    {
+        repo: 'documenso/documenso',
+        url: 'https://github.com/documenso/documenso',
+        stars: '8K+',
+        files: 1662,
+        totalFindings: 1053,
+        errors: 52,
+        warnings: 129,
+        info: 872,
+        duration: '<1s',
+        agents: ['SSOT Auditor', 'Auth Roles Checker'],
+        highlight: '47% of API routes lack auth checks. Field meta types duplicated in 5+ files.',
+        healthScore: 63,
+        reportUrl: 'https://github.com/enioxt/egos-lab/blob/main/docs/case-studies/documenso.md',
+    },
+];
 
 export default function AuditHub() {
     const [repoUrl, setRepoUrl] = useState('');
@@ -158,25 +192,51 @@ export default function AuditHub() {
                         </p>
                     </div>
 
-                    <div style={{ padding: '24px', background: 'rgba(99, 102, 241, 0.05)', borderRadius: '12px', border: '1px solid rgba(99, 102, 241, 0.2)', gridColumn: '1 / -1' }}>
-                        <div style={{ color: '#a5b4fc', marginBottom: '12px', fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            🚀 Provado em Produção
+                    {/* Real Case Study Reports */}
+                    <div style={{ gridColumn: '1 / -1' }}>
+                        <div style={{ color: '#a5b4fc', marginBottom: '16px', fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            🚀 Relatórios Reais — Repositórios Open-Source Auditados
                         </div>
-                        <p style={{ margin: 0, color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', lineHeight: 1.6 }}>
-                            Nossos agentes já auditaram grandes repositórios open-source do mundo real gerando relatórios completos da arquitetura atual deles:
-                            <br />
-                            <strong style={{ color: '#fff' }}>Medusa</strong> (2.427 findings), <strong style={{ color: '#fff' }}>Cal.com</strong> (1.469 findings), <strong style={{ color: '#fff' }}>Documenso</strong> (1.012 findings) e <strong style={{ color: '#fff' }}>tRPC</strong> (388 findings).
-                        </p>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+                            {CASE_STUDIES.map((cs) => (
+                                <div key={cs.repo} style={{ background: 'rgba(99, 102, 241, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '12px', padding: '20px' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                                        <div>
+                                            <div style={{ fontWeight: 700, color: '#fff', fontSize: '0.95rem', fontFamily: 'monospace' }}>{cs.repo}</div>
+                                            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', marginTop: '2px' }}>⭐ {cs.stars} · {cs.files.toLocaleString()} arquivos</div>
+                                        </div>
+                                        <div style={{ textAlign: 'right' }}>
+                                            <div style={{ fontSize: '1.4rem', fontWeight: 700, color: cs.healthScore >= 70 ? '#f59e0b' : '#ef4444' }}>{cs.healthScore}%</div>
+                                            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem' }}>Health</div>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '8px', marginBottom: '10px', flexWrap: 'wrap' }}>
+                                        <span style={{ padding: '2px 8px', borderRadius: '4px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#ef4444', fontSize: '0.75rem', fontWeight: 600 }}>{cs.errors} erros</span>
+                                        <span style={{ padding: '2px 8px', borderRadius: '4px', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)', color: '#f59e0b', fontSize: '0.75rem', fontWeight: 600 }}>{cs.warnings} avisos</span>
+                                        <span style={{ padding: '2px 8px', borderRadius: '4px', background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)', color: '#60a5fa', fontSize: '0.75rem', fontWeight: 600 }}>{cs.info} info</span>
+                                    </div>
+                                    <p style={{ margin: '0 0 12px 0', color: 'rgba(255,255,255,0.6)', fontSize: '0.82rem', lineHeight: 1.5 }}>{cs.highlight}</p>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>⏱ {cs.duration} · {cs.agents.join(', ')}</span>
+                                        <a href={cs.reportUrl} target="_blank" rel="noopener noreferrer"
+                                            style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#a5b4fc', fontSize: '0.8rem', fontWeight: 600, textDecoration: 'none' }}>
+                                            Ver relatório <ExternalLink size={12} />
+                                        </a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
+                    {/* API Access — BYOK (x402 pivoted) */}
                     <div style={{ padding: '24px', background: 'rgba(16, 185, 129, 0.05)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)', gridColumn: '1 / -1' }}>
                         <div style={{ color: '#34d399', marginBottom: '12px', fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            🤖 API Access & Agentic Payments (x402)
+                            <Key size={16} /> Acesso via API — Bring Your Own Key (BYOK)
                         </div>
                         <p style={{ margin: 0, color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', lineHeight: 1.6 }}>
-                            A arquitetura da EGOS foi construída para a economia Machine-to-Machine. Nossas APIs utilizam o protocolo <strong>HTTP 402 (Payment Required)</strong> via Coinbase / Solana.
+                            Conecte sua própria chave de IA (OpenRouter, OpenAI, Anthropic) para rodar audits ilimitados. Sem cadastro, sem cobrança por uso — você traz sua chave, o EGOS orquestra os agentes.
                             <br /><br />
-                            Disponibilizamos endpoints com <strong>Zero Friction & Zero KYC</strong> (sem criação de contas ou chaves de API). Outros agentes ou desenvolvedores podem pagar instânea e autonomamente em Crypto (USDC) pelo uso da nossa frota de orquestração AI.
+                            <strong>Endpoint:</strong> <code style={{ background: 'rgba(255,255,255,0.08)', padding: '2px 6px', borderRadius: '4px' }}>POST /api/run-audit</code> — aceita URL pública ou token PAT para repositórios privados.
                         </p>
                     </div>
                 </div>

@@ -211,16 +211,13 @@ function LoginContent() {
         }
     };
 
-    // Handle login
+    // Handle login — email-only flow
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
         setLoading(true);
 
-        const normalizedPhone = normalizePhone(phone);
-        const loginPayload = loginMode === 'email'
-            ? { email: email.trim().toLowerCase(), password, rememberMe }
-            : { phone: normalizedPhone, password, rememberMe };
+        const loginPayload = { email: email.trim().toLowerCase(), password, rememberMe };
 
         try {
             const res = await fetch('/api/v2/auth/login', {
@@ -261,13 +258,12 @@ function LoginContent() {
             // Success!
             setSuccess(`Bem-vindo, ${data.member?.name || memberName}!`);
             
-            // Also save to localStorage for legacy compatibility
+            // Save to localStorage for legacy compatibility
             if (data.member) {
                 localStorage.setItem('intelink_member_id', data.member.id);
                 localStorage.setItem('intelink_username', data.member.name);
                 localStorage.setItem('intelink_role', data.member.role);
-                localStorage.setItem('intelink_phone', normalizedPhone);
-                localStorage.setItem('intelink_chat_id', normalizedPhone);
+                localStorage.setItem('intelink_email', email.trim().toLowerCase());
             }
 
             setTimeout(() => router.push(returnUrl), 1500);
@@ -484,80 +480,29 @@ function LoginContent() {
                         </div>
                     )}
 
-                    {/* Step: Phone or Email */}
+                    {/* Step: Email */}
                     {step === 'phone' && (
-                        <form onSubmit={loginMode === 'phone' ? handlePhoneSubmit : handleEmailSubmit}>
-                            {/* Toggle: Phone / Email */}
-                            <div className="flex mb-4 bg-slate-900/50 rounded-lg p-1 border border-slate-700">
-                                <button
-                                    type="button"
-                                    onClick={() => { setLoginMode('phone'); setError(''); }}
-                                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-colors ${
-                                        loginMode === 'phone'
-                                            ? 'bg-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-                                            : 'text-slate-400 hover:text-slate-300'
-                                    }`}
-                                >
-                                    <Phone className="w-4 h-4" /> Telefone
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => { setLoginMode('email'); setError(''); }}
-                                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-colors ${
-                                        loginMode === 'email'
-                                            ? 'bg-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-                                            : 'text-slate-400 hover:text-slate-300'
-                                    }`}
-                                >
-                                    <Mail className="w-4 h-4" /> Email
-                                </button>
+                        <form onSubmit={handleEmailSubmit}>
+                            <div className="mb-4">
+                                <label className="block text-sm text-slate-400 mb-2">Email de Acesso</label>
+                                <div className="relative">
+                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="seu@email.com"
+                                        className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none"
+                                        autoFocus
+                                        autoComplete="email"
+                                        name="email"
+                                    />
+                                </div>
                             </div>
-
-                            {loginMode === 'phone' ? (
-                                <div className="mb-4">
-                                    <label className="block text-sm text-slate-400 mb-2">Telefone</label>
-                                    <div className="relative">
-                                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                                        <input
-                                            type="hidden"
-                                            name="username"
-                                            autoComplete="username"
-                                            value={normalizePhone(phone)}
-                                        />
-                                        <input
-                                            type="tel"
-                                            value={phone}
-                                            onChange={handlePhoneChange}
-                                            placeholder="(00) 00000-0000"
-                                            className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none"
-                                            autoFocus
-                                            autoComplete="tel"
-                                            name="phone"
-                                        />
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="mb-4">
-                                    <label className="block text-sm text-slate-400 mb-2">Email</label>
-                                    <div className="relative">
-                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                                        <input
-                                            type="email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="seu@email.com"
-                                            className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none"
-                                            autoFocus
-                                            autoComplete="email"
-                                            name="email"
-                                        />
-                                    </div>
-                                </div>
-                            )}
 
                             <button
                                 type="submit"
-                                disabled={loading || (loginMode === 'phone' ? !phone : !email)}
+                                disabled={loading || !email}
                                 className="w-full py-3 bg-cyan-600 hover:bg-cyan-700 disabled:bg-slate-600 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
                             >
                                 {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Continuar'}
@@ -573,11 +518,11 @@ function LoginContent() {
                                 type="hidden"
                                 name="username"
                                 autoComplete="username"
-                                value={normalizePhone(phone)}
+                                value={email}
                             />
                             <div className="mb-4 p-3 bg-slate-700/50 rounded-lg">
                                 <p className="text-slate-400 text-sm">Olá, <span className="text-white font-medium">{memberName}</span></p>
-                                <p className="text-slate-500 text-xs">{loginMode === 'email' ? email : formatPhone(normalizePhone(phone))}</p>
+                                <p className="text-slate-500 text-xs">{email}</p>
                             </div>
 
                             <div className="mb-4">
