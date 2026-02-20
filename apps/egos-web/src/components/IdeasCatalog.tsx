@@ -107,7 +107,7 @@ const ALL_ITEMS: ProjectItem[] = [
     id: 'agentic-platform',
     name: 'Plataforma de Agentes',
     description: '15 agentes autônomos + orchestrador — auditam, testam e evoluem codebases com 5 camadas de verificação.',
-    details: 'SSOT Auditor, Security Scanner, Auth Checker, Cortex Reviewer, Dep Auditor, Dead Code Detector, Idea Scanner, Rho Calculator, Knowledge Disseminator, UI Designer, Contract Tester, Integration Tester, Regression Watcher, AI Verifier, E2E Smoke. Orchestrador roda todos e gera relatório combinado. 4 case studies: Documenso (1012), Cal.com (1469), tRPC (388), Medusa (2427 findings). Zero dependências externas, roda em qualquer projeto TS.',
+    details: 'System Prompt Auditor, Security Scanner, Auth Checker, Cortex Reviewer, Dep Auditor, Dead Code Detector, Idea Scanner, Rho Calculator, Knowledge Disseminator, UI Designer, Contract Tester, Integration Tester, Regression Watcher, AI Verifier, E2E Smoke. Orchestrador roda todos e gera relatório combinado. 4 case studies: Documenso (1012), Cal.com (1469), tRPC (388), Medusa (2427 findings). Zero dependências externas, roda em qualquer projeto TS.',
     icon: Bot,
     status: 'live',
     category: 'agent',
