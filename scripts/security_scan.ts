@@ -40,9 +40,12 @@ const SECRET_PATTERNS = [
 // Look for assignments like: const apiKey = "..."
 const HEURISTIC_REGEX = /(?:api_key|apikey|secret|token|password|auth|credential)s?\s*[:=]\s*['"`]([a-zA-Z0-9_\-]{8,})['"`]/gi;
 
+// 🛑 Prompt Injection (Jailbreak) Patterns (APEX-SECURE)
+const JAILBREAK_REGEX = /(?:ignore\s+all\s+previous\s+instructions|forget\s+everything|bypass\s+rules|developer\s+mode|dan\s+prompt|hypothetical\s+response)/gi;
+
 // 📂 Dirs to Ignore
 const IGNORE_DIRS = ["node_modules", ".git", "dist", "output", ".next", "coverage", ".vercel"];
-const IGNORE_FILES = [".env", ".env.local", "pnpm-lock.yaml", "bun.lockb", "yarn.lock", "package-lock.json", "security_scan.ts", "MANIFEST.md"];
+const IGNORE_FILES = [".env", ".env.local", "pnpm-lock.yaml", "bun.lockb", "yarn.lock", "package-lock.json", "security_scan.ts", "MANIFEST.md", "APEX_SECURE_PATTERNS.md", "RED_TEAM_PROMPT_V1.md", "ai-verifier.ts", "executor.ts"];
 
 async function scanDirectory(dir: string): Promise<number> {
     let issues = 0;
@@ -71,7 +74,7 @@ async function scanDirectory(dir: string): Promise<number> {
                     }
                 }
 
-                // 2. Check Heuristics & Entropy
+                // 2. Check Heuristics & Entropy (APEX-SECURE Shield)
                 let match;
                 while ((match = HEURISTIC_REGEX.exec(content)) !== null) {
                     const potentialSecret = match[1];
@@ -80,9 +83,17 @@ async function scanDirectory(dir: string): Promise<number> {
                     // Entropy threshold: 4.5 is a good baseline for random base64/hex strings
                     // Normal text usually has entropy < 4.0
                     if (entropy > 4.5 && potentialSecret.length > 12) {
-                        console.warn(`${YELLOW}⚠️  [SUSPICIOUS] High entropy string (${entropy.toFixed(2)}) assigned to '${match[0].substring(0, 15)}...' in ${fullPath}${RESET}`);
-                        // We warn but don't fail immediately unless strict mode is on, to avoid noise.
-                        // For this run, let's treat it as a warning.
+                        console.error(`${RED}🚨 [CRITICAL] High entropy obfuscated string (${entropy.toFixed(2)}) assigned to '${match[0].substring(0, 15)}...' in ${fullPath}${RESET}`);
+                        issues++; // APEX-SECURE: Block mathematically obfuscated strings from committing
+                    }
+                }
+
+                // 3. Check for Prompt Injection / Jailbreaks (APEX-SECURE Firewall)
+                if (/\.(ts|tsx|js|jsx|md|txt)$/i.test(entry.name)) {
+                    let jbMatch;
+                    while ((jbMatch = JAILBREAK_REGEX.exec(content)) !== null) {
+                        console.error(`${RED}🚨 [JAILBREAK] Malicious prompt injection pattern found: \"${jbMatch[0]}\" in ${fullPath}${RESET}`);
+                        issues++;
                     }
                 }
 

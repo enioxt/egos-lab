@@ -105,14 +105,17 @@ git push origin main --no-verify
 ## SECURITY
 
 - **API Keys:** NEVER hardcode. Use `.env`. Server-side via Vercel proxy.
-- **Pre-commit:** `scripts/security_scan.ts` + `scripts/ssot_governance.ts` run automatically.
+- **Pre-commit:** `scripts/hooks/entropy-check.js` runs automatically to calculate math entropy (H > 4.5) and blocks Base64/Obfuscated secrets from entering tracking.
 - **Pre-push:** `.husky/pre-push` runs Vite build — blocks failed deploys.
 - **Recursion:** MAX_DEPTH ~50. IGNORE_DIRS includes External/.
 - **PII:** Agents MUST mask CPF/email in all output.
+- **Volumetric DoS (APEX-SECURE):** Any API route handling heavy processing MUST use a localized `auditLimiter` (e.g. 3/min) AND strictly cap incoming `JSON.stringify(req.body).length` to prevent Serverless/Worker extortion.
+- **Prompt Injection Firewall (APEX-SECURE):** Any system ingesting external text/repos MUST sanitize input for jailbreak patterns (`ignore previous`, etc.) BEFORE passing it to LLM evaluation logic.
 
 ### DB Security Rules
 
 - **RLS ALWAYS ON:** Every new table MUST have `ENABLE ROW LEVEL SECURITY`.
+- **Strict UUID Spoofing Prevention (APEX-SECURE):** Every RLS policy `FOR INSERT` MUST use `WITH CHECK ((SELECT auth.uid()) = user_id)`. Every policy `FOR DELETE` MUST use `USING ((SELECT auth.uid()) = user_id)`. 
 - **No WITH CHECK (true):** Use `auth.role() = 'authenticated'` or `current_setting('role') = 'service_role'`.
 - **SET search_path:** Every function MUST include `SET search_path = public`.
 - **Extensions:** Install in `extensions` schema, never `public`.
@@ -136,3 +139,9 @@ GITHUB_TOKEN=         # GitHub API — server-side only
 VITE_SUPABASE_URL=    # Supabase (client-safe)
 VITE_SUPABASE_ANON_KEY= # Supabase anon (client-safe)
 ```
+
+
+## 🔄 Ambient Learned Rule (2026-02-20)
+## SECURITY
+
+- **Prompt Injection Firewall:** Any system ingesting external text/repos MUST sanitize input for jailbreak patterns (`ignore previous`, etc.) BEFORE passing it to LLM evaluation logic.

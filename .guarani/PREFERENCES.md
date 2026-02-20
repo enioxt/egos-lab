@@ -4,11 +4,13 @@
 
 ## Security (Non-Negotiable)
 
-1. **Pre-Commit:** `scripts/security_scan.ts` MUST pass
-2. **Secrets:** NO hardcoded keys. Use `.env`. Server-side via Vercel proxy
-3. **Recursion:** MAX_DEPTH ~50. IGNORE_DIRS includes External/
-4. **Dependencies:** Zero new packages without justification
-5. **PII:** Agents MUST mask CPF/email in all output
+1. **Pre-Commit (APEX-SECURE):** `scripts/hooks/entropy-check.js` MUST pass to mathematically block Base64/Obfuscated secrets from entering tracking (Shannon Entropy > 4.5).
+2. **Secrets:** NO hardcoded keys. Use `.env`. Server-side via Vercel proxy.
+3. **Volumetric DoS Limits (APEX-SECURE):** Any API route handling heavy processing MUST use `auditLimiter` (e.g. 3/min) AND strictly cap incoming `JSON.stringify(req.body).length` to prevent Serverless/Worker extortion.
+4. **Prompt Injection Firewall (APEX-SECURE):** Any system ingesting external text/repos MUST sanitize input for jailbreak patterns (`ignore previous`, etc.) BEFORE passing it to LLM evaluation logic.
+5. **Recursion:** MAX_DEPTH ~50. IGNORE_DIRS includes External/.
+6. **Dependencies:** Zero new packages without justification. High CVEs must be patched.
+7. **PII:** Agents MUST mask CPF/email in all output.
 
 ## Code Quality
 
@@ -61,3 +63,9 @@ Available in `.windsurf/workflows/`:
 - **Icons:** Use `lucide-react`.
 - **Motion:** Use `framer-motion` for animations.
 - **Theme:** Dark mode first (`slate-900`/`950` backgrounds).
+
+
+## 🔄 Ambient Learned Preference (2026-02-20)
+## Security (Non-Negotiable)
+
+6. **Prompt Injection Firewall (APEX-SECURE):** Any system ingesting external text/repos MUST sanitize input for jailbreak patterns (`ignore previous`, etc.) BEFORE passing it to LLM evaluation logic.

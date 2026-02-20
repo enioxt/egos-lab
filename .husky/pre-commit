@@ -3,3 +3,4 @@
 
 bun run scripts/security_scan.ts
 bun run scripts/ssot_governance.ts
+bun run scripts/disseminate.ts
