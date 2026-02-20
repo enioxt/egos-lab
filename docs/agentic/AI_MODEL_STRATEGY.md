@@ -40,9 +40,9 @@ These results come from our **initial test runs** against real repositories. We 
 
 | Model | Input/1M | Output/1M | Best For | Benchmark |
 |---|---|---|---|---|
-| `anthropic/claude-sonnet-4` | $3.00 | $15.00 | Deep code review, security | SOTA reasoning |
-| `google/gemini-2.5-pro` | $2.50 | $15.00 | Architecture analysis | Top coding benchmark |
-| `openai/gpt-4.1` | $2.00 | $8.00 | General analysis | Balanced |
+| `anthropic/claude-4.6-opus-thinking` | $15.00 | $75.00 | Deep code review, security | SOTA reasoning |
+| `google/gemini-3.1` | $5.00 | $20.00 | Architecture analysis | Top coding benchmark |
+| `openai/gpt-5.3` | $10.00 | $30.00 | General analysis | Balanced |
 | `openai/o3-pro` | $20.00 | $80.00 | Complex reasoning | Frontier math/code |
 
 ### 🥇 Tier A — Professional
@@ -80,7 +80,7 @@ These results come from our **initial test runs** against real repositories. We 
 
 | Tier | Per Audit | 100 Audits/mo | 1000 Audits/mo |
 |---|---|---|---|
-| **S (Claude Sonnet 4)** | ~$0.23 | ~$23 | ~$230 |
+| **S (Claude 4.6 Opus)** | ~$0.90 | ~$90 | ~$900 |
 | **A (Gemini 2.5 Flash)** | ~$0.01 | ~$1.10 | ~$11 |
 | **B (Gemini 2.0 Flash)** | ~$0.007 | ~$0.70 | ~$7 |
 | **C (Free models)** | $0.00 | $0.00 | $0.00 |
@@ -95,8 +95,8 @@ These results come from our **initial test runs** against real repositories. We 
 | Dead Code Detector | Static | Static | AST analysis, no AI needed |
 | Security Scanner | Static | + AI Layer (Tier A) | AI can detect context-dependent vulns |
 | Code Reviewer | Gemini 2.0 Flash | Gemini 2.5 Flash/Pro | Deeper analysis with better model |
-| AI Verifier | Gemini 2.0 Flash | Claude Sonnet 4 | Adversarial testing needs top reasoning |
-| UI Designer | Gemini 2.0 Flash | Gemini 2.5 Pro | Better design understanding |
+| AI Verifier | Gemini 2.0 Flash | Claude 4.6 Opus Thinking | Adversarial testing needs top reasoning |
+| UI Designer | Gemini 2.0 Flash | Gemini 3.1 | Better design understanding |
 | Auth Checker | Static | + AI Layer (Tier S) | Can detect complex auth bypass patterns |
 
 ---
