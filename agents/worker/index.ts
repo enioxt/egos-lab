@@ -11,6 +11,9 @@
  */
 
 import { createClient, type RedisClientType } from 'redis';
+import { createSandbox, destroySandbox, listSandboxes } from './sandbox';
+import { executeAgents } from './executor';
+import { aggregateResults, toSupabaseRow, type AuditReport } from './aggregator';
 
 // --- Configuration ---
 
@@ -52,6 +55,11 @@ interface AgentResult {
     durationMs: number;
     completedAt: string;
     error?: string;
+    findingsCount?: {
+        errors: number;
+        warnings: number;
+        info: number;
+    };
 }
 
 // --- Metrics ---
@@ -141,6 +149,9 @@ async function saveResultToSupabase(result: AgentResult): Promise<void> {
                 repo_url: result.repoUrl,
                 status: result.status,
                 health_score: result.health,
+                findings_errors: result.findingsCount?.errors || 0,
+                findings_warnings: result.findingsCount?.warnings || 0,
+                findings_info: result.findingsCount?.info || 0,
                 duration_ms: result.durationMs,
                 completed_at: result.completedAt,
                 error_message: result.error,
@@ -250,33 +261,65 @@ async function processTask(task: AgentTask): Promise<AgentResult> {
     const start = performance.now();
     log('info', 'Processing task', { taskId: task.id, agent: task.agentId, repo: task.repoUrl });
 
-    try {
-        // TODO: Replace with real agent orchestrator
-        // Phase 3: Import and run actual agents from ../runtime/runner.ts
-        const result = await Promise.race([
-            (async () => {
-                await new Promise(r => setTimeout(r, 2000 + Math.random() * 4000));
-                return {
-                    taskId: task.id,
-                    agentId: task.agentId,
-                    repoUrl: task.repoUrl,
-                    status: 'success' as const,
-                    health: Math.round(75 + Math.random() * 20),
-                    durationMs: Math.round(performance.now() - start),
-                    completedAt: new Date().toISOString(),
-                };
-            })(),
-            new Promise<AgentResult>((_, reject) =>
-                setTimeout(() => reject(new Error('Task timeout')), TASK_TIMEOUT_MS)
-            ),
-        ]);
+    let sandboxPath: string | null = null;
 
+    try {
+        // Update task status in Redis
+        await redisPub.set(`agent:task:${task.id}:status`, 'cloning', { EX: 3600 });
+
+        // Layer 1: Clone the repo into a sandbox
+        log('info', 'Creating sandbox', { taskId: task.id, repo: task.repoUrl });
+        const sandbox = await createSandbox(task.repoUrl, task.id.replace(/[^a-zA-Z0-9]/g, '').slice(0, 12));
+        sandboxPath = sandbox.path;
+        log('info', 'Sandbox created', {
+            taskId: task.id,
+            path: sandbox.path,
+            cloneMs: sandbox.cloneDurationMs,
+            sizeMB: sandbox.sizeMB,
+        });
+
+        // Layer 2: Run agents against the sandbox
+        await redisPub.set(`agent:task:${task.id}:status`, 'analyzing', { EX: 3600 });
+        const agentResults = await executeAgents(sandbox.path, undefined, task.mode);
+        log('info', 'Agents completed', {
+            taskId: task.id,
+            total: agentResults.length,
+            passed: agentResults.filter(r => r.status === 'pass').length,
+            failed: agentResults.filter(r => r.status === 'fail').length,
+        });
+
+        // Layer 3: Aggregate results
+        const report = aggregateResults(agentResults, task.id, task.repoUrl, task.mode);
+        log('info', 'Report aggregated', {
+            taskId: task.id,
+            healthScore: report.healthScore,
+            totalFindings: report.totalFindings,
+        });
+
+        await redisPub.set(`agent:task:${task.id}:status`, 'complete', { EX: 3600 });
         metrics.tasksSucceeded++;
-        return result;
+
+        return {
+            taskId: task.id,
+            agentId: task.agentId,
+            repoUrl: task.repoUrl,
+            status: 'success',
+            health: report.healthScore,
+            durationMs: Math.round(performance.now() - start),
+            completedAt: report.completedAt,
+            findingsCount: {
+                errors: report.findingsByLevel.errors,
+                warnings: report.findingsByLevel.warnings,
+                info: report.findingsByLevel.info,
+            },
+        };
     } catch (err: any) {
         const isTimeout = err.message === 'Task timeout';
         if (isTimeout) metrics.tasksTimedOut++;
         else metrics.tasksFailed++;
+
+        log('error', 'Task failed', { taskId: task.id, error: err.message });
+        await redisPub.set(`agent:task:${task.id}:status`, 'failed', { EX: 3600 }).catch(() => { });
 
         return {
             taskId: task.id,
@@ -290,6 +333,14 @@ async function processTask(task: AgentTask): Promise<AgentResult> {
     } finally {
         metrics.tasksProcessed++;
         metrics.lastTaskAt = new Date().toISOString();
+
+        // ALWAYS cleanup sandbox, even on error
+        if (sandboxPath) {
+            await destroySandbox(sandboxPath).catch(e =>
+                log('error', 'Sandbox cleanup failed', { path: sandboxPath, error: e.message })
+            );
+            log('info', 'Sandbox cleaned up', { taskId: task.id });
+        }
     }
 }
 
