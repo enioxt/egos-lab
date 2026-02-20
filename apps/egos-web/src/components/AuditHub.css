@@ -1,0 +1,333 @@
+/* --- AuditHub.css — Self-Service Audit UI --- */
+
+:root {
+  --audit-green: #10b981;
+  --audit-red: #ef4444;
+  --audit-yellow: #f59e0b;
+  --audit-blue: #3b82f6;
+  --audit-muted: #64748b;
+  --audit-surface: rgba(255, 255, 255, 0.04);
+  --audit-border: rgba(255, 255, 255, 0.08);
+}
+
+.audit-hub {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.audit-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.audit-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.audit-subtitle {
+  font-size: 0.85rem;
+  color: var(--audit-muted);
+  line-height: 1.5;
+}
+
+.audit-disclaimer {
+  font-size: 0.75rem;
+  color: var(--audit-yellow);
+  opacity: 0.8;
+}
+
+/* Input row */
+.audit-input-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.audit-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: var(--audit-surface);
+  border: 1px solid var(--audit-border);
+  border-radius: 10px;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.audit-input:focus {
+  border-color: var(--audit-blue);
+}
+
+.audit-input:disabled {
+  opacity: 0.5;
+}
+
+.audit-submit-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--audit-blue), #6366f1);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+
+.audit-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.audit-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Polling */
+.audit-polling {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--audit-surface);
+  border-radius: 10px;
+  border: 1px solid var(--audit-border);
+  color: var(--audit-blue);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  animation: audit-pulse 2s ease-in-out infinite;
+}
+
+@keyframes audit-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.audit-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-top-color: var(--audit-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error */
+.audit-error {
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  color: var(--audit-red);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+/* Summary card */
+.audit-summary-card {
+  background: var(--audit-surface);
+  border: 1px solid var(--audit-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.audit-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.audit-repo-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.audit-health {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.audit-stats-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.audit-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.audit-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.audit-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--audit-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Agent cards grid */
+.audit-agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+}
+
+.audit-agent-card {
+  background: var(--audit-surface);
+  border: 1px solid var(--audit-border);
+  border-left: 3px solid var(--audit-muted);
+  border-radius: 8px;
+  padding: 0.85rem;
+  transition: transform 0.15s;
+}
+
+.audit-agent-card:hover {
+  transform: translateY(-2px);
+}
+
+.audit-agent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.audit-agent-time {
+  font-size: 0.72rem;
+  color: var(--audit-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.audit-agent-findings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.audit-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.audit-badge.critical {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--audit-red);
+}
+
+.audit-badge.error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.audit-badge.warn {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--audit-yellow);
+}
+
+.audit-badge.info {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--audit-blue);
+}
+
+.audit-badge.clean {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--audit-green);
+}
+
+.audit-agent-error {
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--audit-red);
+  opacity: 0.8;
+}
+
+/* Recent audits */
+.audit-recent {
+  margin-top: 1.5rem;
+}
+
+.audit-recent h4 {
+  font-size: 0.85rem;
+  color: var(--audit-muted);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.audit-recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.audit-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--audit-surface);
+  border: 1px solid var(--audit-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.audit-recent-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.audit-recent-repo {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #e2e8f0;
+}
+
+.audit-recent-score {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.audit-recent-date {
+  font-size: 0.72rem;
+  color: var(--audit-muted);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .audit-input-row {
+    flex-direction: column;
+  }
+  .audit-agents-grid {
+    grid-template-columns: 1fr;
+  }
+  .audit-stats-row {
+    justify-content: space-around;
+  }
+}

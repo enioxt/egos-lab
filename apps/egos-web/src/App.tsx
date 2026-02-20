@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Network, Bot, GitCommit, MessageCircle, Lightbulb, Shield, Lock } from 'lucide-react'
+import { Network, Bot, GitCommit, MessageCircle, Lightbulb, Shield, Lock, Search } from 'lucide-react'
 import HeroSection from './components/HeroSection'
 import EcosystemGrid from './components/EcosystemGrid'
 import CollapsibleSection from './components/CollapsibleSection'
@@ -15,6 +15,7 @@ const ActivityStream = lazy(() => import('./components/ActivityStream'))
 const IdeasCatalog = lazy(() => import('./components/IdeasCatalog'))
 const ListeningSpiral = lazy(() => import('./components/ListeningSpiral'))
 const SecurityHub = lazy(() => import('./components/SecurityHub'))
+const AuditHub = lazy(() => import('./components/AuditHub'))
 
 function SectionLoader() {
   return <div className="section-loader"><div className="loader-pulse" /></div>
@@ -44,6 +45,20 @@ function App() {
         defaultOpen={true}
       >
         <EcosystemGrid />
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        id="audit-hub"
+        icon={<Search size={18} />}
+        title="Audit Hub"
+        subtitle="Cole a URL do seu GitHub e receba análise completa de 14 agentes"
+        badge="BETA"
+        badgeColor="#3b82f6"
+        defaultOpen={true}
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <AuditHub />
+        </Suspense>
       </CollapsibleSection>
 
       <CollapsibleSection
