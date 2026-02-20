@@ -1,0 +1,32 @@
+  ,
+  {
+    "id": "domain_explorer",
+    "name": "Domain Explorer (Descript Engine)",
+    "area": "architecture",
+    "description": "Transforms any complex real-world domain into scalable primitives, tools, and DB models.",
+    "owner": "enioxt",
+    "risk_level": "low",
+    "entrypoint": "agents/agents/domain_explorer.ts",
+    "tools_allowed": [
+      "ai:analyze",
+      "web:search"
+    ],
+    "data_access": {
+      "pii": false,
+      "secrets_scan": false
+    },
+    "triggers": [
+      "manual"
+    ],
+    "memory_mode": "session",
+    "eval_suite": [
+      "evals/domain_explorer.json"
+    ],
+    "run_modes": [
+      "dry_run",
+      "execute"
+    ],
+    "status": "active"
+  }
+]
+}

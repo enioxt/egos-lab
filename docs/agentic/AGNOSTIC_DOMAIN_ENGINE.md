@@ -1,63 +1,166 @@
-# The Agnostic Domain-to-Solution Engine (The "Descript" Revelation)
+# The Agnostic Domain-to-Solution Engine
 
-> **DATE:** 2026-02-20
-> **STATUS:** Conceptual / Foundation
-> **VISION:** Transform ANY domain into a powerful, scalable software solution through iterative agentic discovery and implementation.
+> **VERSION:** 2.0.0 | **UPDATED:** 2026-02-20
+> **STATUS:** Foundation (domain_explorer operational, pipeline designed)
+> **AGENT:** `agents/agents/domain_explorer.ts` | **WORKFLOW:** `.windsurf/workflows/domain.md`
 
-## 1. The Revelation: How Did Descript Do It?
+## 1. The Descript Pattern (What We Actually Learned)
 
-O usuário observou a interface web do Descript (um editor de vídeo completo rodando suavemente no navegador) e teve uma epifania: *"Como eles conseguiram isso? Várias IAs procurando novas features e implementando? Serve pra qualquer assunto?"*
+Descript didn't use AI to write their product. They applied a **structural insight** that's universally replicable:
 
-**O Segredo do Descript (O que eles fizeram no passado):**
-A resposta não é que eles usaram IAs para escrever o código (eles começaram antes do boom da IA generativa), mas sim a **Arquitetura de Primitivas**. Eles pegaram um domínio ultra-complexo (edição de áudio e vídeo, FFmpeg, renderização), mapearam todas as operações básicas (cortar, transcrever, sobrepor, exportar) e criaram um banco de dados estruturado (o Notion deles) que gerencia isso. Eles transformaram a edição de vídeo em edição de texto.
+### The Formula
 
-**A Sua Epifania (O que NÓS podemos fazer agora no EGOS-lab):**
-Sim, você está 100% correto. Com a plataforma de agentes do EGOS-lab, nós podemos **automatizar a própria descoberta e implementação** que levou anos para o Descript. 
-Nós podemos criar uma máquina (Engine) onde você insere um domínio (ex: "Edição de Vídeo", "Registro de Marcas no INPI", "Gestão de Autoescolas"), e múltiplas IAs trabalham em pipeline para:
-1. Mapear o domínio inteiro (todas as features possíveis, ferramentas de baixo nível como FFmpeg).
-2. Reduzir a complexidade em "Primitivas" (blocos de montar).
-3. Projetar a arquitetura (banco de dados, UI).
-4. Gerar e iterar o código.
-
-## 2. The Engine: Architecture for Agnostic Domain Generation
-
-Para que isso seja "fácil, escalável, leve e agnóstico", precisamos construir a **Domain-to-Solution Engine** (ou Nexus Forge) dentro do EGOS-lab.
-
-### Pipeline de Iteração Contínua (O Fluxo de Trabalho)
-
-```mermaid
-graph TD
-    A[1. Ingestão do Domínio] --> B[2. Explorador de Domínio Agent]
-    B --> C[3. Arquiteto de Primitivas Agent]
-    C --> D[4. UX/UI Designer Agent]
-    D --> E[5. Code Generator Agent]
-    E --> F[6. SSOT & Testes]
-    F --> |Iteração| B
+```
+Complex Domain → Identify SSOT Abstraction → Map to Existing Tools → Build Clean UI on Top
 ```
 
-### Os Novos Agentes (A serem adicionados ao `agents.json`)
+**Descript's specific implementation:**
 
-1. **domain_explorer (O Pesquisador):**
-   - **Input:** Uma palavra ou frase ("Despachante de Trânsito", "Editor de Vídeo").
-   - **Ação:** Usa ferramentas de busca web (Exa/Tavily) e documentação para extrair TODAS as features possíveis, ferramentas open-source existentes, e dores dos usuários.
-   - **Output:** Um JSON/Markdown massivo com a taxonomia do domínio.
+| Layer | What Descript Did | Universal Pattern |
+|-------|-------------------|-------------------|
+| **SSOT** | Transcript = source of truth for video | Every domain has ONE abstraction that governs everything |
+| **Engine** | FFmpeg (stable, 20+ years) | Don't reinvent — find the CLI/lib that already does it |
+| **Orchestration** | Temporal (Go SDK, unit-testable workflows) | Multi-stage async pipelines with retry + observability |
+| **Culture** | Notion databases (structured, queryable) | Rules and processes must be data, not documents |
+| **AI Layer** | Underlord (agent for editing) | AI operates on the SSOT, not on raw media |
 
-2. **primitive_architect (O Redutor de Complexidade):**
-   - **Input:** A taxonomia do domínio.
-   - **Ação:** Transforma centenas de features em blocos de montar simples. (Ex: Em vez de programar 50 efeitos de vídeo diferentes, ele descobre que todos usam a tag `-vf` do FFmpeg).
-   - **Output:** Estrutura de dados (Tabelas do Supabase, Interfaces TypeScript).
+### What made Descript's approach work
 
-3. **solution_iterator (O Construtor Contínuo):**
-   - **Ação:** Pega a base e, de forma contínua e autônoma, vai injetando novas features no código-fonte do projeto alvo, rodando testes, e validando se quebrou algo.
+1. **Transcript-as-SSOT**: Editing text = editing video. The transcript is the single representation that drives all downstream operations. FFmpeg commands are *generated* from transcript edits.
 
-## 3. Por Que Isso é o "Santo Graal"?
+2. **Temporal for orchestration**: They migrated from RabbitMQ + PostgreSQL + Node.js to Temporal (Go SDK). Production incidents dropped from **weekly to virtually zero**. Key: workflows-as-code that can be unit tested, not YAML/JSON configs.
 
-- **Agnóstico:** Não importa se é o INPI, o DETRAN, ou a Adobe. Tudo é informação. Se um domínio tem regras e processos, os agentes podem mapeá-lo e codificá-lo.
-- **Escalável:** O "teto" de desenvolvimento deixa de ser a quantidade de horas que você consegue programar, e passa a ser a sua capacidade de apontar o *Domain Explorer* para o problema certo.
-- **Leve:** Baseado na filosofia de Andrew Mason (CEO do Descript): "Tudo deve ser um banco de dados estruturado". O código gerado não tenta reinventar a roda, ele apenas cria interfaces limpas para ferramentas sólidas que já existem por baixo (como fizemos com o WebAssembly e o FFmpeg).
+3. **Specialized compute routing**: GPU workers for ML (Whisper, TTS), general workers for data processing, all orchestrated by Temporal task queues. Activity routing, not monolithic processing.
 
-## 4. Próximos Passos (Implementados hoje)
+4. **Progressive migration**: Feature flags to gradually shift workloads. Never a big-bang rewrite.
 
-- Criado a base do **Domain Explorer** na pasta `agents/agents/domain_explorer.ts`.
-- Adicionado o workflow `/domain` no `.windsurf/workflows/domain.md`.
-- Esse novo pipeline materializa qualquer domínio do zero e arquiteta soluções poderosas iterando.
+> Source: [Temporal case study](https://temporal.io/in-use/descript), Andrew Mason's Notion talk, Descript engineering blog
+
+## 2. EGOS vs Descript: SSOT Comparison
+
+| Dimension | Descript | EGOS | Gap |
+|-----------|---------|------|-----|
+| **Core SSOT** | Transcript (edit text → edit video) | `TASKS.md` + `agents.json` + `.windsurfrules` | EGOS has multiple SSOTs per concern — good |
+| **Orchestration** | Temporal (retry, persistence, parallel) | Sequential `orchestrator.ts` | No retry, no state persistence, no parallelism |
+| **Culture tracking** | Notion databases (structured, queryable) | Markdown files (static, manual) | Rules aren't queryable or versionable as data |
+| **Feedback loop** | Systematic (every ritual → measured outcome) | Ad-hoc (no Living Laboratory yet) | No experiment tracking |
+| **Testing** | Unit tests on Temporal workflows + E2E | 5-layer agent testing pyramid | EGOS is actually **ahead** here |
+| **Rule evolution** | "Culture is a product" — iterate like code | Rules manually edited | No agent proposes rule changes |
+| **Agent system** | Underlord (single AI agent) | 15 registered agents (specialized) | EGOS is **ahead** — multi-agent > single |
+
+**Where EGOS is ahead:**
+- Multi-agent architecture (15 specialized > 1 general)
+- AST-based structural analysis (ssot-auditor)
+- Agent-testing-agent pyramid (5 layers)
+- Cross-repo audit capability (ran on Documenso, Cal.com, tRPC, Medusa)
+
+**Where Descript is ahead:**
+- Workflow orchestration (Temporal >> sequential runner)
+- Culture-as-data (Notion databases >> markdown files)
+- SSOT-driven UI (transcript drives everything)
+- Production scale (150 people, $50M+)
+
+## 3. The Domain Engine Architecture
+
+### Pipeline
+
+```
+Input: "Video Editing" or "Transit Dispatch" or "Trademark Registration"
+                                    │
+                    ┌───────────────▼───────────────┐
+                    │     domain_explorer agent      │
+                    │  (AI + web search → taxonomy)  │
+                    └───────────────┬───────────────┘
+                                    │ DomainTaxonomy JSON
+                    ┌───────────────▼───────────────┐
+                    │   Output: docs/domains/*.json  │
+                    │   + docs/domains/*.md summary  │
+                    └───────────────────────────────┘
+```
+
+### DomainTaxonomy Schema
+
+```typescript
+interface DomainTaxonomy {
+  domain: string;
+  ssot_abstraction: string;     // THE key insight — what's the "transcript" for this domain?
+  core_primitives: Array<{
+    name: string;               // e.g. "trim", "transcribe", "denoise"
+    description: string;
+    underlying_tool: string;    // e.g. "FFmpeg -ss -to", "Whisper"
+    complexity: 'low' | 'medium' | 'high';
+  }>;
+  underlying_tools: Array<{
+    name: string;               // e.g. "FFmpeg"
+    url: string;
+    role: string;
+    maturity: 'stable' | 'growing' | 'experimental';
+  }>;
+  data_models: Array<{
+    entity: string;             // e.g. "Project", "Transcript", "Edit"
+    fields: string[];
+    relationships: string[];
+  }>;
+  suggested_mvp: Array<{
+    feature: string;
+    primitives_used: string[];
+    effort: 'small' | 'medium' | 'large';
+  }>;
+  descript_parallel: string;    // How this maps to Descript's pattern
+}
+```
+
+### Usage
+
+```bash
+# Dry-run (mock data, $0 cost)
+bun agent:run domain_explorer --dry
+
+# Real analysis (AI call, ~$0.001)
+bun agent:run domain_explorer --exec --domain "Trademark Registration"
+
+# Output goes to docs/domains/trademark-registration.json + .md
+```
+
+## 4. Applied Examples
+
+### Example: Carteira Livre (Transit Instructor Marketplace)
+
+| Layer | Mapping |
+|-------|---------|
+| **SSOT** | Instructor Profile + License Status |
+| **Engine** | DETRAN APIs, Asaas Payment API |
+| **Orchestration** | Next.js API routes (simple — single-user flows) |
+| **Primitives** | verify_cnh, match_student, process_payment, track_lesson |
+| **Data Models** | Instructor, Student, Lesson, Payment, Verification |
+
+### Example: Eagle Eye (OSINT Gazette Monitor)
+
+| Layer | Mapping |
+|-------|---------|
+| **SSOT** | Gazette Entry (structured procurement data) |
+| **Engine** | Querido Diário API (open gazette data) |
+| **Orchestration** | Cron + AI analysis pipeline |
+| **Primitives** | fetch_gazette, extract_entities, score_opportunity, alert |
+| **Data Models** | Gazette, Opportunity, Entity, Alert |
+
+## 5. Living Laboratory Integration
+
+The Domain Engine feeds into the Living Laboratory pattern:
+
+1. **Explore** → `domain_explorer` maps a new domain
+2. **Build** → Developer uses taxonomy to scaffold project
+3. **Measure** → Agents test the implementation
+4. **Learn** → Living Laboratory records what worked/failed
+5. **Evolve** → Rules update based on measured outcomes
+
+## 6. Roadmap
+
+- [x] `domain_explorer` agent (operational, dry-run + execute)
+- [x] `/domain` workflow
+- [x] DomainTaxonomy JSON schema
+- [x] Markdown report generation
+- [ ] `primitive_architect` agent (takes taxonomy → generates Supabase schema + TypeScript interfaces)
+- [ ] `solution_scaffolder` agent (generates project skeleton from taxonomy)
+- [ ] Web search integration (Exa) for real-time domain research
+- [ ] Taxonomy versioning (track how understanding of a domain evolves)

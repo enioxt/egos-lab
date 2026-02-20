@@ -514,13 +514,14 @@
       "id": "domain_explorer",
       "name": "Domain Explorer",
       "area": "architecture",
-      "description": "Transforms complex domains into primitives",
+      "description": "Agnostic domain-to-primitives mapper (Descript Pattern): decomposes any complex domain into SSOT abstraction, core primitives, underlying tools, data models, and MVP features",
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/domain_explorer.ts",
       "tools_allowed": [
         "ai:analyze",
-        "web:search"
+        "web:search",
+        "filesystem:write"
       ],
       "data_access": {
         "pii": false,
@@ -532,6 +533,38 @@
       "memory_mode": "session",
       "eval_suite": [
         "evals/domain_explorer.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "living_laboratory",
+      "name": "Living Laboratory",
+      "area": "architecture",
+      "description": "Experiment tracking + rule evolution engine (Descript 'Culture as Product' pattern): analyzes git patterns, agent logs, and proposes rule updates to .windsurfrules and PREFERENCES.md",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "agents/agents/living-laboratory.ts",
+      "tools_allowed": [
+        "git:read",
+        "filesystem:read",
+        "filesystem:write"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "session-end",
+        "weekly",
+        "manual"
+      ],
+      "memory_mode": "persistent",
+      "eval_suite": [
+        "evals/living_laboratory.json"
       ],
       "run_modes": [
         "dry_run",

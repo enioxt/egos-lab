@@ -404,10 +404,24 @@
 ### EAGLE-EYE-001: Eagle Eye MVP ✅ (2026-02-13)
 - [x] Querido Diário API, 17 opportunity patterns, AI analysis
 
-### TASK-016: Agnostic Domain-to-Solution Engine (The Descript Revelation) ✅ (20/02/2026)
-- [x] Analyze the "Culture as Code" and "Primitives Architecture" used by Descript
-- [x] Design the Domain Explorer agent (`domain_explorer.ts`)
-- [x] Register the Domain Explorer in `agents/registry/agents.json`
-- [x] Create the `/domain` workflow for agnostic sector ingestion (`.windsurf/workflows/domain.md`)
-- [x] Document the architectural vision in `docs/agentic/AGNOSTIC_DOMAIN_ENGINE.md`
-> **Arquivos:** `agents/agents/domain_explorer.ts`, `agents/registry/agents.json`, `.windsurf/workflows/domain.md`, `docs/agentic/AGNOSTIC_DOMAIN_ENGINE.md`
+### TASK-016: Agnostic Domain-to-Solution Engine v2 ✅ (20/02/2026)
+- [x] Deep research: Descript tech stack (Temporal, Go, Whisper, transcript-as-SSOT)
+- [x] Rewrite `domain_explorer.ts` — proper runner integration (RunContext, Finding[], CLI entry)
+- [x] Rewrite `AGNOSTIC_DOMAIN_ENGINE.md` v2 — real technical depth + EGOS vs Descript comparison
+- [x] Rewrite `/domain` workflow — actionable steps with MCP tools
+- [x] Update registry description + add filesystem:write tool
+> **Arquivos:** `agents/agents/domain_explorer.ts`, `docs/agentic/AGNOSTIC_DOMAIN_ENGINE.md`, `.windsurf/workflows/domain.md`
+
+### TASK-017: Living Laboratory Agent ✅ (20/02/2026)
+- [x] Create `living-laboratory.ts` — git pattern analysis, agent log analysis, rule proposals
+- [x] Register in `agents/registry/agents.json` (19th agent)
+- [x] Add bun scripts: `agent:lab`, `agent:lab:exec`
+- [x] Implements Descript "Culture as Product" pattern for EGOS
+> **Arquivos:** `agents/agents/living-laboratory.ts`, `agents/registry/agents.json`, `package.json`
+
+### TASK-018: Descript Analysis + Pitch Strategy ✅ (20/02/2026)
+- [x] Analyze Descript architecture (Temporal, Underlord, Notion-as-OS)
+- [x] Map all 6 engineering open positions with salary ranges
+- [x] Create fit analysis: Enio vs "Software Engineer, Agent" role
+- [x] Design pitch strategy with proof points and application flow
+> **Arquivos:** `docs/agentic/DESCRIPT_ANALYSIS.md`

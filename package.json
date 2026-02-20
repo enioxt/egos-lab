@@ -46,6 +46,10 @@
         "agent:regression:exec": "bun agents/agents/regression-watcher.ts --exec",
         "agent:ai-verify": "bun agents/agents/ai-verifier.ts",
         "agent:ai-verify:exec": "bun agents/agents/ai-verifier.ts --exec",
+        "agent:domain": "bun agents/agents/domain_explorer.ts",
+        "agent:domain:exec": "bun agents/agents/domain_explorer.ts --exec",
+        "agent:lab": "bun agents/agents/living-laboratory.ts",
+        "agent:lab:exec": "bun agents/agents/living-laboratory.ts --exec",
         "precommit": "bun scripts/security_scan.ts && bun scripts/scan_ideas.ts --dry",
         "prepare": "test -d .husky && bun x husky || true && husky install"
     },
