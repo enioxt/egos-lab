@@ -403,3 +403,11 @@
 
 ### EAGLE-EYE-001: Eagle Eye MVP ✅ (2026-02-13)
 - [x] Querido Diário API, 17 opportunity patterns, AI analysis
+
+### TASK-016: Agnostic Domain-to-Solution Engine (The Descript Revelation) ✅ (20/02/2026)
+- [x] Analyze the "Culture as Code" and "Primitives Architecture" used by Descript
+- [x] Design the Domain Explorer agent (`domain_explorer.ts`)
+- [x] Register the Domain Explorer in `agents/registry/agents.json`
+- [x] Create the `/domain` workflow for agnostic sector ingestion (`.windsurf/workflows/domain.md`)
+- [x] Document the architectural vision in `docs/agentic/AGNOSTIC_DOMAIN_ENGINE.md`
+> **Arquivos:** `agents/agents/domain_explorer.ts`, `agents/registry/agents.json`, `.windsurf/workflows/domain.md`, `docs/agentic/AGNOSTIC_DOMAIN_ENGINE.md`
