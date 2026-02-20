@@ -167,6 +167,48 @@ async function saveResultToSupabase(result: AgentResult): Promise<void> {
     }
 }
 
+/**
+ * Save per-agent detail rows to Supabase for full breakdown visibility
+ */
+async function saveAgentDetailsToSupabase(taskId: string, agentResults: import('./executor').AgentRunResult[]): Promise<void> {
+    if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return;
+
+    const rows = agentResults.map(r => ({
+        task_id: taskId,
+        agent_id: r.agentId,
+        agent_name: r.agentName,
+        status: r.status,
+        duration_ms: r.durationMs,
+        findings: r.findings,
+        errors: r.errors,
+        warnings: r.warnings,
+        info: r.info,
+        criticals: r.criticals,
+        output: r.output?.slice(0, 5000) || null,
+        error_message: r.errorMessage || null,
+    }));
+
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/audit_agent_results`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_SERVICE_KEY,
+                'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+                'Prefer': 'return=minimal',
+            },
+            body: JSON.stringify(rows),
+        });
+        if (res.ok) {
+            log('info', 'Agent details saved to Supabase', { taskId, count: rows.length });
+        } else {
+            log('error', 'Agent details save failed', { status: res.status, body: await res.text() });
+        }
+    } catch (err: any) {
+        log('error', 'Agent details save error', { error: err.message });
+    }
+}
+
 // --- HTTP Server ---
 
 function startHttpServer() {
@@ -297,6 +339,9 @@ async function processTask(task: AgentTask): Promise<AgentResult> {
         });
 
         await redisPub.set(`agent:task:${task.id}:status`, 'complete', { EX: 3600 });
+
+        // Save per-agent detail rows to Supabase
+        await saveAgentDetailsToSupabase(task.id, agentResults);
         metrics.tasksSucceeded++;
 
         return {
