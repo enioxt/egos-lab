@@ -14,6 +14,7 @@ import { createClient, type RedisClientType } from 'redis';
 import { createSandbox, destroySandbox, listSandboxes } from './sandbox';
 import { executeAgents } from './executor';
 import { aggregateResults, toSupabaseRow, type AuditReport } from './aggregator';
+import { enrichAuditSummary } from './ai-enricher';
 
 // --- Configuration ---
 
@@ -337,6 +338,26 @@ async function processTask(task: AgentTask): Promise<AgentResult> {
             healthScore: report.healthScore,
             totalFindings: report.totalFindings,
         });
+
+        // Layer 3.5: AI Enrichment (summary)
+        let enrichedSummary = '';
+        try {
+            enrichedSummary = await enrichAuditSummary(
+                task.repoUrl,
+                agentResults.map(r => ({
+                    agentId: r.agentId,
+                    findings: r.findings,
+                    errors: r.errors,
+                    warnings: r.warnings,
+                    criticals: r.criticals,
+                })),
+            );
+            if (enrichedSummary) {
+                log('info', 'AI enrichment complete', { taskId: task.id, summaryLength: enrichedSummary.length });
+            }
+        } catch (enrichErr: any) {
+            log('warn', 'AI enrichment skipped', { taskId: task.id, reason: enrichErr.message });
+        }
 
         await redisPub.set(`agent:task:${task.id}:status`, 'complete', { EX: 3600 });
 
