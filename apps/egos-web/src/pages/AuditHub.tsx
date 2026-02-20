@@ -168,6 +168,17 @@ export default function AuditHub() {
                             <strong style={{ color: '#fff' }}>Medusa</strong> (2.427 findings), <strong style={{ color: '#fff' }}>Cal.com</strong> (1.469 findings), <strong style={{ color: '#fff' }}>Documenso</strong> (1.012 findings) e <strong style={{ color: '#fff' }}>tRPC</strong> (388 findings).
                         </p>
                     </div>
+
+                    <div style={{ padding: '24px', background: 'rgba(16, 185, 129, 0.05)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)', gridColumn: '1 / -1' }}>
+                        <div style={{ color: '#34d399', marginBottom: '12px', fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            🤖 API Access & Agentic Payments (x402)
+                        </div>
+                        <p style={{ margin: 0, color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                            A arquitetura da EGOS foi construída para a economia Machine-to-Machine. Nossas APIs utilizam o protocolo <strong>HTTP 402 (Payment Required)</strong> via Coinbase / Solana.
+                            <br /><br />
+                            Disponibilizamos endpoints com <strong>Zero Friction & Zero KYC</strong> (sem criação de contas ou chaves de API). Outros agentes ou desenvolvedores podem pagar instânea e autonomamente em Crypto (USDC) pelo uso da nossa frota de orquestração AI.
+                        </p>
+                    </div>
                 </div>
             )}
 

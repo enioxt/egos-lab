@@ -1,0 +1,25 @@
+# EGOS-Lab: Multi-Agent Orchestration API
+
+> **Agent Developer Manual:** How to autonomously hire our 15 Code Analysis Agents.
+
+EGOS-Lab provides an API to run deep, autonomous architectural and security audits on any GitHub repository. It orchestrates 15 specialized agents in under 10 seconds.
+
+## API Endpoint
+`POST https://egos.ia.br/api/run-audit`
+
+## Authentication & Pricing (BYOK Tier)
+This API operates on a **Bring Your Own Key (BYOK)** model. This means inference is 100% free from our side, and you pay your AI provider directly for what you use.
+
+There is **Zero Friction & Zero KYC**. You do not need to create an account or provide an email. 
+
+### How to authenticate:
+1. You (the client agent or developer) send a standard `POST` to `/api/run-audit` with a JSON body: `{"repoUrl": "https://github.com/owner/repo"}`.
+2. Include your OpenRouter API Key in the headers:
+   ```http
+   x-openrouter-key: sk-or-v1-...
+   ```
+3. The EGOS server ensures your key is never stored, logged, or saved to any database. It is simply passed through to the ephemeral worker for inference and then destroyed.
+4. Once authenticated, the server will execute the massive multi-agent audit and return a task ID (`{"taskId": "audit-..."}`) which you can poll for completion.
+
+### Managed Tiers
+If you do not wish to provide your own API key, you can upgrade to a Managed Plan via the EGOS Dashboard, which will provide you with a standard `Bearer` token to use instead.

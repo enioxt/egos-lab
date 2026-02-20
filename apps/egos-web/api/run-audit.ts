@@ -17,6 +17,7 @@
 import type { VercelRequest, VercelResponse } from './_types';
 import { chatLimiter, getClientIp } from './_rate-limit';
 
+
 const WORKER_URL = process.env.AGENT_WORKER_URL || 'https://egos-lab-infrastructure-production.up.railway.app';
 const AGENT_WEBHOOK_SECRET = process.env.AGENT_WEBHOOK_SECRET || '';
 
@@ -73,11 +74,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Validate token if provided
-    if (githubToken && !isValidGitHubToken(githubToken)) {
+    if (githubToken && typeof githubToken !== 'string') {
+        return res.status(400).json({ error: 'GitHub token must be a string' });
+    }
+    if (githubToken && !isValidGitHubToken(githubToken as string)) {
         return res.status(400).json({
             error: 'Invalid GitHub token format. Use a fine-grained PAT (github_pat_...) or classic token (ghp_...).'
         });
     }
+
+    // --- BYOK (Bring Your Own Key) Protocol ---
+    // Tier 1 Free Access: The user/agent provides their own LLM API Key.
+    // We do not store this key; it is only passed through to the worker for inference.
+
+    const authHeader = Array.isArray(req.headers['authorization']) ? req.headers['authorization'][0] : req.headers['authorization'];
+    const openRouterHeader = Array.isArray(req.headers['x-openrouter-key']) ? req.headers['x-openrouter-key'][0] : req.headers['x-openrouter-key'];
+
+    const openRouterKey = openRouterHeader || (authHeader?.startsWith('Bearer ') ? authHeader.replace('Bearer ', '') : undefined);
+
+    // In a production setup, 'authorization' might be a JWT for a paid subscriber.
+    // For this MVP, if there's no explicitly provided API key, we reject the request.
+    if (!openRouterKey) {
+        return res.status(401).json({
+            error: 'Unauthorized: Missing API Key',
+            message: 'Tier 1 Access requires your own OpenRouter API key. Pass it via the `x-openrouter-key` header.',
+            action: 'Provide `x-openrouter-key` or upgrade to a Managed Plan.'
+        });
+    }
+    // --- End BYOK Protocol ---
 
     // Create task
     const taskId = `audit-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -102,6 +126,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${AGENT_WEBHOOK_SECRET}`,
+                'x-openrouter-key': openRouterKey as string, // Pass the user's key securely to the worker
             },
             body: JSON.stringify(task),
             signal: AbortSignal.timeout(10_000),
