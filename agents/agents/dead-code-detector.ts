@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { join, relative, extname, basename } from 'path';
 import { runAgent, printResult, log, type RunContext, type Finding } from '../runtime/runner';
+import { Topics } from '../runtime/event-bus';
 
 // --- Configuration ---
 
@@ -190,6 +191,15 @@ async function deadCodeDetect(ctx: RunContext): Promise<Finding[]> {
   const warnCount = findings.filter(f => f.severity === 'warning').length;
   const infoCount = findings.filter(f => f.severity === 'info').length;
   log(ctx, 'info', `Scan complete: ${warnCount} warnings, ${infoCount} info`);
+
+  // Emit findings to Mycelium bus
+  for (const f of findings) {
+    ctx.bus.emit(Topics.QA_DEAD_CODE, {
+      symbol: f.message,
+      file: f.file,
+      severity: f.severity,
+    }, 'dead_code_detector', ctx.correlationId);
+  }
 
   // Write report in execute mode
   if (ctx.mode === 'execute' && findings.length > 0) {

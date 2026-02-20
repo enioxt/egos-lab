@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { join, relative, extname } from 'path';
 import { runAgent, printResult, log, type RunContext, type Finding } from '../runtime/runner';
+import { Topics } from '../runtime/event-bus';
 
 // --- Configuration ---
 
@@ -194,6 +195,15 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
   const infoCount = findings.filter(f => f.severity === 'info').length;
 
   log(ctx, 'info', `Audit complete: ${errorCount} errors, ${warnCount} warnings, ${infoCount} info`);
+
+  // Emit findings to Mycelium bus
+  for (const f of findings) {
+    ctx.bus.emit(Topics.ARCH_SSOT_VIOLATION, {
+      rule: f.category,
+      message: f.message,
+      severity: f.severity,
+    }, 'ssot_auditor', ctx.correlationId);
+  }
 
   // Write report in execute mode
   if (ctx.mode === 'execute' && findings.length > 0) {

@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-02-20T16:21:12.253Z",
-  "durationMs": 193,
+  "timestamp": "2026-02-20T16:23:07.401Z",
+  "durationMs": 177,
   "layers": {
     "property": {
       "total": 6,
@@ -29,7 +29,7 @@
       "layer": "property",
       "name": "Any topic matches itself exactly",
       "status": "pass",
-      "durationMs": 17
+      "durationMs": 15
     },
     {
       "id": "wildcard-catch-all",
@@ -50,21 +50,21 @@
       "layer": "property",
       "name": "History length <= maxHistory after any number of emits",
       "status": "pass",
-      "durationMs": 102
+      "durationMs": 88
     },
     {
       "id": "unsub-guarantee",
       "layer": "property",
       "name": "After off(), handler receives zero more events",
       "status": "pass",
-      "durationMs": 34
+      "durationMs": 33
     },
     {
       "id": "stats-consistency",
       "layer": "property",
       "name": "stats().total always equals getHistory().length",
       "status": "pass",
-      "durationMs": 5
+      "durationMs": 6
     },
     {
       "id": "registry-integrity",
