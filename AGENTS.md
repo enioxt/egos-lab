@@ -14,8 +14,10 @@
 | **Path** | /home/enio/egos-lab |
 | **Web** | egos.ia.br (Mission Control) |
 | **Repo** | github.com/enioxt/egos-lab |
-| **Deploy** | Vercel (auto on push) |
-| **Supabase** | `lhscgsqhiooyatkebose` |
+| **Deploy (Frontend)** | Vercel (auto on push) |
+| **Deploy (Worker)** | Railway (`egos-lab-infrastructure`) |
+| **Database** | Supabase (`lhscgsqhiooyatkebose`) |
+| **Queue** | Railway Redis (internal) |
 
 ## Architecture
 
@@ -42,6 +44,24 @@ egos-lab/
 ├── docs/                    # Plans, stitch designs, agentic docs
 └── .guarani/                # Agent identity + coding rules
 ```
+
+## Worker Infrastructure (Railway)
+
+```
+agents/worker/
+├── index.ts        # HTTP server + Redis queue + task router
+├── sandbox.ts      # Git clone → isolated /tmp sandbox
+├── executor.ts     # Bun.spawn per agent against sandbox
+├── aggregator.ts   # Rho health score + findings combiner
+└── README.md       # Full architecture docs
+```
+
+| Endpoint | URL | Auth |
+|---|---|---|
+| Health | `GET /health` | None |
+| Metrics | `GET /metrics` | None |
+| Queue | `POST /queue` | Bearer token |
+| Status | `GET /api/status` (Vercel) | None |
 
 ## Nexus Market
 

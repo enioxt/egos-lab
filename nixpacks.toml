@@ -1,0 +1,11 @@
+# Nixpacks config for Railway deployment
+# Pins Node.js to v22 (v18 reached EOL and was removed)
+
+[phases.setup]
+nixPkgs = ["nodejs_22", "bun"]
+
+[phases.install]
+cmds = ["bun install --frozen-lockfile"]
+
+[start]
+cmd = "bun run agents/worker/index.ts"

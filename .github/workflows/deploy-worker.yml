@@ -13,28 +13,16 @@ jobs:
     if: contains(github.event.head_commit.message, 'agent') || contains(github.event.head_commit.message, 'worker')
     
     steps:
-      - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.WORKER_HOST }}
-          username: ${{ secrets.WORKER_USER }}
-          key: ${{ secrets.WORKER_SSH_KEY }}
-          script: |
-            echo "🚀 Deploying EGOS Agent Worker..."
-            cd ~/egos-lab
-            git pull origin main
-            bun install --frozen-lockfile
-            
-            # Restart the worker process
-            if pm2 describe agent-worker > /dev/null 2>&1; then
-              pm2 restart agent-worker
-              echo "✅ Worker restarted"
-            else
-              pm2 start agents/worker/index.ts --name agent-worker --interpreter bun
-              pm2 save
-              echo "✅ Worker started for the first time"
-            fi
-            
-            # Verify it's running
-            sleep 2
-            pm2 status agent-worker
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "🚀 Deploying EGOS Agent Worker to Railway..."
+          railway up -d --service egos-lab-infrastructure
+          echo "✅ Deploy triggered on Railway"
