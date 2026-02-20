@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-02-20T16:23:07.401Z",
-  "durationMs": 177,
+  "timestamp": "2026-02-20T16:40:25.411Z",
+  "durationMs": 282,
   "layers": {
     "property": {
       "total": 6,
@@ -29,7 +29,7 @@
       "layer": "property",
       "name": "Any topic matches itself exactly",
       "status": "pass",
-      "durationMs": 15
+      "durationMs": 22
     },
     {
       "id": "wildcard-catch-all",
@@ -43,35 +43,35 @@
       "layer": "property",
       "name": "Events emitted = events received by matching subs",
       "status": "pass",
-      "durationMs": 30
+      "durationMs": 37
     },
     {
       "id": "history-cap-invariant",
       "layer": "property",
       "name": "History length <= maxHistory after any number of emits",
       "status": "pass",
-      "durationMs": 88
+      "durationMs": 133
     },
     {
       "id": "unsub-guarantee",
       "layer": "property",
       "name": "After off(), handler receives zero more events",
       "status": "pass",
-      "durationMs": 33
+      "durationMs": 66
     },
     {
       "id": "stats-consistency",
       "layer": "property",
       "name": "stats().total always equals getHistory().length",
       "status": "pass",
-      "durationMs": 6
+      "durationMs": 17
     },
     {
       "id": "registry-integrity",
       "layer": "behavioral",
       "name": "All active agents have valid entrypoints in filesystem",
       "status": "pass",
-      "durationMs": 0
+      "durationMs": 1
     },
     {
       "id": "no-duplicate-ids",
@@ -92,7 +92,7 @@
       "layer": "behavioral",
       "name": "Bus reset fully isolates consecutive orchestrator runs",
       "status": "pass",
-      "durationMs": 0
+      "durationMs": 1
     },
     {
       "id": "area-coverage",
