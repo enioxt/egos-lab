@@ -10,12 +10,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "scripts/security_scan.ts",
-      "tools_allowed": ["filesystem:read"],
-      "data_access": { "pii": false, "secrets_scan": true },
-      "triggers": ["pre-commit", "manual"],
+      "tools_allowed": [
+        "filesystem:read"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": true
+      },
+      "triggers": [
+        "pre-commit",
+        "manual"
+      ],
       "memory_mode": "none",
-      "eval_suite": ["evals/security_scanner.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/security_scanner.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active",
       "migrated_from": "scripts/security_scan.ts"
     },
@@ -27,12 +40,26 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "scripts/scan_ideas.ts",
-      "tools_allowed": ["filesystem:read", "filesystem:write"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["pre-commit", "manual"],
+      "tools_allowed": [
+        "filesystem:read",
+        "filesystem:write"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "pre-commit",
+        "manual"
+      ],
       "memory_mode": "persistent",
-      "eval_suite": ["evals/idea_scanner.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/idea_scanner.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active",
       "migrated_from": "scripts/scan_ideas.ts"
     },
@@ -44,12 +71,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "scripts/rho.ts",
-      "tools_allowed": ["git:read"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "weekly"],
+      "tools_allowed": [
+        "git:read"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "weekly"
+      ],
       "memory_mode": "none",
-      "eval_suite": ["evals/rho_calculator.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/rho_calculator.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active",
       "migrated_from": "scripts/rho.ts"
     },
@@ -61,12 +101,26 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "scripts/review.ts",
-      "tools_allowed": ["git:read", "ai:analyze"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["pre-commit", "manual"],
+      "tools_allowed": [
+        "git:read",
+        "ai:analyze"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "pre-commit",
+        "manual"
+      ],
       "memory_mode": "session",
-      "eval_suite": ["evals/code_reviewer.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/code_reviewer.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active",
       "migrated_from": "scripts/review.ts"
     },
@@ -78,12 +132,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "scripts/disseminate.ts",
-      "tools_allowed": ["filesystem:read", "filesystem:write"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual"],
+      "tools_allowed": [
+        "filesystem:read",
+        "filesystem:write"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual"
+      ],
       "memory_mode": "persistent",
-      "eval_suite": ["evals/disseminator.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/disseminator.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active",
       "migrated_from": "scripts/disseminate.ts"
     },
@@ -95,12 +162,26 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/ui-designer.ts",
-      "tools_allowed": ["filesystem:read", "filesystem:write", "ai:generate"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual"],
+      "tools_allowed": [
+        "filesystem:read",
+        "filesystem:write",
+        "ai:generate"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual"
+      ],
       "memory_mode": "none",
-      "eval_suite": ["evals/ui_designer.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/ui_designer.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -111,12 +192,27 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/ssot-auditor.ts",
-      "tools_allowed": ["filesystem:read", "git:read", "ai:analyze"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "weekly"],
+      "tools_allowed": [
+        "filesystem:read",
+        "git:read",
+        "ai:analyze"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "weekly"
+      ],
       "memory_mode": "none",
-      "eval_suite": ["evals/ssot_auditor.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/ssot_auditor.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -127,12 +223,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/auth-roles-checker.ts",
-      "tools_allowed": ["fs:read"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "ci"],
+      "tools_allowed": [
+        "fs:read"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "ci"
+      ],
       "memory_mode": "persistent",
-      "eval_suite": ["evals/auth_roles.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/auth_roles.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -143,12 +252,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/e2e-smoke.ts",
-      "tools_allowed": ["browser:navigate", "browser:assert"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "pre-deploy"],
+      "tools_allowed": [
+        "browser:navigate",
+        "browser:assert"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "pre-deploy"
+      ],
       "memory_mode": "none",
-      "eval_suite": ["evals/e2e_smoke.json"],
-      "run_modes": ["execute"],
+      "eval_suite": [
+        "evals/e2e_smoke.json"
+      ],
+      "run_modes": [
+        "execute"
+      ],
       "status": "pending"
     },
     {
@@ -159,12 +281,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/dep-auditor.ts",
-      "tools_allowed": ["filesystem:read"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "weekly"],
+      "tools_allowed": [
+        "filesystem:read"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "weekly"
+      ],
       "memory_mode": "none",
-      "eval_suite": ["evals/dep_auditor.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/dep_auditor.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -175,12 +310,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/dead-code-detector.ts",
-      "tools_allowed": ["filesystem:read"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "weekly"],
+      "tools_allowed": [
+        "filesystem:read"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "weekly"
+      ],
       "memory_mode": "none",
-      "eval_suite": ["evals/dead_code.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/dead_code.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -191,12 +339,25 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/contract-tester.ts",
-      "tools_allowed": ["http:request"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "pre-push"],
+      "tools_allowed": [
+        "http:request"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "pre-push"
+      ],
       "memory_mode": "session",
-      "eval_suite": ["evals/contract_tester.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/contract_tester.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -207,12 +368,26 @@
       "owner": "enioxt",
       "risk_level": "medium",
       "entrypoint": "agents/agents/integration-tester.ts",
-      "tools_allowed": ["http:request", "supabase:query"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "pre-push"],
+      "tools_allowed": [
+        "http:request",
+        "supabase:query"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "pre-push"
+      ],
       "memory_mode": "session",
-      "eval_suite": ["evals/integration_tester.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/integration_tester.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -223,12 +398,26 @@
       "owner": "enioxt",
       "risk_level": "low",
       "entrypoint": "agents/agents/regression-watcher.ts",
-      "tools_allowed": ["filesystem:read", "filesystem:write"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual", "pre-push"],
+      "tools_allowed": [
+        "filesystem:read",
+        "filesystem:write"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual",
+        "pre-push"
+      ],
       "memory_mode": "session",
-      "eval_suite": ["evals/regression_watcher.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/regression_watcher.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
       "status": "active"
     },
     {
@@ -239,12 +428,86 @@
       "owner": "enioxt",
       "risk_level": "medium",
       "entrypoint": "agents/agents/ai-verifier.ts",
-      "tools_allowed": ["http:request", "openrouter:chat"],
-      "data_access": { "pii": false, "secrets_scan": false },
-      "triggers": ["manual"],
+      "tools_allowed": [
+        "http:request",
+        "openrouter:chat"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual"
+      ],
       "memory_mode": "session",
-      "eval_suite": ["evals/ai_verifier.json"],
-      "run_modes": ["dry_run", "execute"],
+      "eval_suite": [
+        "evals/ai_verifier.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "orchestrator",
+      "name": "Agent Orchestrator",
+      "area": "orchestration",
+      "description": "Runs ALL registered agents sequentially, collects timing and findings, generates combined health report",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "agents/agents/orchestrator.ts",
+      "tools_allowed": [
+        "filesystem:read",
+        "filesystem:write",
+        "process:spawn"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "manual"
+      ],
+      "memory_mode": "session",
+      "eval_suite": [
+        "evals/orchestrator.json"
+      ],
+      "run_modes": [
+        "dry_run",
+        "execute"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "ambient_disseminator",
+      "name": "Ambient Disseminator",
+      "area": "knowledge",
+      "description": "Autonomous evolution engine: reads git diffs, analyzes via AI, and auto-patches .windsurfrules and PREFERENCES.md",
+      "owner": "enioxt",
+      "risk_level": "low",
+      "entrypoint": "scripts/ambient_disseminator.ts",
+      "tools_allowed": [
+        "git:read",
+        "filesystem:read",
+        "filesystem:write",
+        "ai:analyze"
+      ],
+      "data_access": {
+        "pii": false,
+        "secrets_scan": false
+      },
+      "triggers": [
+        "session-end",
+        "manual"
+      ],
+      "memory_mode": "persistent",
+      "eval_suite": [
+        "evals/ambient_disseminator.json"
+      ],
+      "run_modes": [
+        "execute"
+      ],
       "status": "active"
     }
   ]

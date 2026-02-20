@@ -2,36 +2,126 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "EGOS Agent Registry",
   "type": "object",
-  "required": ["version", "agents"],
+  "required": [
+    "version",
+    "agents"
+  ],
   "properties": {
-    "version": { "type": "string" },
+    "version": {
+      "type": "string"
+    },
     "agents": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "area", "description", "risk_level", "entrypoint", "run_modes", "status"],
+        "required": [
+          "id",
+          "name",
+          "area",
+          "description",
+          "risk_level",
+          "entrypoint",
+          "run_modes",
+          "status"
+        ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
-          "name": { "type": "string" },
-          "area": { "type": "string", "enum": ["security", "knowledge", "observability", "qa", "architecture", "design", "auth"] },
-          "description": { "type": "string" },
-          "owner": { "type": "string" },
-          "risk_level": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
-          "entrypoint": { "type": "string" },
-          "tools_allowed": { "type": "array", "items": { "type": "string" } },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "area": {
+            "type": "string",
+            "enum": [
+              "security",
+              "knowledge",
+              "observability",
+              "qa",
+              "architecture",
+              "design",
+              "auth",
+              "orchestration"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "entrypoint": {
+            "type": "string"
+          },
+          "tools_allowed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "data_access": {
             "type": "object",
             "properties": {
-              "pii": { "type": "boolean" },
-              "secrets_scan": { "type": "boolean" }
+              "pii": {
+                "type": "boolean"
+              },
+              "secrets_scan": {
+                "type": "boolean"
+              }
             }
           },
-          "triggers": { "type": "array", "items": { "type": "string" } },
-          "memory_mode": { "type": "string", "enum": ["none", "session", "persistent"] },
-          "eval_suite": { "type": "array", "items": { "type": "string" } },
-          "run_modes": { "type": "array", "items": { "type": "string", "enum": ["dry_run", "execute"] } },
-          "status": { "type": "string", "enum": ["active", "placeholder", "pending", "disabled"] },
-          "migrated_from": { "type": "string" }
+          "triggers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "memory_mode": {
+            "type": "string",
+            "enum": [
+              "none",
+              "session",
+              "persistent"
+            ]
+          },
+          "eval_suite": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "run_modes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "dry_run",
+                "execute"
+              ]
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "placeholder",
+              "pending",
+              "disabled"
+            ]
+          },
+          "migrated_from": {
+            "type": "string"
+          }
         }
       }
     }
