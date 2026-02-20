@@ -17,6 +17,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { listAgents, type AgentDefinition } from '../runtime/runner';
+import { getGlobalBus, Topics, type MyceliumBus } from '../runtime/event-bus';
 
 interface AgentResult {
   id: string;
@@ -34,7 +35,7 @@ const EGOS_ROOT = join(import.meta.dir, '..', '..');
 
 async function runSingleAgent(agent: AgentDefinition): Promise<AgentResult> {
   const entrypoint = join(EGOS_ROOT, agent.entrypoint);
-  
+
   if (!existsSync(entrypoint)) {
     return {
       id: agent.id,
@@ -58,7 +59,7 @@ async function runSingleAgent(agent: AgentDefinition): Promise<AgentResult> {
   }
 
   const start = performance.now();
-  
+
   try {
     const proc = Bun.spawn(['bun', entrypoint], {
       cwd: EGOS_ROOT,
@@ -177,15 +178,35 @@ async function main() {
   const agents = listAgents();
   console.log(`📋 Found ${agents.length} registered agents\n`);
 
+  // Initialize Mycelium Event Bus
+  const bus = getGlobalBus();
+  bus.reset();
+
+  console.log('🌐 Mycelium Event Bus: ACTIVE\n');
+
   const results: AgentResult[] = [];
   const totalStart = performance.now();
 
   for (const agent of agents) {
     const icon = agent.status === 'active' ? '🟢' : agent.status === 'pending' ? '🟡' : '⚪';
     process.stdout.write(`  ${icon} Running ${agent.name}...`);
-    
+
+    // Emit agent lifecycle start event
+    bus.emit(Topics.AGENT_STARTED, { agentId: agent.id }, 'orchestrator', 'orch-run');
+
     const result = await runSingleAgent(agent);
     results.push(result);
+
+    // Emit agent lifecycle completion event
+    const completionTopic = result.status === 'fail' || result.status === 'error'
+      ? Topics.AGENT_FAILED
+      : Topics.AGENT_COMPLETED;
+    bus.emit(completionTopic, {
+      agentId: agent.id,
+      status: result.status,
+      durationMs: result.durationMs,
+      findingsCount: result.findings,
+    }, 'orchestrator', 'orch-run');
 
     const statusIcon = result.status === 'pass' ? '✅' : result.status === 'skip' ? '⏭️' : '❌';
     console.log(` ${statusIcon} ${result.durationMs}ms (${result.findings} findings)`);
@@ -203,9 +224,18 @@ async function main() {
   console.log(`  ✅ Passed: ${passed}  ❌ Failed: ${failed}  ⏭️ Skipped: ${skipped}`);
   console.log(`  📊 Total findings: ${totalFindings}`);
   console.log(`  ⏱️  Total time: ${totalMs}ms`);
-  
+
   const healthScore = Math.round((passed / (results.length - skipped)) * 100) || 0;
   console.log(`  💚 Health Score: ${healthScore}%`);
+
+  // Mycelium Event Bus Summary
+  const busStats = bus.stats();
+  console.log(`  🌐 Mycelium Events: ${busStats.total} total`);
+  if (Object.keys(busStats.byTopic).length > 0) {
+    for (const [topic, count] of Object.entries(busStats.byTopic)) {
+      console.log(`     📡 ${topic}: ${count}`);
+    }
+  }
   console.log('═'.repeat(60) + '\n');
 
   // Write report

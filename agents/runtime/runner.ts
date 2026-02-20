@@ -12,6 +12,7 @@
 import { readFileSync, appendFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { randomUUID } from 'crypto';
+import { type MyceliumBus, getGlobalBus, Topics } from './event-bus';
 
 // --- Types ---
 
@@ -39,6 +40,7 @@ export interface RunContext {
   agentId: string;
   startedAt: string;
   repoRoot: string;
+  bus: MyceliumBus;
 }
 
 export interface RunResult {
@@ -139,6 +141,7 @@ export async function runAgent(
       mode,
       repoRoot: TARGET_ROOT,
       startedAt: new Date().toISOString(),
+      bus: getGlobalBus(),
     };
     log(ctx, 'info', `Starting agent "${agentId}" in ${mode} mode (standalone — no registry)`);
     try {
@@ -182,6 +185,7 @@ export async function runAgent(
     agentId,
     startedAt: new Date().toISOString(),
     repoRoot: TARGET_ROOT,
+    bus: getGlobalBus(),
   };
 
   log(ctx, 'info', `Starting agent "${agent.name}" in ${mode} mode`);
