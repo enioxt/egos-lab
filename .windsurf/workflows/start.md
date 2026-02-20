@@ -8,7 +8,13 @@
 - Check last handoff in `docs/_current_handoffs/`
 - Read `.guarani/PREFERENCES.md` for coding standards
 
-## 2. System Map Verification
+## 2. Rule Checksum Validation (Mitigate Rule Drift)
+
+> **CRITICAL:** LLMs suffer from probabilistic rule drift over long contexts. You MUST explicitly acknowledge the active ruleset.
+- Read `.guarani/RULES` (or `.guarani/ANTIGRAVITY_RULES.md`).
+- Print a one-sentence "Checksum Validation" confirming you understand the core directives before starting.
+
+## 3. System Map Verification
 
 > **CRITICAL:** The system map is the SSOT for understanding what exists. Always read it before implementing anything.
 
