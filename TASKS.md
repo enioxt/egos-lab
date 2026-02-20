@@ -194,10 +194,10 @@
 
 ### LAUNCH-002: Self-Service Audit Hub (Phase 2)
 > **Goal:** "Paste Repo URL → Get Audit Report"
-- [ ] Expose `orchestrator.ts` via secure API endpoint (server-side)
-- [x] Create UI: "Paste Repo URL" input on Dashboard
-- [ ] Implement `agent:audit-external` runner (clones, runs, cleans up)
-- [x] Build Report UI: Render findings as interactive components (MVP Mocked)
+- [x] Expose `orchestrator.ts` via secure API endpoint (server-side) (19/02/2026)
+- [x] Create UI: "Paste Repo URL" input on Dashboard (public + private PAT support) (19/02/2026)
+- [x] Implement `agent:audit-external` runner (clones, runs, cleans up via sandbox)
+- [x] Build Report UI: Render findings as interactive components (MVP)
 - [ ] Add "Fix with EGOS" CTA (leads to fork/CLI)
 
 ### UX-002: Ecosystem Visualization (Learnings from EGOS Universe)

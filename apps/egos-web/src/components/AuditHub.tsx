@@ -31,6 +31,8 @@ type Phase = 'idle' | 'submitting' | 'polling' | 'done' | 'error'
 
 export default function AuditHub() {
     const [repoUrl, setRepoUrl] = useState('')
+    const [githubToken, setGithubToken] = useState('')
+    const [isPrivate, setIsPrivate] = useState(false)
     const [phase, setPhase] = useState<Phase>('idle')
     const [taskId, setTaskId] = useState<string | null>(null)
     const [audit, setAudit] = useState<AuditSummary | null>(null)
@@ -78,6 +80,11 @@ export default function AuditHub() {
 
     const handleSubmit = useCallback(async () => {
         if (!repoUrl.trim()) return
+        if (isPrivate && !githubToken.trim()) {
+            setError('Para repositórios privados, forneça um GitHub Token (PAT).')
+            return
+        }
+
         setPhase('submitting')
         setError(null)
         setAudit(null)
@@ -88,7 +95,10 @@ export default function AuditHub() {
             const res = await fetch('/api/run-audit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ repoUrl: repoUrl.trim() }),
+                body: JSON.stringify({
+                    repoUrl: repoUrl.trim(),
+                    githubToken: isPrivate ? githubToken.trim() : undefined
+                }),
             })
             const data = await res.json()
             if (!res.ok) {
@@ -102,7 +112,7 @@ export default function AuditHub() {
             setPhase('error')
             setError(err.message || 'Network error')
         }
-    }, [repoUrl])
+    }, [repoUrl, isPrivate, githubToken])
 
     const statusIcon = (s: string) => {
         if (s === 'pass') return '✅'
@@ -133,23 +143,55 @@ export default function AuditHub() {
             </div>
 
             {/* Input */}
-            <div className="audit-input-row">
-                <input
-                    type="url"
-                    className="audit-input"
-                    placeholder="https://github.com/owner/repo"
-                    value={repoUrl}
-                    onChange={e => setRepoUrl(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                    disabled={phase === 'submitting' || phase === 'polling'}
-                />
-                <button
-                    className="audit-submit-btn"
-                    onClick={handleSubmit}
-                    disabled={phase === 'submitting' || phase === 'polling' || !repoUrl.trim()}
-                >
-                    {phase === 'submitting' ? 'Enviando...' : phase === 'polling' ? 'Analisando...' : 'Auditar Repo'}
-                </button>
+            <div className="audit-input-container">
+                <div className="audit-input-row" style={{ marginBottom: isPrivate ? '0.5rem' : '1.25rem' }}>
+                    <input
+                        type="url"
+                        className="audit-input"
+                        placeholder="https://github.com/owner/repo"
+                        value={repoUrl}
+                        onChange={e => setRepoUrl(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                        disabled={phase === 'submitting' || phase === 'polling'}
+                    />
+                    <button
+                        className="audit-submit-btn"
+                        onClick={handleSubmit}
+                        disabled={phase === 'submitting' || phase === 'polling' || !repoUrl.trim()}
+                    >
+                        {phase === 'submitting' ? 'Enviando...' : phase === 'polling' ? 'Analisando...' : 'Auditar Repo'}
+                    </button>
+                </div>
+
+                <div className="audit-private-toggle" style={{ marginBottom: '0.75rem', fontSize: '0.85rem', color: 'var(--audit-muted)' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', width: 'fit-content' }}>
+                        <input
+                            type="checkbox"
+                            checked={isPrivate}
+                            onChange={e => setIsPrivate(e.target.checked)}
+                            disabled={phase === 'submitting' || phase === 'polling'}
+                        />
+                        Repositório Privado?
+                    </label>
+                </div>
+
+                {isPrivate && (
+                    <div className="audit-token-row" style={{ marginBottom: '1.25rem' }}>
+                        <input
+                            type="password"
+                            className="audit-input"
+                            style={{ width: '100%', marginBottom: '0.5rem' }}
+                            placeholder="GitHub Fine-Grained PAT (github_pat_...)"
+                            value={githubToken}
+                            onChange={e => setGithubToken(e.target.value)}
+                            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                            disabled={phase === 'submitting' || phase === 'polling'}
+                        />
+                        <p style={{ fontSize: '0.75rem', color: 'var(--audit-green)', margin: 0, opacity: 0.9 }}>
+                            🔒 O token é enviado via HTTPS, usado apenas para o clone dentro da nossa sandbox efêmera, e destruído imediatamente logo após. Nunca armazenamos tokens em banco de dados ou logs.
+                        </p>
+                    </div>
+                )}
             </div>
 
             {/* Polling spinner */}

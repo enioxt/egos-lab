@@ -2,10 +2,16 @@
  * Run Audit API — Trigger a new agent audit on a GitHub repository
  * 
  * POST /api/run-audit
- * Body: { repoUrl: string, agentId?: string }
+ * Body: { repoUrl: string, agentId?: string, githubToken?: string }
  * 
- * This is the "Run Audit" button backend for the Self-Service Audit Hub.
- * It validates the URL, creates a task, and forwards it to the Railway Worker.
+ * Supports:
+ * - Public repos: no token needed
+ * - Private repos: provide a fine-grained GitHub PAT with read-only access
+ * 
+ * Security:
+ * - Token is forwarded to the Worker over HTTPS and used only for cloning
+ * - Token is NEVER stored, logged, or persisted
+ * - Sandbox is destroyed after analysis
  */
 
 import type { VercelRequest, VercelResponse } from './_types';
@@ -20,6 +26,18 @@ const GITHUB_URL_REGEX = /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+(\.git)?$/;
 
 function isValidGitHubUrl(url: string): boolean {
     return GITHUB_URL_REGEX.test(url);
+}
+
+/**
+ * Validate a GitHub PAT format (classic or fine-grained)
+ * Classic: ghp_xxxxx (40+ chars)
+ * Fine-grained: github_pat_xxxxx
+ */
+function isValidGitHubToken(token: string): boolean {
+    if (!token || typeof token !== 'string') return false;
+    if (token.length < 10) return false;
+    // Accept classic (ghp_), fine-grained (github_pat_), or OAuth tokens
+    return /^(ghp_|github_pat_|gho_|ghs_)/.test(token) || token.length >= 30;
 }
 
 // --- Handler ---
@@ -41,7 +59,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Parse body
-    const { repoUrl, agentId } = req.body || {};
+    const { repoUrl, agentId, githubToken } = req.body || {};
 
     if (!repoUrl || typeof repoUrl !== 'string') {
         return res.status(400).json({ error: 'Missing required field: repoUrl' });
@@ -54,15 +72,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
     }
 
+    // Validate token if provided
+    if (githubToken && !isValidGitHubToken(githubToken)) {
+        return res.status(400).json({
+            error: 'Invalid GitHub token format. Use a fine-grained PAT (github_pat_...) or classic token (ghp_...).'
+        });
+    }
+
     // Create task
     const taskId = `audit-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    const task = {
+    const task: Record<string, any> = {
         id: taskId,
-        agentId: agentId || 'orchestrator', // Default: run all agents
-        repoUrl: repoUrl.replace(/\.git$/, ''), // Normalize URL
+        agentId: agentId || 'orchestrator',
+        repoUrl: repoUrl.replace(/\.git$/, ''),
         mode: 'dry_run',
         requestedAt: new Date().toISOString(),
     };
+
+    // Pass token securely — Worker will use it for cloning and then discard
+    if (githubToken) {
+        task.githubToken = githubToken;
+        task.isPrivate = true;
+    }
 
     // Forward to Railway Worker
     try {
@@ -91,7 +122,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             accepted: true,
             taskId,
             repoUrl: task.repoUrl,
-            message: 'Audit queued. Results will appear in /api/audit-results shortly.',
+            isPrivate: !!githubToken,
+            message: githubToken
+                ? 'Private repo audit queued. Your token is used only for cloning and is never stored.'
+                : 'Audit queued. Results will appear in /api/audit-results shortly.',
             queueDepth: result.queueDepth,
             checkUrl: `/api/audit-results?id=${taskId}`,
         });
