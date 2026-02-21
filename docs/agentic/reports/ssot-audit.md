@@ -7,14 +7,14 @@
 
 | Metric | Value |
 |--------|-------|
-| Generated | 2026-02-20T16:39:56.092Z |
-| Correlation | `9a2b0294-0ea8-4370-98ec-c1babe1a2de3` |
+| Generated | 2026-02-21T11:52:31.350Z |
+| Correlation | `f0b26d57-5f75-4bf0-8e6b-3d3329e495c0` |
 | Analysis Mode | AST-based (TypeScript compiler API) |
 | API Cost | $0 (local static pass, no inference) |
-| Files scanned | 695 |
-| Symbols extracted | 940 |
-| Extraction time | 2021ms |
-| Symbol breakdown | type_alias: 136, interface: 764, class: 40 |
+| Files scanned | 697 |
+| Symbols extracted | 944 |
+| Extraction time | 2076ms |
+| Symbol breakdown | type_alias: 136, interface: 768, class: 40 |
 
 ## What This Report Proves
 

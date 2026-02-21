@@ -453,6 +453,12 @@
 - [ ] Criar landing page B2B do EGOS (foco em "AI Agents & Intelligence Infrastructure").
 - [ ] Preparar currículo/portfólio do Enio diretamente atrelado ao ecossistema EGOS.
 
+### SYSTEM-001: Evolução do Motor Core (SSOT Auditor v3)
+- [ ] Implementar análise **shape-aware** (comparação semântica AST) para os clusters "High Confidence" do SSOT Auditor.
+- [ ] Rodar `Auth Roles Checker` no Cal.com para cruzar vulnerabilidades de acesso com dívida técnica.
+- [ ] Preparar relatório definitivo (v3) com `β` scaling factor controlado por framework.
+> **Contexto:** Melhorar o motor B2B antes de focar nos MVPs finais. Feedback crítico do ChatGPT aplicado na v2.
+
 ### SOCIAL-001: MVPs de Consciência de Classe (Sindicato Cognitivo)
 - [ ] Criar **Calculadora PJ** (`/valor-real`): Extrai dados de vagas e calcula custo invisível vs CLT.
 - [ ] Criar **Scanner de Precarização**: Intelink OCR lê contratos/vagas buscando armadilhas (transferência de risco).
