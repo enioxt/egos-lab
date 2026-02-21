@@ -448,10 +448,10 @@
 - [ ] Agnosticismo de domínio: `InstructorWallet` → `TenantWallet` (multi-tenant)
 
 ### ENTERPRISE-002: Criação da Identidade Corporativa
-- [ ] Escolher nome oficial (candidatos: Agnostik, Pramana Labs, +10 alternativas)
-- [ ] Registrar domínio e preparar landing page B2B
-- [ ] Definir oferta: "AI Agents & Intelligence Infrastructure"
-- [ ] Refatorar repositórios necessários para a nova marca
+- [ ] Nome escolhido: **Pramana Forge** (`pramanaforge.dev`) — *Parked para o futuro*.
+- [ ] Decisão estratégica: Manter tudo sob o guarda-chuva da marca **EGOS**.
+- [ ] Criar landing page B2B do EGOS (foco em "AI Agents & Intelligence Infrastructure").
+- [ ] Preparar currículo/portfólio do Enio diretamente atrelado ao ecossistema EGOS.
 
 ### TASK-016: Agnostic Domain-to-Solution Engine v2 ✅ (20/02/2026)
 - [x] Deep research: Descript tech stack (Temporal, Go, Whisper, transcript-as-SSOT)
