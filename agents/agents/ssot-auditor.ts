@@ -1,5 +1,5 @@
 /**
- * SSOT Auditor Agent v2 — Structural Triage Engine
+ * SSOT Auditor Agent v2.2 — Structural Triage Engine
  * 
  * Performs STRUCTURAL analysis (not lexical) of the monorepo:
  * 
@@ -8,14 +8,28 @@
  * - Detects duplicate type definitions across packages
  * - Classifies symbols by kind (interface, type alias, enum, class)
  * - Filters by scope (exported, cross-package, single-file)
- * - Assigns confidence scores per finding
+ * - Assigns explicit confidence scores with rationale per finding
  * 
  * WHAT IT IS NOT:
  * - Not a semantic SSOT verifier (no shape comparison yet)
  * - Not a replacement for manual review
  * - Not an LLM-based analysis ($0 API cost, local static pass)
  * 
- * v2 improvements over v1 (based on critical analysis):
+ * v2.2 improvements over v2.1 (self-evaluation refinements):
+ * 1. Executive summary with top offenders and actionable next steps
+ * 2. Scaled high-count bonus (logarithmic for 4+/6+/10+ occurrences)
+ * 3. Findings sorted by score descending within each section
+ * 4. Medium section shows top 10 with locations, rest compact
+ *
+ * v2.1 improvements over v2 (based on external critical analysis):
+ * 1. Explicit scoring: Score X/10 with rationale per finding
+ * 2. High confidence split: Cross-Package vs Intra-Package subsections
+ * 3. Dynamic recommendations based on context (domain vs generic vs UI)
+ * 4. Package inference methodology documented in report
+ * 5. enum: 0 explicitly shown in symbol breakdown
+ * 6. Known Limitations more prominent
+ * 
+ * v2 improvements over v1:
  * 1. Uses TypeScript compiler API (AST) instead of regex
  * 2. Ignores comments, strings, and non-code tokens
  * 3. Separates symbols by kind (interface/type/enum/class)
@@ -62,8 +76,18 @@ interface StructuralSymbol {
   isGenerated: boolean;
 }
 
+interface ConfidenceResult {
+  level: ConfidenceLevel;
+  score: number;         // 0-10 numeric score
+  rationale: string[];   // e.g. ["+exported", "+cross-package", "-single package"]
+  isCrossPackage: boolean;
+}
+
 interface SSOTFinding extends Finding {
   confidence: ConfidenceLevel;
+  confidenceScore: number;
+  confidenceRationale: string[];
+  isCrossPackage: boolean;
   symbolKind?: SymbolKind;
   locations?: string[];
   packages?: string[];
@@ -226,48 +250,151 @@ function countTypeMembers(typeNode: ts.TypeNode): number {
   return 0;
 }
 
+// ─── Name Pattern Detection ──────────────────────────────────
+
+// Domain-specific names (business logic contracts)
+const DOMAIN_PATTERNS = [/Investigation/, /Entity/, /Evidence/, /Finding/, /Audit/, /Permission/, /Session/, /Member/, /Analysis/, /Timeline/, /Document/, /Search/, /Graph/, /Journey/, /Dossier/, /Crime/, /Police/, /Guardian/, /Confidence/, /Relationship/];
+// UI component props patterns
+const UI_PROPS_PATTERN = /Props$/;
+// Generic infrastructure names
+const GENERIC_INFRA_NAMES = new Set(['Config', 'Result', 'Entry', 'Item', 'Data', 'Info', 'Stats', 'Error', 'Message', 'Toast', 'User', 'Suggestion']);
+
+type NameCategory = 'domain' | 'ui_props' | 'generic_infra' | 'specific';
+
+function categorizeSymbolName(name: string): NameCategory {
+  if (UI_PROPS_PATTERN.test(name)) return 'ui_props';
+  if (DOMAIN_PATTERNS.some(p => p.test(name))) return 'domain';
+  if (GENERIC_INFRA_NAMES.has(name)) return 'generic_infra';
+  return 'specific';
+}
+
 // ─── Confidence Scoring ───────────────────────────────────────
 
 /**
- * Computes a confidence score for a duplicate finding.
- * Based on the critical analysis recommendations.
+ * Computes an explicit confidence score with rationale for a duplicate finding.
+ * Returns numeric score (0-10), confidence level, and human-readable rationale.
+ * Based on external critical analysis recommendations (v2.1).
  */
 function computeConfidence(
   name: string,
   locations: StructuralSymbol[],
-): ConfidenceLevel {
+): ConfidenceResult {
   let score = 0;
+  const rationale: string[] = [];
 
   // + exported symbols are more likely to be real drift
   const exportedCount = locations.filter(l => l.exported).length;
-  if (exportedCount > 1) score += 3;
+  if (exportedCount > 1) {
+    score += 3;
+    rationale.push(`+exported(${exportedCount})`);
+  }
 
   // + appears in multiple packages (cross-package = higher risk)
   const packages = new Set(locations.map(l => l.package));
-  if (packages.size > 1) score += 3;
+  const isCrossPackage = packages.size > 1;
+  if (isCrossPackage) {
+    score += 3;
+    rationale.push(`+cross-package(${packages.size})`);
+  }
 
   // + name is specific (not generic convention name)
-  if (!CONVENTION_NAMES.has(name)) score += 2;
+  if (!CONVENTION_NAMES.has(name)) {
+    score += 2;
+    rationale.push('+specific-name');
+  }
 
   // + name is long (more specific)
-  if (name.length > 8) score += 1;
+  if (name.length > 8) {
+    score += 1;
+    rationale.push('+long-name');
+  }
+
+  // + many occurrences (scaled logarithmically)
+  if (locations.length >= 10) {
+    score += 3;
+    rationale.push(`+very-high-count(${locations.length})`);
+  } else if (locations.length >= 6) {
+    score += 2;
+    rationale.push(`+high-count(${locations.length})`);
+  } else if (locations.length >= 4) {
+    score += 1;
+    rationale.push(`+count(${locations.length})`);
+  }
 
   // - convention name (expected duplication)
-  if (CONVENTION_NAMES.has(name)) score -= 3;
+  if (CONVENTION_NAMES.has(name)) {
+    score -= 3;
+    rationale.push('-convention-name');
+  }
 
   // - generated files involved
   const generatedCount = locations.filter(l => l.isGenerated).length;
-  if (generatedCount > 0) score -= 2;
+  if (generatedCount > 0) {
+    score -= 2;
+    rationale.push('-generated-file');
+  }
 
   // - all in same package (likely intentional local variants)
-  if (packages.size === 1) score -= 1;
+  if (!isCrossPackage) {
+    score -= 1;
+    rationale.push('-single-package');
+  }
 
   // - generic single-char or two-char names
-  if (name.length <= 2) score -= 3;
+  if (name.length <= 2) {
+    score -= 3;
+    rationale.push('-short-name');
+  }
 
-  if (score >= 5) return 'high';
-  if (score >= 2) return 'medium';
-  return 'low';
+  // Clamp to 0-10
+  const clampedScore = Math.max(0, Math.min(10, score));
+
+  let level: ConfidenceLevel;
+  if (clampedScore >= 5) level = 'high';
+  else if (clampedScore >= 2) level = 'medium';
+  else level = 'low';
+
+  return { level, score: clampedScore, rationale, isCrossPackage };
+}
+
+// ─── Dynamic Recommendation Engine ───────────────────────────
+
+/**
+ * Generates context-aware recommendations based on symbol name category,
+ * cross-package status, and other heuristics.
+ * v2.1: Replaces the generic one-size-fits-all recommendation.
+ */
+function generateRecommendation(name: string, confidence: ConfidenceResult, packages: string[]): string {
+  const category = categorizeSymbolName(name);
+
+  if (confidence.level === 'low') {
+    return 'Low signal — likely framework convention or local variant';
+  }
+
+  if (confidence.isCrossPackage) {
+    switch (category) {
+      case 'domain':
+        return `Cross-package domain type — consider a shared canonical type in packages/shared (${packages.join(' + ')})`;
+      case 'ui_props':
+        return `Cross-package UI props — consider a shared component library or extract to packages/shared/ui-types`;
+      case 'generic_infra':
+        return `Cross-package generic name — verify semantic equivalence before consolidation; "${name}" may represent different concepts in ${packages.join(' vs ')}`;
+      default:
+        return `Cross-package duplicate — consolidate into packages/shared or verify intentional divergence (${packages.join(', ')})`;
+    }
+  } else {
+    // Intra-package
+    switch (category) {
+      case 'domain':
+        return `Intra-package domain drift — consolidate into a single canonical definition within ${packages[0]}/types/`;
+      case 'ui_props':
+        return `Intra-package UI props — likely intentional per-component variants; consolidate only if shapes are identical`;
+      case 'generic_infra':
+        return `Intra-package generic name — may be distinct concepts sharing a name; verify shapes before consolidating`;
+      default:
+        return `Intra-package exported drift — consolidate into a single types file within ${packages[0]}`;
+    }
+  }
 }
 
 // ─── Agent Logic ──────────────────────────────────────────────
@@ -276,7 +403,7 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
   const findings: SSOTFinding[] = [];
   const repoRoot = ctx.repoRoot;
 
-  log(ctx, 'info', '🔬 SSOT Structural Triage v2 (AST-based)');
+  log(ctx, 'info', '🔬 SSOT Structural Triage v2.2 (AST-based, explicit scoring)');
   log(ctx, 'info', 'Scanning TypeScript files...');
 
   const files = walkDir(repoRoot);
@@ -321,8 +448,8 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
 
     // Determine severity based on confidence
     let severity: Finding['severity'];
-    if (confidence === 'high') severity = locs.length > 2 ? 'error' : 'warning';
-    else if (confidence === 'medium') severity = 'warning';
+    if (confidence.level === 'high') severity = locs.length > 2 ? 'error' : 'warning';
+    else if (confidence.level === 'medium') severity = 'warning';
     else severity = 'info';
 
     const kindLabel = kinds.length === 1 ? kinds[0] : kinds.join('/');
@@ -331,16 +458,17 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
       : `within "${packages[0]}"`;
     const exportLabel = exportedCount > 0 ? ` (${exportedCount} exported)` : ' (all local)';
 
+    const recommendation = generateRecommendation(name, confidence, packages);
+
     findings.push({
       severity,
       category: `ssot:duplicate_${kindLabel}`,
       message: `${kindLabel} "${name}" defined ${locs.length}x ${scopeLabel}${exportLabel}`,
-      suggestion: confidence === 'high'
-        ? `High confidence drift signal — consolidate into shared types or verify intentional divergence`
-        : confidence === 'medium'
-          ? `Medium signal — review if these represent the same entity or are intentionally distinct`
-          : `Low signal — likely framework convention or local variant`,
-      confidence,
+      suggestion: recommendation,
+      confidence: confidence.level,
+      confidenceScore: confidence.score,
+      confidenceRationale: confidence.rationale,
+      isCrossPackage: confidence.isCrossPackage,
       symbolKind: kinds.length === 1 ? kinds[0] : undefined,
       locations,
       packages,
@@ -378,6 +506,9 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
       line: s.line,
       suggestion: 'Remove export if unused, or add to shared types if intended for reuse',
       confidence: 'low',
+      confidenceScore: 1,
+      confidenceRationale: ['+exported', '-never-imported'],
+      isCrossPackage: false,
       symbolKind: s.kind,
     });
   }
@@ -385,6 +516,8 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
   // ─── Summary & Stats ────────────────────────────────────────
 
   const highConf = findings.filter(f => f.confidence === 'high').length;
+  const highCross = findings.filter(f => f.confidence === 'high' && f.isCrossPackage).length;
+  const highIntra = findings.filter(f => f.confidence === 'high' && !f.isCrossPackage).length;
   const medConf = findings.filter(f => f.confidence === 'medium').length;
   const lowConf = findings.filter(f => f.confidence === 'low').length;
   const errorCount = findings.filter(f => f.severity === 'error' || f.severity === 'critical').length;
@@ -392,7 +525,7 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
   const infoCount = findings.filter(f => f.severity === 'info').length;
 
   log(ctx, 'info', `Triage complete: ${errorCount} errors, ${warnCount} warnings, ${infoCount} info`);
-  log(ctx, 'info', `Confidence: ${highConf} high, ${medConf} medium, ${lowConf} low/convention`);
+  log(ctx, 'info', `Confidence: ${highConf} high (${highCross} cross-pkg, ${highIntra} intra-pkg), ${medConf} medium, ${lowConf} low/convention`);
 
   // Emit to Mycelium bus (only high/medium confidence)
   for (const f of findings.filter(f => f.confidence !== 'low')) {
@@ -401,6 +534,7 @@ async function ssotAudit(ctx: RunContext): Promise<Finding[]> {
       message: f.message,
       severity: f.severity,
       confidence: f.confidence,
+      score: f.confidenceScore,
     }, 'ssot_auditor', ctx.correlationId);
   }
 
@@ -426,12 +560,25 @@ function generateReport(
   byKind: Record<string, number>,
   extractMs: number,
 ): string {
-  const highConf = findings.filter(f => f.confidence === 'high');
-  const medConf = findings.filter(f => f.confidence === 'medium');
+  // Sort all findings by score descending for consistent ordering
+  const sortByScore = (a: SSOTFinding, b: SSOTFinding) => b.confidenceScore - a.confidenceScore;
+
+  const highConf = findings.filter(f => f.confidence === 'high').sort(sortByScore);
+  const highCross = highConf.filter(f => f.isCrossPackage);
+  const highIntra = highConf.filter(f => !f.isCrossPackage);
+  const medConf = findings.filter(f => f.confidence === 'medium').sort(sortByScore);
   const lowConf = findings.filter(f => f.confidence === 'low');
 
+  // Ensure all 4 kinds appear in breakdown (enum: 0 fix)
+  const allKinds: SymbolKind[] = ['interface', 'type_alias', 'enum', 'class'];
+  const fullBreakdown = allKinds.map(k => `${k}: ${byKind[k] || 0}`).join(', ');
+
+  // Top offenders for executive summary (top 5 by score, then by count)
+  const allActionable = [...highConf, ...medConf];
+  const topOffenders = allActionable.slice(0, 5);
+
   const lines: string[] = [
-    `# SSOT Structural Triage Report v2`,
+    `# SSOT Structural Triage Report v2.2`,
     ``,
     `> ⚠️ **This is a triage report, not a verdict.** Findings are structural signals`,
     `> that require human review to confirm as actual SSOT violations.`,
@@ -440,36 +587,70 @@ function generateReport(
     ``,
     `| Metric | Value |`,
     `|--------|-------|`,
+    `| Engine Version | v2.2 (AST + explicit scoring + executive summary) |`,
     `| Generated | ${ctx.startedAt} |`,
     `| Correlation | \`${ctx.correlationId}\` |`,
     `| Analysis Mode | AST-based (TypeScript compiler API) |`,
-    `| API Cost | $0 (local static pass, no inference) |`,
+    `| API Cost | $0 (local static pass, no LLM inference) |`,
     `| Files scanned | ${fileCount} |`,
     `| Symbols extracted | ${allSymbols.length} |`,
     `| Extraction time | ${extractMs}ms |`,
-    `| Symbol breakdown | ${Object.entries(byKind).map(([k, v]) => `${k}: ${v}`).join(', ')} |`,
+    `| Symbol breakdown | ${fullBreakdown} |`,
     ``,
     `## What This Report Proves`,
     ``,
     `1. **Proven:** Fast repo-wide structural triage with AST parsing`,
-    `2. **Proven:** Symbol classification by kind (interface/type/enum/class)`,
+    `2. **Proven:** Symbol classification by kind (interface/type_alias/enum/class)`,
     `3. **Proven:** Scope-aware filtering (exported, cross-package)`,
-    `4. **Not yet proven:** Semantic shape comparison between duplicates`,
-    `5. **Not yet proven:** Whether duplicates represent actual drift vs intentional variants`,
-    ``,
-    `---`,
+    `4. **Proven:** Explicit scoring (0-10) with human-readable rationale per finding`,
+    `5. **Proven:** Context-aware recommendations (domain vs UI vs generic)`,
+    `6. **Not yet proven:** Semantic shape comparison between duplicates`,
+    `7. **Not yet proven:** Whether duplicates represent actual drift vs intentional variants`,
     ``,
   ];
 
-  // High confidence findings
-  if (highConf.length > 0) {
-    lines.push(`## 🔴 High Confidence Signals (${highConf.length})`);
-    lines.push(`> These have the strongest indicators of potential SSOT drift:`);
-    lines.push(`> exported, cross-package, specific names.`);
+  // ─── EXECUTIVE SUMMARY ──────────────────────────────────────
+  lines.push(`## Executive Summary`);
+  lines.push(``);
+  lines.push(`| Category | Count |`);
+  lines.push(`|----------|-------|`);
+  lines.push(`| 🔴 High — Cross-Package | ${highCross.length} |`);
+  lines.push(`| 🟠 High — Intra-Package | ${highIntra.length} |`);
+  lines.push(`| ⚠️ Medium | ${medConf.length} |`);
+  lines.push(`| ℹ️ Low / Convention | ${lowConf.length} |`);
+  lines.push(`| **Total** | **${findings.length}** |`);
+  lines.push(``);
+  if (topOffenders.length > 0) {
+    lines.push(`### Top 5 Offenders (by score)`);
     lines.push(``);
-    for (const f of highConf) {
+    lines.push(`| # | Symbol | Score | Scope | Occurrences |`);
+    lines.push(`|---|--------|-------|-------|-------------|`);
+    topOffenders.forEach((f, i) => {
+      const scope = f.isCrossPackage ? `Cross (${f.packages?.join(', ')})` : `Intra (${f.packages?.[0]})`;
+      const name = f.message.match(/"([^"]+)"/)?.[1] || 'unknown';
+      lines.push(`| ${i + 1} | \`${name}\` | ${f.confidenceScore}/10 | ${scope} | ${f.locations?.length || '?'}x |`);
+    });
+    lines.push(``);
+  }
+  lines.push(`### Recommended Next Steps`);
+  lines.push(``);
+  lines.push(`1. **Immediate:** Review the ${highCross.length} cross-package High findings — these represent the highest risk of divergent type drift`);
+  lines.push(`2. **Short-term:** Consolidate the ${highIntra.length} intra-package High findings in \`intelink/types/\` to reduce internal fragmentation`);
+  lines.push(`3. **Medium-term:** Evaluate the ${medConf.length} Medium findings during regular code review cycles`);
+  lines.push(`4. **Long-term:** Run shape comparison (v3) to distinguish identical duplicates from true drift`);
+  lines.push(``);
+  lines.push(`---`);
+  lines.push(``);
+
+  // ─── HIGH: Cross-Package ───────────────────────────────────
+  if (highCross.length > 0) {
+    lines.push(`## 🔴 High Confidence — Cross-Package (${highCross.length})`);
+    lines.push(`> Strongest drift signals: exported and/or cross-package, with specific names and repeated structural declarations.`);
+    lines.push(``);
+    for (const f of highCross) {
       const icon = f.severity === 'error' ? '🔴' : '⚠️';
       lines.push(`### ${icon} ${f.message}`);
+      lines.push(`- **Score:** ${f.confidenceScore}/10 *(${f.confidenceRationale.join(', ')})*`);
       lines.push(`- **Kind:** ${f.symbolKind || 'mixed'}`);
       lines.push(`- **Packages:** ${f.packages?.join(', ') || 'unknown'}`);
       if (f.locations) {
@@ -483,18 +664,59 @@ function generateReport(
     }
   }
 
-  // Medium confidence
+  // ─── HIGH: Intra-Package ───────────────────────────────────
+  if (highIntra.length > 0) {
+    lines.push(`## 🟠 High Confidence — Intra-Package Exported Drift (${highIntra.length})`);
+    lines.push(`> High-scoring duplicates within the same package — strong signal of internal drift.`);
+    lines.push(``);
+    for (const f of highIntra) {
+      const icon = f.severity === 'error' ? '🔴' : '⚠️';
+      lines.push(`### ${icon} ${f.message}`);
+      lines.push(`- **Score:** ${f.confidenceScore}/10 *(${f.confidenceRationale.join(', ')})*`);
+      lines.push(`- **Kind:** ${f.symbolKind || 'mixed'}`);
+      lines.push(`- **Package:** ${f.packages?.[0] || 'unknown'}`);
+      if (f.locations) {
+        lines.push(`- **Locations:**`);
+        for (const loc of f.locations) {
+          lines.push(`  - \`${loc}\``);
+        }
+      }
+      lines.push(`- **Recommendation:** ${f.suggestion}`);
+      lines.push(``);
+    }
+  }
+
+  // ─── MEDIUM (top 10 detailed, rest compact) ─────────────────
   if (medConf.length > 0) {
     lines.push(`## ⚠️ Medium Confidence Signals (${medConf.length})`);
     lines.push(`> Require validation — may be intentional or framework-driven.`);
     lines.push(``);
-    for (const f of medConf) {
-      lines.push(`- **${f.message}** — ${f.suggestion}`);
+
+    // Top 10 medium findings get locations for actionability
+    const medTop = medConf.slice(0, 10);
+    const medRest = medConf.slice(10);
+
+    for (const f of medTop) {
+      lines.push(`### ${f.message}`);
+      lines.push(`- **Score:** ${f.confidenceScore}/10 *(${f.confidenceRationale.join(', ')})*`);
+      if (f.locations && f.locations.length > 0) {
+        lines.push(`- **Locations:** ${f.locations.map(l => `\`${l}\``).join(', ')}`);
+      }
+      lines.push(`- **Recommendation:** ${f.suggestion}`);
+      lines.push(``);
     }
-    lines.push(``);
+
+    if (medRest.length > 0) {
+      lines.push(`### Remaining Medium Signals (${medRest.length})`);
+      lines.push(``);
+      for (const f of medRest) {
+        lines.push(`- **${f.message}** — Score: ${f.confidenceScore}/10 — ${f.suggestion}`);
+      }
+      lines.push(``);
+    }
   }
 
-  // Low confidence (collapsed)
+  // ─── LOW (collapsed) ───────────────────────────────────────
   if (lowConf.length > 0) {
     lines.push(`## ℹ️ Low Confidence / Convention (${lowConf.length})`);
     lines.push(`> Likely framework conventions, local variants, or orphaned exports.`);
@@ -509,7 +731,7 @@ function generateReport(
     lines.push(``);
   }
 
-  // Methodology note
+  // ─── METHODOLOGY ───────────────────────────────────────────
   lines.push(`---`);
   lines.push(``);
   lines.push(`## Methodology`);
@@ -519,23 +741,43 @@ function generateReport(
   lines.push(`interfaces, type aliases, enums, and classes. Comments, strings, property keys,`);
   lines.push(`and variable names are **not** captured (fixing a known v1 issue).`);
   lines.push(``);
-  lines.push(`### Confidence Scoring`);
+  lines.push(`### Package Inference`);
   lines.push(``);
-  lines.push(`Each finding receives a confidence score based on:`);
-  lines.push(`- **+3** exported symbols in multiple locations`);
-  lines.push(`- **+3** appears across multiple packages`);
-  lines.push(`- **+2** name is specific (not framework convention)`);
-  lines.push(`- **+1** name is long (>8 characters)`);
-  lines.push(`- **-3** framework convention name (Props, State, etc.)`);
-  lines.push(`- **-2** involves generated files`);
-  lines.push(`- **-1** all in same package`);
-  lines.push(`- **-3** very short name (≤2 chars)`);
+  lines.push(`Package names are inferred from file paths using the following rules:`);
+  lines.push(`- \`apps/<name>/...\` → package = \`<name>\` (e.g., \`apps/egos-web/src/App.tsx\` → \`egos-web\`)`);
+  lines.push(`- \`packages/<name>/...\` → package = \`<name>\` (e.g., \`packages/shared/src/types.ts\` → \`shared\`)`);
+  lines.push(`- Other top-level dirs → package = dir name (e.g., \`agents/...\` → \`agents\`, \`scripts/...\` → \`scripts\`)`);
+  lines.push(``);
+  lines.push(`This is path-based inference, not \`package.json\` resolution. It works reliably for`);
+  lines.push(`standard monorepo layouts (\`apps/*\`, \`packages/*\`) but may not capture workspace aliases.`);
+  lines.push(``);
+  lines.push(`### Confidence Scoring (Explicit)`);
+  lines.push(``);
+  lines.push(`Each finding receives a numeric score (0-10) with human-readable rationale:`);
+  lines.push(``);
+  lines.push(`| Factor | Score | Condition |`);
+  lines.push(`|--------|-------|-----------|`);
+  lines.push(`| Exported | +3 | Multiple exported declarations |`);
+  lines.push(`| Cross-package | +3 | Appears in 2+ workspace packages |`);
+  lines.push(`| Specific name | +2 | Not a framework convention (Props, State, etc.) |`);
+  lines.push(`| Long name | +1 | Name > 8 characters |`);
+  lines.push(`| Count (4-5x) | +1 | 4-5 occurrences |`);
+  lines.push(`| Count (6-9x) | +2 | 6-9 occurrences |`);
+  lines.push(`| Count (10+x) | +3 | 10+ occurrences (very high drift signal) |`);
+  lines.push(`| Convention name | -3 | Framework pattern (Props, Config, etc.) |`);
+  lines.push(`| Generated file | -2 | Involves auto-generated code |`);
+  lines.push(`| Single package | -1 | All in the same workspace package |`);
+  lines.push(`| Short name | -3 | Name ≤ 2 characters |`);
+  lines.push(``);
+  lines.push(`**Thresholds:** High ≥ 5 | Medium ≥ 2 | Low < 2`);
   lines.push(``);
   lines.push(`### Known Limitations`);
   lines.push(``);
-  lines.push(`1. No shape comparison yet — duplicate names may have identical or divergent shapes`);
-  lines.push(`2. No cross-reference graph — can't trace re-exports through barrel files`);
-  lines.push(`3. Framework conventions are heuristic-based, not exhaustive`);
+  lines.push(`1. **No shape comparison yet** — duplicate names may have identical or divergent member shapes`);
+  lines.push(`2. **No import graph / barrel resolution** — can't trace re-exports through index files`);
+  lines.push(`3. **Confidence is heuristic** — based on structural signals, not semantic analysis`);
+  lines.push(`4. **Framework conventions are not exhaustive** — custom project-specific patterns may be missed`);
+  lines.push(`5. **No cross-repo analysis** — only scans the target monorepo`);
   lines.push(``);
 
   return lines.join('\n');

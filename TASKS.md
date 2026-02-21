@@ -453,13 +453,15 @@
 - [ ] Criar landing page B2B do EGOS (foco em "AI Agents & Intelligence Infrastructure").
 - [ ] Preparar currículo/portfólio do Enio diretamente atrelado ao ecossistema EGOS.
 
-### SYSTEM-001: Evolução do Motor Core (SSOT Auditor v2.1 & v3)
-- [ ] **v2.1 (Calibração):** Melhorar wording do relatório (explicar "package inference", separar High Cross-Package vs Intra-Package).
-- [ ] **v2.1 (Calibração):** Adicionar Score explicável (ex: `Score: 8/10 (+exported, +specific name)`) direto no output.
-- [ ] **v2.1 (Calibração):** Recomendações dinâmicas baseadas no contexto (ex: Domain vs UI layer).
-- [ ] **v3 (Shape-Aware):** Implementar comparação semântica AST (mesmo que com fingerprint simples) para os clusters "High Confidence".
+### SYSTEM-001: Evolução do Motor Core (SSOT Auditor v2.2 & v3)
+- [x] **v2.1 (Calibração):** Package inference explicado, High separado em Cross-Package vs Intra-Package. ✅ (21/02/2026)
+- [x] **v2.1 (Calibração):** Score explicável (Score: X/10 com rationale) em cada finding. ✅ (21/02/2026)
+- [x] **v2.1 (Calibração):** Recomendações dinâmicas (domain/UI/generic/infra). ✅ (21/02/2026)
+- [x] **v2.2 (Self-Eval):** Executive summary, sorted findings, scaled high-count bonus, top 10 medium detailed. ✅ (21/02/2026)
+- [ ] **v3 (Shape-Aware):** Implementar comparação semântica AST (fingerprint simples) para clusters "High Confidence".
 - [ ] Rodar `Auth Roles Checker` no Cal.com para cruzar vulnerabilidades de acesso com dívida técnica.
-> **Contexto:** Feedback crítico v2 recebido. Próximo passo é calibrar a heurística antes do AST diff.
+> **Contexto:** v2.2 calibrado e validado. Próximo passo é AST shape comparison (v3).
+> **Arquivos:** `agents/agents/ssot-auditor.ts`, `docs/agentic/reports/ssot-audit.md`
 
 ### SOCIAL-001: MVPs de Consciência de Classe (Sindicato Cognitivo)
 - [ ] Criar **Calculadora PJ** (`/valor-real`): Extrai dados de vagas e calcula custo invisível vs CLT.
