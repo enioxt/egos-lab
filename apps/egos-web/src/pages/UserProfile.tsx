@@ -58,13 +58,18 @@ export default function UserProfile() {
       }
       setProfile(prof)
 
-      const { data: projs } = await supabase
+      let query = supabase
         .from('hub_projects')
         .select('id, slug, title, description, github_repo, status, tags, tech_stack, star_count, comment_count, created_at, owner_id')
         .eq('owner_id', prof.id)
-        .eq('visibility', 'public')
         .order('star_count', { ascending: false })
         .limit(20)
+
+      if (!isOwnProfile) {
+        query = query.eq('visibility', 'public')
+      }
+
+      const { data: projs } = await query
 
       if (projs) setProjects(projs as HubProject[])
       setLoading(false)

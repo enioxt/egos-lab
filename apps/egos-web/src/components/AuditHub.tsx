@@ -187,9 +187,17 @@ export default function AuditHub() {
                             onKeyDown={e => e.key === 'Enter' && handleSubmit()}
                             disabled={phase === 'submitting' || phase === 'polling'}
                         />
-                        <p style={{ fontSize: '0.75rem', color: 'var(--audit-green)', margin: 0, opacity: 0.9 }}>
-                            🔒 O token é enviado via HTTPS, usado apenas para o clone dentro da nossa sandbox efêmera, e destruído imediatamente logo após. Nunca armazenamos tokens em banco de dados ou logs.
-                        </p>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--audit-green)', margin: 0, opacity: 0.9, lineHeight: '1.4' }}>
+                            <p style={{ margin: '0 0 0.25rem 0' }}>
+                                🔒 <strong>Segurança em 1º lugar:</strong> O token é usado apenas para o clone na nossa sandbox efêmera e destruído imediatamente. Nunca é armazenado.
+                            </p>
+                            <p style={{ margin: '0 0 0.25rem 0' }}>
+                                💡 <strong>Recomendação:</strong> Crie um <em>Fine-Grained PAT</em> restrito <strong>apenas a este repositório</strong>, com permissão <strong>Read-Only</strong> (Contents) e expiração curta (ex: 1 dia).
+                            </p>
+                            <p style={{ margin: 0 }}>
+                                💻 <strong>Prefere rodar local?</strong> Você pode clonar o EGOS e rodar a auditoria direto na sua máquina sem enviar tokens: <code>bun agent:ssot</code>
+                            </p>
+                        </div>
                     </div>
                 )}
             </div>

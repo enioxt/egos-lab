@@ -3,7 +3,6 @@ import { useAuth } from '../hooks/useAuth'
 
 export default function Layout() {
   const location = useLocation()
-  const isHome = location.pathname === '/'
   const { user, loading, avatarUrl, username, signInWithGitHub, signOut, isAuthenticated } = useAuth()
 
   return (
@@ -16,13 +15,9 @@ export default function Layout() {
           </Link>
         </div>
         <nav className="top-bar-nav">
-          {isHome ? (
-            <>
-              <a href="#ecosystem" className="nav-link">Ecossistema</a>
-              <a href="#intelligence" className="nav-link">Intelligence</a>
-              <a href="#ideas" className="nav-link">Ideias</a>
-            </>
-          ) : null}
+          <a href="/#ecosystem" className="nav-link">Ecossistema</a>
+          <a href="/#intelligence" className="nav-link">Intelligence</a>
+          <a href="/#ideas" className="nav-link">Ideias</a>
           <Link to="/projects" className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}>
             Projetos
           </Link>
