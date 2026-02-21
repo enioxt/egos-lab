@@ -453,6 +453,14 @@
 - [ ] Criar landing page B2B do EGOS (foco em "AI Agents & Intelligence Infrastructure").
 - [ ] Preparar currículo/portfólio do Enio diretamente atrelado ao ecossistema EGOS.
 
+### SOCIAL-001: MVPs de Consciência de Classe (Sindicato Cognitivo)
+- [ ] Criar **Calculadora PJ** (`/valor-real`): Extrai dados de vagas e calcula custo invisível vs CLT.
+- [ ] Criar **Scanner de Precarização**: Intelink OCR lê contratos/vagas buscando armadilhas (transferência de risco).
+- [ ] Criar **Bot do Desabafo (Telegram)**: Psycho Engine escuta áudios e separa responsabilidade individual de violência estrutural.
+- [ ] Criar **Raio-X da Plataforma**: OCR em extratos de Uber/iFood + cálculo real de desgaste de veículo.
+- [ ] Criar **Mapa de Transparência Salarial**: Formulário anônimo com validação Pramana (score de certeza).
+> **Plano completo:** `docs/plans/SOCIAL_MVPS_CLASS_CONSCIOUSNESS.md`
+
 ### TASK-016: Agnostic Domain-to-Solution Engine v2 ✅ (20/02/2026)
 - [x] Deep research: Descript tech stack (Temporal, Go, Whisper, transcript-as-SSOT)
 - [x] Rewrite `domain_explorer.ts` — proper runner integration (RunContext, Finding[], CLI entry)
