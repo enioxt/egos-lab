@@ -117,7 +117,30 @@ const ALL_ITEMS: ProjectItem[] = [
     participationCta: 'Crie seu próprio agente! Veja docs/agentic/how-to.md',
   },
 
-  // ═══ Ideas (Open for Collaboration) ═══
+  // ═══ Opportunities / New Ideas ═══
+  {
+    id: 'sindicato-cognitivo',
+    name: 'Sindicato Cognitivo (Social MVPs)',
+    description: 'Ferramentas de IA para escalar consciência de classe (Calculadora PJ, Scanner de Precarização, Raio-X Gig Economy).',
+    details: 'Usa a infraestrutura B2B do EGOS (Intelink OCR, Psycho Engine, Pramana) para criar ferramentas gratuitas de impacto social. Exemplos: extrair "custos invisíveis" de vagas PJ, detectar assédio/burnout estrutural em áudios, cruzar extratos de Uber com desgaste real do veículo.',
+    icon: Users,
+    status: 'idea',
+    category: 'mvp',
+    techStack: ['Intelink OCR', 'Psycho Engine', 'Pramana', 'Supabase'],
+    metrics: '5 MVPs mapeados, alto impacto social',
+    participationCta: 'Ajude a prototipar o 1º MVP! Veja SOCIAL_MVPS_CLASS_CONSCIOUSNESS.md',
+  },
+  {
+    id: 'law-of-rho',
+    name: 'Lei de Rho (ρ) — Previsão de Colapso',
+    description: 'Algoritmo que analisa entropia e centralidade em grafos para prever colapsos de rede.',
+    details: 'Uma gema resgatada do EGOSv5. Usa a fórmula ρ = A² · (1 − D) para cruzar Autoridade e Diversidade. Já previu o colapso da Enron (2001) e o hack da The DAO (2016). Objetivo: Integrar ao Intelink para o Projeto Epstein (identificar nós críticos de poder).',
+    icon: Target,
+    status: 'idea',
+    category: 'opportunity',
+    techStack: ['Python', 'Graph Theory', 'Supabase'],
+    githubPath: 'RHO_CALIBRATION_WAVE3.md',
+  },
   {
     id: 'builder-hub',
     name: 'GitHub-First Builder Hub',
